@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta charset="utf-8"/>
+    <meta name="description" content="Altimeter"/>
+    <title>Altimeter</title>
+    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.css"/>
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+
+    <div class="ui-page ui-page-active" id="main">
+        <header class="ui-header">
+            <h2 class="ui-title">Altimeter [m]</h2>
+        </header>
+        <div id="main-content" class="ui-content">
+            <div id="altitude">
+                <div id="altitude-frame">
+                    <div id="altitude-value"></div>
+                 </div>
+            </div>
+            <div id="pressure">
+                <div id="reference">
+                    <div id="reference-label">Reference [hPa]</div>
+                    <div id="reference-value"></div>
+                </div>
+                <div id="current">
+                    <div id="current-label">Current [hPa]</div>
+                    <div id="current-value"></div>
+                </div>
+            </div>
+        </div>
+        <footer class="ui-footer ui-bottom-button">
+            <a class="ui-btn" id="calibration-btn">Calibrate</a>
+        </footer>
+        <div id="popup-calibration" class="ui-popup">
+            <div class="ui-popup-content" id="popup-calibration-message">
+                App should be calibrated before use.
+                <br>
+                Do you want to do it now?
+            </div>
+            <div class="ui-popup-footer ui-grid-col-2 ui-side-button">
+                <button class="ui-btn ui-btn-footer-icon btn-erase" id="popup-calibration-no">No</button>
+                <button class="ui-btn ui-side-button ui-btn-footer-icon btn-apply" id="popup-calibration-yes">Yes</button>
+            </div>
+        </div>
+        <div id="alert" class="ui-popup">
+            <div class="ui-popup-content" id="alert-message"></div>
+            <div class="ui-popup-footer ui-bottom-button">
+                <button class="ui-btn" id="alert-ok">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/tau-config.js"></script>
+    <script src="./lib/tau/wearable/js/tau.js"></script>
+    <script src="./js/core/core.js" data-main="./js/app.js"></script>
+    <script src="js/mqttws31.js"></script>
+<script>
+// Create a client instance
+client = new Paho.MQTT.Client('192.168.1.43', Number(3000), "clientId");
+
+// set callback handlers
+client.onConnectionLost = onConnectionLost;
+client.onMessageArrived = onMessageArrived;
+
+// connect the client
+client.connect({onSuccess:onConnect});
+
+
+// called when the client connects
+function onConnect() {
+  // Once a connection has been made, make a subscription and send a message.
+  console.log("onConnect");
+  client.subscribe("World");
+  //message = new Paho.MQTT.Message("Hello");
+  //message.destinationName = "World";
+  //client.send(message);
+
+var i = 0;
+ var id = setInterval(function()
+                {
+                  message = new Paho.MQTT.Message("Pressure = " + document.getElementById('altitude-value').innerText);
+  message.destinationName = "World";
+  client.send(message);
+            i = i + 1;
+            
+            },5000);
+
+
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+  if (responseObject.errorCode !== 0) {
+    console.log("onConnectionLost:"+responseObject.errorMessage);
+  }
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+  console.log("onMessageArrived:"+message.payloadString);
+}
+      
+    </script> 
+
+</body>
+</html>

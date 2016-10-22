@@ -1,0 +1,98 @@
+#main-content {
+    position: relative;
+}
+
+#altitude {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    bottom: 50px;
+    display: -webkit-flex;
+}
+
+#altitude-frame {
+    margin: auto;
+    text-align: center;
+}
+
+#altitude-value {
+    font-size: 100px;
+    font-weight: bold;
+    line-height: 100px;
+}
+
+#pressure {
+    position: absolute;
+    height: 50px;
+    left: 20px;
+    right: 20px;
+    bottom: 0px;
+    font-size: 20px;
+}
+
+#reference {
+    position: absolute;
+    left: 0;
+}
+
+#reference-value {
+    text-align: center;
+}
+
+#current-value {
+    text-align: center;
+}
+
+#current {
+    position: absolute;
+    right: 0;
+    text-align: right;
+}
+
+@media (-tizen-geometric-shape: circle) {
+
+    #pressure {
+        bottom: 90px;
+    }
+
+    #altitude {
+        bottom: 140px;
+    }
+
+    #current-value {
+        text-align: right;
+        margin-right: 9px;
+    }
+
+    #reference-value {
+        text-align: left;
+        margin-left: 9px;
+    }
+
+    .btn-apply:before {
+        -webkit-mask-image: url(../images/tw_ic_popup_btn_check.png);
+        background-color: rgba(0, 149, 255, 1);
+    }
+
+    .btn-erase:before {
+        -webkit-mask-image: url(../images/tw_ic_popup_btn_delete.png);
+        background-color: rgba(0, 149, 255, 1);
+    }
+
+    .btn-apply, .btn-erase {
+        color: transparent;
+    }
+
+    .ui-popup .ui-popup-content {
+        text-align: center;
+    }
+
+    #main-content {
+        height: 36% !important;
+    }
+
+    #altitude-value {
+        font-size: 90px;
+        line-height: 90px;
+    }
+}
