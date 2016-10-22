@@ -20,4 +20,5 @@
     <tizen:privilege name="http://tizen.org/privilege/push"/>
     <tizen:privilege name="http://tizen.org/privilege/secureelement"/>
     <tizen:profile name="wearable"/>
+    <tizen:setting background-support="enable" encryption="disable" hwkey-event="enable"/>
 </widget>
