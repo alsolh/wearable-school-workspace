@@ -12,13 +12,12 @@
 <body>
 
     <div class="ui-page ui-page-active" id="main">
-        <header class="ui-header">
-            <h2 class="ui-title">Altimeter [m]</h2>
-        </header>
         <div id="main-content" class="ui-content">
             <div id="altitude">
                 <div id="altitude-frame">
                     <div id="altitude-value"></div>
+                    <div id="changeit"></div>
+                    <div id="changeit2"></div>
                  </div>
             </div>
             <div id="pressure">
@@ -69,7 +68,6 @@ client.onMessageArrived = onMessageArrived;
 // connect the client
 client.connect({onSuccess:onConnect});
 
-
 // called when the client connects
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
@@ -82,15 +80,24 @@ function onConnect() {
 var i = 0;
  var id = setInterval(function()
                 {
-                  message = new Paho.MQTT.Message("Pressure = " + document.getElementById('altitude-value').innerText);
+                var wLocation = {"altitude":document.getElementById('altitude-value').innerText,"longitude":document.getElementById('changeit').innerText,"latitude":document.getElementById('changeit2').innerText};
+                  message = new Paho.MQTT.Message(JSON.stringify(wLocation));
   message.destinationName = "World";
   client.send(message);
             i = i + 1;
+            navigator.geolocation.getCurrentPosition(showMap);
             
             },5000);
 
-
 }
+
+
+
+function showMap(position) {
+      //console.log(position.coords.latitude);
+      document.getElementById('changeit').innerText = position.coords.longitude;
+      document.getElementById('changeit2').innerText = position.coords.latitude;
+    }
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {

@@ -12,7 +12,7 @@
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>euz7gOi2dC38UjaYPOqbyeKnVJ4fmRbDz+43Y/DOkLk=</DigestValue>
+<DigestValue>8icYDU2XnsYZE7L3vIUi29Pf31Nfjy218aXVH9HkaEE=</DigestValue>
 </Reference>
 <Reference URI="css%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -32,7 +32,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>Xtay6etW3W82bTsN3nefymSoeC2HW0Gmz2rx8MtKOeU=</DigestValue>
+<DigestValue>rwt9VesvMG2+De1/VvwPZJYq56an9+rE5mpkO1H4zUo=</DigestValue>
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -112,7 +112,7 @@
 </Reference>
 <Reference URI="js%2Fviews%2Fmain.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>P5hheION9WU0BklDC5MWeV7vbX3/zHAILoBloAs1Mac=</DigestValue>
+<DigestValue>9g3JHV1N6qsK9CV3sS5dmt7Fy8o3aw0pgf09tuWG0K0=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2FLICENSE.Flora">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1103,11 +1103,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-UQpOoMBTnGy/5cUfZsPZVQ2N+//0N2JeNiDGVGrpI2COHX0MDhvz3b6Z/ZqPBDRk4OthSlYiL9bo
-bNYDJdz/H3SsqkrBFDjdoruquDeCmPOZKftFoD4rVEek9d5in/Q9Dpemgpuw8K744c+oJ9+3v95i
-FyTTpfjugHAlS+JDec/tXOKIIIAFKHcqkMw+PLBxTVrFkHkgH1DNy8QHmHfs9zR7dK4jH9pqOhsn
-zFOgpZTO+Z6j+lLNt0Fgiw8RchFntbftAmjIOekLgYGUfUNUQ+zIJcGCdfQ8Pyd+Vqv0Py7/8heV
-XGruAt4hX3G0wmb8Hg8Bxgl8yGRwQGtX4oKgaw==
+HXitwhOFmU3bDGSZEH/DCrh2o8BuB7+hsCHhHcPWDkU9Orxy6xTHL+01iwRPxVdygCIUhVByOHho
+UZKyuLcNXNAUep20Kcs35Y985mlocPkCYv7XWhrpCF6kwp5bvuvshmB2yn69zgxrJDMvTuyLzNcw
+0IJFTqo7nIh4JRQ2rozZjpih+FRDe1jfae2Bxx0mveKH91tnTUzQF5jUcCu5F6mYOZtG3ef1Avyr
+3Cc8HRDVqe0roHQJS1ww/HtBjXQ7XEgbC/kdK7iNMwwgD37D1fQnC6XmEyj1FubOSa32Whf9N3OJ
+T1wlh+ayiZn4x9VhfFFsJSGKRPI5anF3Y2yccA==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
