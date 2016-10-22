@@ -314,7 +314,7 @@ define({
          * @private
          */
         function onSensorStart() {
-            showCalibrationMonit();
+            //showCalibrationMonit();
         }
 
         /**
