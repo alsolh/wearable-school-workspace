@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Recent Apps</title>
+    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!--  Main Page -->
+    <div id="main" class="ui-page" data-enable-page-scroll="false">
+        <!--  Main Page : PageIndicator -->
+        <div id="main-page-indicator" class="ui-page-indicator" data-layout="circular"></div>
+        <!--  Main Page : Section Changer -->
+        <div id="main-section-changer" class="ui-content">
+            <!-- section changer has only one child. -->
+            <div id="section-container"></div>
+        </div>
+        <!--  Main Page : Bottom Button -->
+        <footer class="ui-footer ui-bottom-button">
+            <button id="main-footer-button" class="ui-btn">CLOSE ALL</button>
+        </footer>
+    </div>
+    <!--  No Recent Apps Page -->
+    <div id="no-recent-apps">
+        <div id="no-recent-apps-title">Recent apps</div>
+        <div id="no-recent-apps-background"></div>
+        <div id="no-recent-apps-icon"></div>
+        <div id="no-recent-apps-text">No recent apps</div>
+    </div>
+    <!--  Section Template -->
+    <section id="section-template" style="display: none">
+        <!--  Section : App Name -->
+        <div class="section-appname"></div>
+        <!--  Section : Delete Button -->
+        <div class="section-delbtn">
+            <div class="delbtn-icon"></div>
+            <div class="delbtn-background"></div>
+            <div class="delbtn-shadow"></div>
+        </div>
+        <!--  Section : Icon -->
+        <div class="section-icon">
+            <div class="icon-background-mask"></div>
+            <div class="icon-background-effect1"></div>
+            <div class="icon-background-effect2"></div>
+        </div>
+    </section>
+
+    <script src="js/pageindicator.js"></script>
+    <script src="js/app.js"></script>
+    <script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,240 @@
+* {
+    font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
+}
+
+/*-------INITIAL SETTING-------*/
+
+#main {
+    background-color: rgba(38, 38, 38, 1.0);
+    position: absolute;
+    top: 0;
+    width: 360px;
+    height: 360px;
+}
+
+#section-template {
+    display: none;
+}
+
+/*-------TAU BOTTOM BUTTON-------*/
+
+.ui-page .ui-footer.ui-bottom-button .ui-btn {
+    background: -webkit-radial-gradient(center, circle cover, rgba(51, 51, 51, .7) 50%, transparent 50%) !important;
+    background-size: 300% 840% !important;
+    background-position: 50% 16.5% !important;
+    color: rgba(250, 250, 250, 1.0);
+    size: 24px;
+}
+
+.ui-page .ui-footer.ui-bottom-button .ui-btn::after {
+    background: -webkit-radial-gradient(center, circle cover, rgba(102, 102, 102, .7) 50%, transparent 50%) !important;
+    background-position: 50% 16.5% !important;
+    background-size: 300% 840% !important;
+    color: rgba(250, 250, 250, 0.5);
+    size: 24px;
+}
+
+/*-------SECTION CHANGER-------*/
+
+#main-section-changer {
+    position: absolute;
+    width: 360px;
+    height: 360px;
+}
+
+/*-------SECTION-------*/
+
+section {
+    width: 241px !important;
+}
+
+/*-------SECTION : APP NAME-------*/
+
+.section-appname {
+    position: absolute;
+    left: 47px;
+    top: 27px;
+    width: 156px;
+    height: 39px;
+    color: rgba(250, 250, 250, 1.0);
+    size: 30px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 2;
+}
+/*-------SECTION : DELETE BUTTON-------*/
+
+.section-delbtn {
+    position: absolute;
+    left: 169px;
+    top: 70px;
+    width: 63px;
+    height: 63px;
+}
+
+.delbtn-background {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/b_recent_widget_del_bg.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(250, 250, 250, 1.0);
+    -webkit-mask-repeat: no-repeat;
+    z-index: 1;
+}
+
+.section-delbtn:active .delbtn-background {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/b_recent_widget_del_bg.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(250, 250, 250, .5);
+    -webkit-mask-repeat: no-repeat;
+    z-index: 1;
+}
+
+.delbtn-icon {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/b_recent_widget_del_icon.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(184, 46, 46, 1.0);
+    background-position: center center;
+    -webkit-mask-repeat: no-repeat;
+    z-index: 2;
+}
+
+.section-delbtn:active .delbtn-icon {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/b_recent_widget_del_icon.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(184, 46, 46, .5);
+    background-position: center center;
+    -webkit-mask-repeat: no-repeat;
+    z-index: 2;
+}
+
+.delbtn-shadow {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/b_recent_widget_del_shadow.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(0, 0, 0, .35);
+    background-position: center center;
+    -webkit-mask-repeat: no-repeat;
+    z-index: 2;
+}
+
+/*-------SECTION : ICON-------*/
+
+.section-icon {
+    position: absolute;
+    top: 47px;
+    left: -12.5px;
+    width: 266px;
+    height: 266px;
+    background-repeat: no-repeat;
+    background-size: 216px 216px;
+    background-position: center center;
+    z-index: 0;
+}
+
+.icon-background-mask {
+    position: absolute;
+    width: 216px;
+    height: 216px;
+    top: 25px;
+    left: 25px;
+    -webkit-mask-image: url('../image/recent_circle_bg_mask.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(38, 38, 38, 1.0);
+    -webkit-mask-repeat: no-repeat;
+    z-index: 2;
+}
+
+.icon-background-effect1 {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/widget_circle_bg_ef1.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(0, 0, 0, .40);
+    -webkit-mask-repeat: no-repeat;
+    z-index: 2;
+}
+
+.icon-background-effect2 {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/widget_circle_bg_ef2.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(0, 0, 0, .0);
+    -webkit-mask-repeat: no-repeat;
+    z-index: 2;
+}
+
+/*-------NO ITEM PAGE-------*/
+
+#no-recent-apps {
+    position: absolute;
+    top: 0px;
+    width: 360px;
+    height: 360px;
+    background-color: rgba(0, 0, 0, 1.0);
+}
+
+#no-recent-apps-background {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: url('../image/recent_no_item_bg.png');
+    -webkit-mask-size: 100% 100%;
+    background-color: rgba(94, 94, 94, .30);
+}
+
+#no-recent-apps-title {
+    position: absolute;
+    top: 51px;
+    left: 64px;
+    width: 232px;
+    height: 39px;
+    font-size: 30px;
+    color: rgba(18, 180, 255, 1.0);
+    text-align: center;
+}
+
+#no-recent-apps-icon {
+    position: absolute;
+    top: 131px;
+    left: 131px;
+    width: 98px;
+    height: 98px;
+    opacity: .7;
+    background-image: url('../image/recent_no_recent_icon.png');
+}
+
+#no-recent-apps-text {
+    position: absolute;
+    top: 263px;
+    left: 60px;
+    width: 240px;
+    height: 37px;
+    font-size: 28px;
+    color: rgba(250, 250, 250, 1.0);
+    text-align: center;
+}
