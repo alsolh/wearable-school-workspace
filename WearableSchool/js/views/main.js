@@ -207,7 +207,7 @@ define({
          * @param {number} value
          */
         function updatePressureValue(value) {
-            pressureValue.innerText = value.toFixed(2);
+        	localStorage.setItem("pressure", value.toFixed(2));
         }
 
         /**
@@ -225,7 +225,8 @@ define({
             if (text === '-0') {
                 text = '0';
             }
-            altitudeValue.innerText = text;
+            localStorage.setItem("altitude", text);
+            //altitudeValue.innerText = text;
         }
 
         /**
@@ -383,11 +384,11 @@ define({
          * @private
          */
         function bindEvents() {
-            calibrationBtn.addEventListener('click', onCalibrationBtnClick);
-            yesBtn.addEventListener('click', onYesBtnClick);
-            noBtn.addEventListener('click', onNoBtnClick);
-            alertElement.addEventListener('popuphide', onPopupHide);
-            alertOk.addEventListener('click', onOkClick);
+            //calibrationBtn.addEventListener('click', onCalibrationBtnClick);
+            //yesBtn.addEventListener('click', onYesBtnClick);
+            //noBtn.addEventListener('click', onNoBtnClick);
+            //alertElement.addEventListener('popuphide', onPopupHide);
+            //alertOk.addEventListener('click', onOkClick);
 
             e.listeners({
                 'models.pressure.start': onSensorStart,
@@ -415,7 +416,7 @@ define({
                 'popup-calibration-no'
             );
             referenceValue = document.getElementById('reference-value');
-            pressureValue = document.getElementById('current-value');
+            //pressureValue = document.getElementById('current-value');
             altitudeValue = document.getElementById('altitude-value');
             alertElement = document.getElementById('alert');
             alertMessage = document.getElementById('alert-message');

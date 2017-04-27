@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>Mental Math Question</title>
+    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.css"/>
+    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="page">
+        <div id="header">
+            Wearable Classroom
+        </div>
+        <div id="main">
+            <ul id="menu">
+                <li>
+                    <img class="menu-icon" src="../../images/167709.png" width="128" height="128"/>
+                    <p class="menu-title" id="menu-title">You have been running for 30 minutes at 6KM per hour, how many KM did you cross?</p>
+                    <p class="menu-detail" id="menu-detail">Swipe or rotate to answer</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="../js/app.js"></script>
+    <script>
+    var questionObject = JSON.parse(localStorage["question"]);
+    //var questionObject = {"courseWork":[{"courseId":"1017124722","id":"1018019307","title":"Q1","state":"PUBLISHED","alternateLink":"http://classroom.google.com/c/MTAxNzEyNDcyMlpa/mc/MTAxODAxOTMwN1pa/details","creationTime":"2017-03-06T12:51:43.064Z","updateTime":"2017-03-06T12:52:42.289Z","maxPoints":100,"workType":"MULTIPLE_CHOICE_QUESTION","submissionModificationMode":"MODIFIABLE_UNTIL_TURNED_IN","multipleChoiceQuestion":{"choices":["correct","wrong"]}}]};
+    document.getElementById('menu-title').innerText = questionObject.courseWork[0].title;
+    document.getElementById('menu-detail').innerText = questionObject.courseWork[0].description;
+    </script>
+</body>
+
+</html>

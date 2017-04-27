@@ -25,8 +25,8 @@ contents/controls/progress/progress.html__DEL__W4bKkUx3I09rHaxZVLfTjGOpusj5j7JCY
 contents/controls/progress/progress.js__DEL__BrgEsRubQZATHe5Ot6oztlAJg/SUQk5lw4Tc2iIdWqQ=
 contents/controls/progress/progress_small.html__DEL__fn58utaqwy2afSFhG+5BVRxVQ4osP4/1vnCOm7BNtks=
 contents/controls/progress/progress_small.js__DEL__YsrlTabznA9wtwm8qyTkikp2MKBQr0hsCuiA+j4KyE4=
-contents/controls/radio.html__DEL__qGsBJIg6Lm2mr7QYQmlrlSJd+8+WwlRZrjJkWwX8z+o=
-contents/controls/selector/index.html__DEL__haPf+ABg2wzlMx1jNrk24i7R0ShEsPPJE2gS6Sd3eDU=
+contents/controls/radio.html__DEL__Elq41rjotFWj4atgVZNpze2CRP11nBYokueBMecsI8w=
+contents/controls/selector/index.html__DEL__HReOFeVkwrN50/I6B22bd7w7GrSjyNcxomzdq1YJoJo=
 contents/controls/selector/selector.js__DEL__J4+wgLPXCpsTSZxSgLvwhFpKqsOBGFa1qyAfA1OcvOU=
 contents/controls/toggle.html__DEL__EC7+kLyvj5R4GUr3WvAdo0J6Xsv7eWUuOpqs3epFjTI=
 contents/etc/index.html__DEL__aeQLBOScFVTXAA2QtPmDtWwhnAfBtd3a06qwqg9J2gw=
@@ -105,7 +105,8 @@ contents/popup/popup.html__DEL__xJ+E72tqnDrZf50S0bV8h04G2q8NEjdrwkBZX1DEGnc=
 contents/popup/popup_toast.html__DEL__vMrAngO3dN2AKsmFQITeeWZRIvMk0QrQ1Bquth2k2PA=
 contents/rotaryevent/index.html__DEL__bG2GwuwsGpKWThjYRWvgJxmX9Nd9WNTWdVSXhMiUHlo=
 contents/rotaryevent/rotaryEvent.js__DEL__hdpQloaOJkqZu2HHjEQNE77D23p8BJaj3OGT+XzmBKs=
-css/images/b_more_option_delete_icon.png__DEL__rEn/SD/UioBXTY8bFVCVCS+wnJGwK6+ZCoZ3H5UyjNA=
+css/images/b_more_option_delete_icon.bak.png__DEL__rEn/SD/UioBXTY8bFVCVCS+wnJGwK6+ZCoZ3H5UyjNA=
+css/images/b_more_option_delete_icon.png__DEL__gdRPTtrPln5RcVilcaYtoMntx55R/0Nl+UbzYkE74mA=
 css/images/b_more_option_delete_icon.png.old__DEL__kU25r00kGKSgA69INIExaB5QhzpvrLK/jXtP81H0FwA=
 css/images/b_more_option_human_icon.png__DEL__rsxWSrn1kH532Iyt90nbKf/lpgOTtfC+IumMacQeD74=
 css/images/b_more_option_human_icon.png.old__DEL__ogA0tP605qPp5lFS2MUiwogGRtw1Ry6p6zQyn8flwIk=
@@ -366,4 +367,4 @@ lib/tau/wearable/theme/default/tau.css__DEL__3OOU8BQRwDSxgd4HS8L1+fgDFBC640/eHOf
 lib/tau/wearable/theme/default/tau.min.css__DEL__wjbBefQVQCpTL7YLBs0/I8UfpRHowBWNSzzDqL25Imc=
 lib/tau/wearable/theme/default/tau.min.template__DEL__LO0fVlByyNr0CnFq2/3aymR2aFMwCjO7ii/oBwCh+HE=
 lib/tau/wearable/theme/default/tau.template__DEL__wYDkhwm83vZuSadZdEGyo/z72D2P9icIh8ukBWsBgT8=
-author-signature.xml__DEL__1IeeB2F7M7P12ku7dH7VoOJXGixL2o1hM0/UQHbrF9A=
+author-signature.xml__DEL__7cz79qmwyJFLoxIPIh068/4AElxTsZujYOn0hxaQDqU=

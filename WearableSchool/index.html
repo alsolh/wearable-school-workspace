@@ -1,63 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width,user-scalable=no">
-    <meta charset="utf-8"/>
-    <meta name="description" content="Altimeter"/>
-    <title>Altimeter</title>
-    <link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.css"/>
-    <link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)" href="lib/tau/wearable/theme/default/tau.circle.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+<meta name="viewport" content="width=device-width,user-scalable=no">
+<title>Circular UI</title>
+<link rel="stylesheet" href="lib/tau/wearable/theme/default/tau.min.css">
+<link rel="stylesheet" media="all and (-tizen-geometric-shape: circle)"
+	href="lib/tau/wearable/theme/default/tau.circle.min.css">
+<!-- load theme file for your application -->
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <div class="ui-page ui-page-active" id="main">
-        <div id="main-content" class="ui-content">
-            <div id="altitude">
-                <div id="altitude-frame">
-                    <div id="altitude-value"></div>
-                    <div id="changeit"></div>
-                    <div id="changeit2"></div>
-                 </div>
-            </div>
-            <div id="pressure">
-                <div id="reference">
-                    <div id="reference-label">Reference [hPa]</div>
-                    <div id="reference-value"></div>
-                </div>
-                <div id="current">
-                    <div id="current-label">Current [hPa]</div>
-                    <div id="current-value"></div>
-                </div>
-            </div>
-        </div>
-        <footer class="ui-footer ui-bottom-button">
-            <a class="ui-btn" id="calibration-btn">Calibrate</a>
-        </footer>
-        <div id="popup-calibration" class="ui-popup">
-            <div class="ui-popup-content" id="popup-calibration-message">
-                App should be calibrated before use.
-                <br>
-                Do you want to do it now?
-            </div>
-            <div class="ui-popup-footer ui-grid-col-2 ui-side-button">
-                <button class="ui-btn ui-btn-footer-icon btn-erase" id="popup-calibration-no">No</button>
-                <button class="ui-btn ui-side-button ui-btn-footer-icon btn-apply" id="popup-calibration-yes">Yes</button>
-            </div>
-        </div>
-        <div id="alert" class="ui-popup">
-            <div class="ui-popup-content" id="alert-message"></div>
-            <div class="ui-popup-footer ui-bottom-button">
-                <button class="ui-btn" id="alert-ok">OK</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="./js/tau-config.js"></script>
-    <script src="./lib/tau/wearable/js/tau.js"></script>
-    <script src="./js/core/core.js" data-main="./js/app.js"></script>
-    <script src="js/mqttws31.js"></script>
-<script>
+	<div class="ui-page ui-page-active" id="main">
+		<header class="ui-header">
+			<h2 class="ui-title">Wearable School</h2>
+		</header>
+		<div class="ui-content content-padding">
+			<img src="images/167709.png" width="128" height="128"> <br>
+			Sensor Data Collection Active
+		</div>
+	</div>
+	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="lowBatteryCheck.js"></script>
+	<script src="js/tau-config.js"></script>
+	<script src="lib/tau/wearable/js/tau.js"></script>
+	<script src="js/core/core.js" data-main="./js/app.js"></script>
+	<script src="js/mqttws31.js"></script>
+	<script>
 // Create a client instance
 client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32775), "clientId");
 
@@ -72,7 +41,7 @@ client.connect({onSuccess:onConnect});
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("onConnect");
-  client.subscribe("World");
+  client.subscribe("assessments/student1");
   //message = new Paho.MQTT.Message("Hello");
   //message.destinationName = "World";
   //client.send(message);
@@ -80,10 +49,10 @@ function onConnect() {
 var i = 0;
  var id = setInterval(function()
                 {
-                var wLocation = {"altitude":document.getElementById('altitude-value').innerText,"longitude":document.getElementById('changeit').innerText,"latitude":document.getElementById('changeit2').innerText};
+                var wLocation = {"altitude":localStorage.getItem("altitude"),"longitude":localStorage.getItem("longitude"),"latitude":localStorage.getItem("latitude")};
                   message = new Paho.MQTT.Message(JSON.stringify(wLocation));
-  message.destinationName = "World";
-  //client.send(message);
+  message.destinationName = "telemetry/student1";
+  client.send(message);
             i = i + 1;
             navigator.geolocation.getCurrentPosition(showMap);
             
@@ -95,8 +64,8 @@ var i = 0;
 
 function showMap(position) {
       //console.log(position.coords.latitude);
-      document.getElementById('changeit').innerText = position.coords.longitude;
-      document.getElementById('changeit2').innerText = position.coords.latitude;
+      localStorage.setItem("longitude", position.coords.longitude);
+      localStorage.setItem("latitude", position.coords.latitude);
     }
 
 // called when the client loses its connection
@@ -113,7 +82,6 @@ function onMessageArrived(message) {
   window.open('pages/QuestionContent.html');
 }
       
-    </script> 
-
+    </script>
 </body>
 </html>
