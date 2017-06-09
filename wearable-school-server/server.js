@@ -1,5 +1,5 @@
 var mqtt = require('mqtt');
-var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32776');
+var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32770');
 var questions = '';
 var savedDistance = 0;
 

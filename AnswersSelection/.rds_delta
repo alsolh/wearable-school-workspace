@@ -1,6 +1,6 @@
 #delete
+res/wgt/AnswersSelection.wgt
 #add
 #modify
 res/wgt/author-signature.xml
 res/wgt/signature1.xml
-res/wgt/contents/controls/radio.html
