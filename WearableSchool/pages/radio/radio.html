@@ -18,11 +18,26 @@
 			</ul>
 		</div>
 		<footer class="ui-footer ui-bottom-button ui-fixed">
-			<button class="ui-btn">OK</button>
+			<button class="ui-btn" onclick="submitAnswer(selectedAnswer);">OK</button>
 		</footer>
 	</div>
 </body>
 <script>
+
+function submitAnswer(selectedAnswer) {
+    var data = {
+    "servings": 999,
+    "subtitle": "i love walaa",
+    "title": selectedAnswer
+};
+        var req = new XMLHttpRequest();
+    req.open("POST", 'http://192.168.43.229:5984/wearableschool', true);
+req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
+    req.setRequestHeader("Content-type", "application/json");
+    req.send(JSON.stringify(data));
+}
+
+var selectedAnswer = "";
     var questionObject = JSON.parse(localStorage["question"]);
     //var questionObject = '{"courseWork":[{"courseId":"1017124722","id":"2012123131","title":"Time to Eiffel Tower","description":"if you are in a plane flying at the speed of 500 Km per hour and the Eiffel tower is currently 9001.02 Km away from you. how long will it take to reach there in hours time?","state":"PUBLISHED","alternateLink":"http://classroom.google.com/c/MTAxNzEyNDcyMlpa/mc/MjAxMjEyMzEzMVpa/details","creationTime":"2017-04-27T16:06:43.477Z","updateTime":"2017-04-27T18:33:23.417Z","maxPoints":100,"workType":"MULTIPLE_CHOICE_QUESTION","submissionModificationMode":"MODIFIABLE_UNTIL_TURNED_IN","multipleChoiceQuestion":{"choices":["18.00","360.04","12.00","90.01"]}},{"courseId":"1017124722","id":"1018019307","title":"What is 2 + 3?","description":"please select the correct result","state":"PUBLISHED","alternateLink":"http://classroom.google.com/c/MTAxNzEyNDcyMlpa/mc/MTAxODAxOTMwN1pa/details","creationTime":"2017-03-06T12:51:43.064Z","updateTime":"2017-04-22T13:44:22.745Z","maxPoints":100,"workType":"MULTIPLE_CHOICE_QUESTION","submissionModificationMode":"MODIFIABLE_UNTIL_TURNED_IN","multipleChoiceQuestion":{"choices":["6","5","4","1"]}}]}';
     //var questionObject = {"courseWork":[{"courseId":"1017124722","id":"1018019307","title":"Q1","state":"PUBLISHED","alternateLink":"http://classroom.google.com/c/MTAxNzEyNDcyMlpa/mc/MTAxODAxOTMwN1pa/details","creationTime":"2017-03-06T12:51:43.064Z","updateTime":"2017-03-06T12:52:42.289Z","maxPoints":100,"workType":"MULTIPLE_CHOICE_QUESTION","submissionModificationMode":"MODIFIABLE_UNTIL_TURNED_IN","multipleChoiceQuestion":{"choices":["correct","wrong"]}}]};
@@ -30,7 +45,7 @@
     var myStringArray = questionObject.courseWork[0].multipleChoiceQuestion.choices;
     var arrayLength = myStringArray.length;
 for (var i = 0; i < arrayLength + 1; i++) {
-    document.getElementById('answers').innerHTML += '<li class="li-has-radio"><label> ' + myStringArray[i] + ' <input type="radio" name="radio-sample" />';
+    document.getElementById('answers').innerHTML += '<li class="li-has-radio" onclick="selectedAnswer=this.innerText;"><label> ' + myStringArray[i] + ' <input type="radio" name="radio-sample" />';
     //Do something
 }
 
