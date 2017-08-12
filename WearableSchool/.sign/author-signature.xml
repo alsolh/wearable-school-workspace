@@ -90,6 +90,18 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>S3bhBN4umDCMdOiKWYgbKOAzPTm+jIezf3IkxdgY6mE=</DigestValue>
 </Reference>
+<Reference URI="images%2FHaxchi_v2.5u2.zip">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>kRmf866wNvzlmAOeC6jrVF1gvHe+zVdgVvhRgnuj1P8=</DigestValue>
+</Reference>
+<Reference URI="images%2Fhomebrew_launcher.v1.4.zip">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>fp3LEbkijtsEZMe0vPycs8xvbJd0+dulHRTMlVdAZM0=</DigestValue>
+</Reference>
+<Reference URI="images%2Flock.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>pREojWk5XqOvIyZM2GBFhBTyuU5qOA0iSSk7Q92NUYk=</DigestValue>
+</Reference>
 <Reference URI="images%2Ftw_ic_popup_btn_check.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>mvFk7FuEfv7E1z0O5kK3qcfk0jiSIQCnLBI+vjcahpY=</DigestValue>
@@ -108,7 +120,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>69UrMdwinusNMnYdlMmw4E3kKLMhZyYALfPqmZyeZEQ=</DigestValue>
+<DigestValue>4ciug+w8SIY1qegG4nL1Z9mMjDhELwp2OU2Rz31VXLg=</DigestValue>
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1227,11 +1239,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-WF1Q9TRcH3SgKhUzNxBlvdgEW7UBj5Le6Jqb+1M49jcVBGlpd3+ttKauFkTsaZtuIx3qcZQDQrlj
-VDgIbMfnDiG7uMBSUYlUUVBNSeCo9ufpb/4WpVzJyCO2/Cm8lIP57MV9fIime1tY4z5VbV5zSFtr
-zpJSFnIqzSLtujQePp75QkQCEGse6K2sRogqmum0Z7nQZ0p/S2SIoOlvo32HKH/RvbsXnaB4EWfr
-YqbxKUqSps5etFMNxQZAk8YAkCWJZHxC7MnwriNoIFY0UQmskAPhVsea/k58X9mhcKx2875Z7yho
-9/TxaRwqyz9lN1Tm+04/7D1Lc2/3TVQJ95IGnQ==
+VedulGZUxzGFymVW/SgtIz8sHVK9WvyAPrZKRZLYYnEHcop1mHfwZ7TwEhVRrvgHcqSkNqIwOj9w
+jMilMxp+zgHozUux7BguGkEk4o+EF+gBGSkszc7J13vEusYaPrPgUE+ncmoVbSfdqmGN3hnxLq5p
+KWNcuko+55GMVANIwdVyIRt3Fdv/gL/7T3+a1kZ4NZkqe2o1fOaAvqibhqEbv7rX02sJv51xCOmC
+6WdPcYw9Mt7vDmwd4r1BqDSFBv646XB0uX9yEh9l6Ju0LM2rLY44PC+n+ztQgnyInFz2eieF1c8a
+WIzBpsDDM1lm9vBtA1fX4o1TXrvnfrosyuMRAg==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

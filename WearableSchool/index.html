@@ -14,9 +14,11 @@
 		<header class="ui-header">
 			<h2 class="ui-title">Wearable School</h2>
 		</header>
+		<div id="tizenId" style="font-size: 2em; text-align:center">Sensor Data Collection Active</div>
+		<br />
 		<div class="ui-content content-padding">
-			<img src="images/167709.png" width="128" height="128"> <br>
-			Sensor Data Collection Active
+			<img src="images/lock.png" width="128" height="128"> <br>
+			
 		</div>
 	</div>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
@@ -27,6 +29,10 @@
 	<script src="js/core/core.js" data-main="./js/app.js"></script>
 	<script src="js/mqttws31.js"></script>
 	<script>
+var bluetooth = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
+document.getElementById("tizenId").innerText = bluetooth;
+console.log(" tizenid = " + bluetooth);
+	
 // Create a client instance
 client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32769), "clientId");
 
