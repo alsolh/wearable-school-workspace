@@ -23,8 +23,8 @@ export class GsigninComponent implements OnInit {
     let claims = this.oAuthService.getIdentityClaims();
     let obj = JSON.parse(JSON.stringify(claims));
     if (!claims) return null;
-    console.log(claims);
-    console.log(typeof claims);
+    //console.log(claims);
+    //console.log(typeof claims);
         return claims['name'];
   }
 

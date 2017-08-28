@@ -20,7 +20,10 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "styles.css"
+        "styles.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/primeng/resources/primeng.min.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -34,6 +37,10 @@
     "protractor": {
       "config": "./protractor.conf.js"
     }
+  },
+  "dependencies": {
+    "primeng": "^4.1.0",
+    "font-awesome": "^4.7.0"
   },
   "lint": [
     {
