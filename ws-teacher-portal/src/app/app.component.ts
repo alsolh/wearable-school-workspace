@@ -23,7 +23,7 @@ export class AppComponent {
 
     // set the scope for the permissions the client should request
     // The first three are defined by OIDC. The 4th is a usecase-specific one
-    this.oauthService.scope = 'https://www.googleapis.com/auth/classroom.courses.readonly profile';
+    this.oauthService.scope = 'https://www.googleapis.com/auth/classroom.courses.readonly profile https://www.googleapis.com/auth/classroom.rosters';
 
     // The name of the auth-server that has to be mentioned within the token
     this.oauthService.issuer = 'https://accounts.google.com';

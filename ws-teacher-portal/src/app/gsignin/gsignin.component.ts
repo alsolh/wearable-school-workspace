@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
+import {Component, OnInit} from '@angular/core';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-gsignin',
@@ -20,12 +20,14 @@ export class GsigninComponent implements OnInit {
   }
 
   public get name() {
-    let claims = this.oAuthService.getIdentityClaims();
-    let obj = JSON.parse(JSON.stringify(claims));
-    if (!claims) return null;
-    //console.log(claims);
-    //console.log(typeof claims);
-        return claims['name'];
+    const claims = this.oAuthService.getIdentityClaims();
+    // let obj = JSON.parse(JSON.stringify(claims));
+    if (!claims) {
+      return null;
+    } else {
+      return claims['name'];
+    }
+
   }
 
   ngOnInit() {

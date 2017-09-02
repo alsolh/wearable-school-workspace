@@ -10,6 +10,7 @@ import { GoogleSignInComponent } from 'angular-google-signin';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
 import { DataTableModule } from 'primeng/primeng';
+import { GrowlModule } from 'primeng/primeng';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { DataTableModule } from 'primeng/primeng';
     HttpModule,
     FormsModule,
     AngularFontAwesomeModule,
+    GrowlModule,
     OAuthModule.forRoot()
   ],
   providers: [],
