@@ -7,8 +7,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/.sdk_delta.info" afterPath="$PROJECT_DIR$/../WearableSchool/.sdk_delta.info" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/WearableSchool.wgt" afterPath="$PROJECT_DIR$/../WearableSchool/WearableSchool.wgt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/.sign/.manifest.tmp" afterPath="$PROJECT_DIR$/../WearableSchool/.sign/.manifest.tmp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/config.xml" afterPath="$PROJECT_DIR$/../WearableSchool/config.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/index.html" afterPath="$PROJECT_DIR$/../WearableSchool/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/js/views/main.js" afterPath="$PROJECT_DIR$/../WearableSchool/js/views/main.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -594,12 +594,12 @@
       <workItem from="1502567265277" duration="31000" />
       <workItem from="1503759733881" duration="1367000" />
       <workItem from="1504158419460" duration="2010000" />
-      <workItem from="1504346074381" duration="1376000" />
+      <workItem from="1504346074381" duration="1680000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55243000" />
+    <option name="totallyTimeSpent" value="55547000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />

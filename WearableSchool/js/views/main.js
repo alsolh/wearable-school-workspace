@@ -343,8 +343,8 @@ define({
          * @param {Event} ev
          */
         function onSensorChange(ev) {
-            updatePressureValue(ev.detail.average);
-            updateAltitudeValue(ev.detail.average);
+            //updatePressureValue(ev.detail.average);
+            //updateAltitudeValue(ev.detail.average);
         }
 
         /**

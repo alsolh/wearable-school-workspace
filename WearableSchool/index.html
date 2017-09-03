@@ -23,6 +23,7 @@
 	</div>
 	<script type="text/javascript" src="js/log4javascript.js"></script>
 <script type="text/javascript">
+var mqttSubscribed = false;
 var remainingSensorCalls = 6;
 var remainingSensorCallsTimeout = 10;
 var sensorsData = [];
@@ -99,6 +100,7 @@ function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("onConnect");
   client.subscribe("assessments/student1");
+  mqttSubscribed = true;
   //message = new Paho.MQTT.Message("Hello");
   //message.destinationName = "World";
   //client.send(message);
@@ -109,7 +111,8 @@ var i = 0;
                 var wLocation = {"altitude":localStorage.getItem("altitude"),"longitude":localStorage.getItem("longitude"),"latitude":localStorage.getItem("latitude")};
                   message = new Paho.MQTT.Message(JSON.stringify(wLocation));
   message.destinationName = "telemetry/student1";
-  client.send(message);
+  // temporairly disabled to work on new integration
+   client.send(message);
             i = i + 1;
             navigator.geolocation.getCurrentPosition(showMap);
             
@@ -292,9 +295,12 @@ var refreshIntervalId = setInterval(checkIfCompleted, 1000);
 function checkIfCompleted(){
 console.log("checking " + remainingSensorCalls);
 remainingSensorCallsTimeout = remainingSensorCallsTimeout - 1;
-if (remainingSensorCalls < 1 || remainingSensorCallsTimeout < 1) {
+if ((remainingSensorCalls < 1 || remainingSensorCallsTimeout < 1) && mqttSubscribed === true) {
 console.log("all sensors done");
 clearInterval(refreshIntervalId);
+message = new Paho.MQTT.Message(JSON.stringify(sensorsData));
+message.destinationName = "telemetry/student1";
+client.send(message);
 }
 }
 
