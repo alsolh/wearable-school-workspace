@@ -17,6 +17,7 @@
                     <img class="menu-icon" src="image/test-quiz.png" />
                     <p id="menu-title" style="margin-top: 0px;">Question Title</p>
                     <p id="menu-detail">Question Detail</p>
+                    <p id="menu-prompt">Question Prompt</p>
                 </li>
             </ul>
         </div>
@@ -26,10 +27,11 @@
 	</div>
     <script src="js/app.js"></script>
     <script>
-    var questionObject = JSON.parse(localStorage["question"]);
+    var questionObject = JSON.parse(localStorage["question"]).courseWork[0];
     //var questionObject = {"courseWork":[{"courseId":"1017124722","id":"1018019307","title":"Q1","state":"PUBLISHED","alternateLink":"http://classroom.google.com/c/MTAxNzEyNDcyMlpa/mc/MTAxODAxOTMwN1pa/details","creationTime":"2017-03-06T12:51:43.064Z","updateTime":"2017-03-06T12:52:42.289Z","maxPoints":100,"workType":"MULTIPLE_CHOICE_QUESTION","submissionModificationMode":"MODIFIABLE_UNTIL_TURNED_IN","multipleChoiceQuestion":{"choices":["correct","wrong"]}}]};
-    document.getElementById('menu-title').innerText = questionObject.courseWork[0].title;
-    document.getElementById('menu-detail').innerText = questionObject.courseWork[0].description;
+    document.getElementById('menu-title').innerText = questionObject.title;
+    document.getElementById('menu-detail').innerText = questionObject.description.itemBody.p;
+    document.getElementById('menu-prompt').innerText = questionObject.description.itemBody.choiceInteraction.prompt;
     </script>
 </body>
 

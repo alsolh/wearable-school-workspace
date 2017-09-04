@@ -112,7 +112,7 @@ var i = 0;
                   message = new Paho.MQTT.Message(JSON.stringify(wLocation));
   message.destinationName = "telemetry/student1";
   // temporairly disabled to work on new integration
-   client.send(message);
+  // client.send(message);
             i = i + 1;
             navigator.geolocation.getCurrentPosition(showMap);
             
@@ -185,7 +185,7 @@ function onchangedGPS(gpsInfo) {
     console.log('this callback is called every ' + myCallbackInterval + ' milliseconds');
     console.log('the gpsInfo includes the GPS information that is collected every ' +
                mySampleInterval + ' milliseconds');
-     	 var sensorData = { "sensorName":"GPS", "value":gpsInfo };
+     	 var sensorData = { "sensorName":"GPS", "value":gpsInfo.gpsInfo[0] };
      sensorsData.push(sensorData);
      console.log(JSON.stringify(sensorsData));
                tizen.humanactivitymonitor.stop('GPS');

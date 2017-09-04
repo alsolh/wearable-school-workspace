@@ -1,4 +1,5 @@
 var mqtt = require('mqtt');
+var jsonQuery = require('json-query');
 var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32770');
 var questions = '';
 var savedDistance = 0;
@@ -11,6 +12,11 @@ var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/classroom.googleapis.com-nodejs-quickstart.json
@@ -30,25 +36,56 @@ client.on('message', function (topic, message) {
     // message is Buffer
     console.log(message.toString());
     telemetry = JSON.parse(message);
+    gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
+        data: telemetry
+    }).value;
+    //console.log(gpsTelemetry.value.longitude);
+    resultQuestions = clone(questions);
     if(!(questions === '')) {
+        //start of handling new question format
+        for (var i = 0; i < resultQuestions.courseWork.length; i++) {
+            try {
+                qtiContent = JSON.parse(questions.courseWork[i].description);
+                requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
+                //TODO:Add or condition
+                pedoTelemetry = jsonQuery('[sensorName='+ requiredSensors[0] +'].value', {
+                    data: telemetry
+                }).value;
+                for (var attributename in pedoTelemetry) {
+                    console.log(attributename + ": " + pedoTelemetry[attributename]);
+                    qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<'+ requiredSensors[0] +'.' + attributename + '>',pedoTelemetry[attributename]));
+                    resultQuestions.courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(resultQuestions.courseWork[i].multipleChoiceQuestion.choices).replaceAll('<'+ requiredSensors[0] +'.' + attributename + '>',pedoTelemetry[attributename]));
+                }
+                resultQuestions.courseWork[i].description = qtiContent;
+                for (var j = 0; j < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; j++) {
+                    resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j] = eval(resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j]);
+                }
+                console.log(JSON.stringify(resultQuestions));
+                client.publish('assessments/student1',JSON.stringify(resultQuestions));
+            } catch (err) {
+        // handle the error safely
+        console.log(err);
+    }
+        }
+
         var targetedQuestion = '';
-        console.log(questions.courseWork[0].title);
+        console.log(questions.courseWork[1].title);
         targetedQuestion = clone(questions);
-        questionContent = JSON.parse(questions.courseWork[0].description);
-        var distance = getDistanceFromLatLonInKm(telemetry.latitude, telemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
+        questionContent = JSON.parse(questions.courseWork[1].description);
+        var distance = getDistanceFromLatLonInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
         if (!(savedDistance === distance)) {
-            targetedQuestion.courseWork[0].description = questionContent.body.replace('<value>', distance);
-            console.log(targetedQuestion.courseWork[0].description);
-            console.log(targetedQuestion.courseWork[0].multipleChoiceQuestion);
-            for (var i = 0; i < targetedQuestion.courseWork[0].multipleChoiceQuestion.choices.length; i++) {
-                console.log(targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i]);
-                targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i] = targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i].replace('<value>', distance);
-                console.log(targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i]);
-                targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i] = eval(targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i]).toFixed(2);
-                console.log(targetedQuestion.courseWork[0].multipleChoiceQuestion.choices[i]);
+            targetedQuestion.courseWork[1].description = questionContent.body.replace('<value>', distance);
+            console.log(targetedQuestion.courseWork[1].description);
+            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion);
+            for (var i = 0; i < targetedQuestion.courseWork[1].multipleChoiceQuestion.choices.length; i++) {
+                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i].replace('<value>', distance);
+                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = eval(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]).toFixed(2);
+                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
             }
             console.log(JSON.stringify(targetedQuestion));
-            client.publish('assessments/student1',JSON.stringify(targetedQuestion));
+            //client.publish('assessments/student1',JSON.stringify(targetedQuestion));
             savedDistance = distance;
         }
     }
