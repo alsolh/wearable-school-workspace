@@ -47,7 +47,7 @@ client.on('message', function (topic, message) {
             try {
                 qtiContent = JSON.parse(questions.courseWork[i].description);
                 requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
-                //TODO:Add or condition
+                //TODO:Add or condition / better loop it for each sensor type
                 pedoTelemetry = jsonQuery('[sensorName='+ requiredSensors[0] +'].value', {
                     data: telemetry
                 }).value;
@@ -56,10 +56,26 @@ client.on('message', function (topic, message) {
                     qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<'+ requiredSensors[0] +'.' + attributename + '>',pedoTelemetry[attributename]));
                     resultQuestions.courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(resultQuestions.courseWork[i].multipleChoiceQuestion.choices).replaceAll('<'+ requiredSensors[0] +'.' + attributename + '>',pedoTelemetry[attributename]));
                 }
+                //process variables
+                if(qtiContent.itemBody.variables != null) {
+                    for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
+                        qtiContent.itemBody.variables[j] = eval(qtiContent.itemBody.variables[j]);
+                        console.log(qtiContent.itemBody.variables[j]);
+                    }
+                    for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
+                        qtiContent.itemBody.p = qtiContent.itemBody.p.replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
+                        for (var k = 0; k < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; k++) {
+                            resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k] = resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
+                        }
+                    }
+                }
+                //end process variables
                 resultQuestions.courseWork[i].description = qtiContent;
                 for (var j = 0; j < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; j++) {
                     resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j] = eval(resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j]);
                 }
+
+
                 console.log(JSON.stringify(resultQuestions));
                 client.publish('assessments/student1',JSON.stringify(resultQuestions));
             } catch (err) {
@@ -67,12 +83,12 @@ client.on('message', function (topic, message) {
         console.log(err);
     }
         }
-
+/*
         var targetedQuestion = '';
         console.log(questions.courseWork[1].title);
         targetedQuestion = clone(questions);
         questionContent = JSON.parse(questions.courseWork[1].description);
-        var distance = getDistanceFromLatLonInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
+        var distance = getDistanceFromLonLatInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
         if (!(savedDistance === distance)) {
             targetedQuestion.courseWork[1].description = questionContent.body.replace('<value>', distance);
             console.log(targetedQuestion.courseWork[1].description);
@@ -87,7 +103,7 @@ client.on('message', function (topic, message) {
             console.log(JSON.stringify(targetedQuestion));
             //client.publish('assessments/student1',JSON.stringify(targetedQuestion));
             savedDistance = distance;
-        }
+        }*/
     }
     //client.end()
 })
@@ -96,7 +112,7 @@ function clone(a) {
     return JSON.parse(JSON.stringify(a));
 }
 
-function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+function getDistanceFromLonLatInKm(lon1,lat1,lon2,lat2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2-lat1);  // deg2rad below
     var dLon = deg2rad(lon2-lon1);

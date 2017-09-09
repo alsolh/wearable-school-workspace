@@ -138,8 +138,8 @@ function onConnectionLost(responseObject) {
 // called when a message arrives
 function onMessageArrived(message) {
   console.log("onMessageArrived:"+message.payloadString);
-  localStorage.setItem("question", message.payloadString);
-  window.open('pages/QuestionContent.html');
+  localStorage.setItem("questions", message.payloadString);
+  window.open('pages/radio/radioQuestions.html');
 }
 
 // sensors playground
