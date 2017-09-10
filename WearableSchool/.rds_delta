@@ -3,4 +3,6 @@
 #modify
 res/wgt/author-signature.xml
 res/wgt/signature1.xml
-res/wgt/pages/radio/radio.html
+res/wgt/authorized.html
+res/wgt/index.html
+res/wgt/js/batterylog.js

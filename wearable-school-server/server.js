@@ -77,12 +77,13 @@ client.on('message', function (topic, message) {
 
 
                 console.log(JSON.stringify(resultQuestions));
-                client.publish('assessments/student1',JSON.stringify(resultQuestions));
             } catch (err) {
         // handle the error safely
         console.log(err);
     }
+
         }
+        client.publish('assessments/student1',JSON.stringify(resultQuestions));
 /*
         var targetedQuestion = '';
         console.log(questions.courseWork[1].title);

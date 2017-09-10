@@ -16,7 +16,11 @@
 </Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3lE/PHXD+3JsF7KSnOqbkr3p/UKTY5niWSGh6pQu3Cg=</DigestValue>
+<DigestValue>DSvjTtnQhPypENAMk4tv6Ya3ezu4bjpDzygKxV+JKz8=</DigestValue>
+</Reference>
+<Reference URI="authorized.html">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>EEXIi89fLZwCJVBR5hhBkjXSUL+g9VrImkKe3jKMHwI=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -94,14 +98,6 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>S3bhBN4umDCMdOiKWYgbKOAzPTm+jIezf3IkxdgY6mE=</DigestValue>
 </Reference>
-<Reference URI="images%2FHaxchi_v2.5u2.zip">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>kRmf866wNvzlmAOeC6jrVF1gvHe+zVdgVvhRgnuj1P8=</DigestValue>
-</Reference>
-<Reference URI="images%2Fhomebrew_launcher.v1.4.zip">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>fp3LEbkijtsEZMe0vPycs8xvbJd0+dulHRTMlVdAZM0=</DigestValue>
-</Reference>
 <Reference URI="images%2Flock.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>pREojWk5XqOvIyZM2GBFhBTyuU5qOA0iSSk7Q92NUYk=</DigestValue>
@@ -124,11 +120,15 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>8zTThEpibZ8qflnYp33OXznvXimwpb2NxKvI/+Um6/k=</DigestValue>
+<DigestValue>vv6fhbeS/TUhw1FmJMyj6nv0U90rb17R1xFv6h2imvI=</DigestValue>
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>z6eCjtQZWYZWtU6ZOJVac1W2q0S62Mj06+PL4LGexOM=</DigestValue>
+<DigestValue>Cc23KyxTUMkKeboKSL3DT23nFFLpe9w9hJyjOtRI3IU=</DigestValue>
+</Reference>
+<Reference URI="js%2Fbatterylog.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>kZ9pjsI33e0wduwoUA+/M5KUamkNT/L2VG7oLTxvCEI=</DigestValue>
 </Reference>
 <Reference URI="js%2Fcore%2F.gitignore">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1228,11 +1228,11 @@
 </Reference>
 <Reference URI="pages%2Fradio%2Fradio.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>HuHbsE0U6v+SImPQWJXaNwtQi7HJsbfqGWl5aul7JDI=</DigestValue>
+<DigestValue>coUGG52qwAFHkjVew2mz9BDVj4f7kT8SeZzpAFucHbI=</DigestValue>
 </Reference>
 <Reference URI="pages%2Fradio%2FradioQuestions.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>M3kY+CNDnGGNkEFbPkNiB38UaIiWx8NDfadnWnHGWLQ=</DigestValue>
+<DigestValue>Pon1y86bB2Stk1euvRZHiHMXOy+JMiw78lBkNBfSQUo=</DigestValue>
 </Reference>
 <Reference URI="pages%2Fradio%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1251,11 +1251,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-dow343FzJGrVjpFMQ0lAeYb5Wo4OCpDmpRcdmKnpc5ZPUhyi9L16Z1I0COMNymjysAls6R6OSrRy
-Z1ItQV0aOaKxD7BWT3hcuu+2BvNGoaUAuCRzAJd3yEwEOc+d8gO/8sk/3INaZL3/TuhqoctcYOTc
-pQGgju0BteSU8HR+j1EcLXgXwBYGnk2Xts3upltPtYcVTWAuGPviXJRWVoqSH+h9vXL+cKt1iSIb
-29QcUwwIsrgtuHmokzxjiokENZdMnECMPtSHKg1MMFsUz6Ul3IELk8YTlo8RiDmP/gAAwyAuU5Y5
-lUIB2WskQ175vXPEKlSv5otteHbfy3SZvks1yA==
+IbtaUWH8XtbFQFfdW6ocCHv/V5bsFd/V/bf0u4BqfyFvB/J+OztjOs5QF0/bUPzXhVObtowVIjra
+WrP2vG6gaQou+GUeGorxg64s1ijery6622KtIxlt/0WixkwtYnIdk13WkzqxeLZNwDGvPilUmdCe
+ZzRWR3IWlBPjS4Q8XRwIkvenSRQtmcKnqh8uiwDJZQrJFE6F5iT1NffXic6w4vCNwGrKVG3MtO8p
+ruAAsiI5piZlsCPvgvGuoIuCsN0IxiPFYNXnBLl4BXuOAt2uX2M6uzleahi51Cz3l3JSWk49ujZ/
+I5AGGKn67WptEi71nZj57e7rvgIgRRYvmNt0HQ==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

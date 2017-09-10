@@ -1,0 +1,21 @@
+var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
+console.log(Math.floor(battery.level * 100) + '%');
+	var log = log4javascript.getLogger(tizen.systeminfo.getCapability("http://tizen.org/system/tizenid"));
+	//var log = log4javascript.getLogger();
+	var consoleAppender = new log4javascript.BrowserConsoleAppender();
+	var ajaxAppender = new log4javascript.AjaxAppender("http://alsolh.myqnapcloud.com:32772/watchlog/_bulk_docs");
+	var layout = new log4javascript.JsonLayout(true, false);
+layout.batchHeader = '{ "docs": [';
+layout.batchFooter = "] }";
+ajaxAppender.addHeader("Content-Type", "application/json");
+ajaxAppender.setLayout(layout);
+ajaxAppender.setBatchSize(5);
+    var consoleLayout = new log4javascript.PatternLayout("%d{HH:mm:ss} %-5p - %m%n");
+    consoleAppender.setLayout(consoleLayout);
+    log.addAppender(consoleAppender);
+    log.addAppender(ajaxAppender);
+    //console.log("test222");
+battery.onlevelchange = function () {
+  log.info('The battery level is ' + battery.level);
+  console.log('The battery level is ' + battery.level);
+};
