@@ -22,14 +22,17 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="js/log4javascript.js"></script>
-	<script type="text/javascript" src="js/batterylog.js"></script>
+	<script type="text/javascript" src="js/watchresourceslog.js"></script>
 	<script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
 	<!-- <script src="js/app.js"></script> -->
 	<script src="lowBatteryCheck.js"></script>
 	<script src="js/tau-config.js"></script>
-<!-- 	<script src="lib/tau/wearable/js/tau.js"></script> -->
+<script src="lib/tau/wearable/js/tau.js"></script>
 	<script src="js/core/core.js" data-main="./js/app.js"></script>
 	<script>
+	
+
+	
 var tizenId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
 document.getElementById("tizenId").innerText = tizenId;
 console.log(" tizenid = " + tizenId);
@@ -41,7 +44,7 @@ function isWatchRegistered(watchId){
     "_id": watchId
 };
 var req = new XMLHttpRequest();
-    req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId, true);
+    req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId.replace('+', '%2B'), true);
 req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
     req.setRequestHeader("Content-type", "application/json");
     req.onreadystatechange = function() {
@@ -49,7 +52,8 @@ req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'
                     console.log(this.status + ' - ' + this.responseText);
         var response = JSON.parse(this.responseText);
         	if(response.studentId != null){
-            window.open('authorized.html');
+            //window.open('authorized.html');
+            tau.changePage('authorizedV2.html');
             }
             else
             {

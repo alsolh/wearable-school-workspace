@@ -80,7 +80,8 @@ export class StudentsComponent implements OnInit {
   }
 
   updateWatchRecord() {
-    return this.http.put('http://alsolh.myqnapcloud.com:32772/watches/' + this.selectedWatch.id, '{"studentId": "' + this.selectedStudent.profile.id + '", "_rev": "' + this.selectedWatch.value.rev + '","studentName": "' + this.selectedStudent.profile.name.fullName + '"}').map((res: Response) => res.json());
+    console.log('http://alsolh.myqnapcloud.com:32772/watches/' + (this.selectedWatch.id).replace('+', '%2B'));
+    return this.http.put('http://alsolh.myqnapcloud.com:32772/watches/' + (this.selectedWatch.id).replace('+', '%2B'), '{"studentId": "' + this.selectedStudent.profile.id + '", "_rev": "' + this.selectedWatch.value.rev + '","studentName": "' + this.selectedStudent.profile.name.fullName + '"}').map((res: Response) => res.json());
   }
 
   getWatches() {
