@@ -1,11 +1,7 @@
 #delete
-res/wgt/js/batterylog.js
-res/wgt/rotaryEvent.js
 #add
-res/wgt/js/sensorsdatacollection.js
-res/wgt/js/watchresourceslog.js
 #modify
 res/wgt/author-signature.xml
 res/wgt/signature1.xml
-res/wgt/authorizedV2.html
-res/wgt/index.html
+res/wgt/pages/radio/radio.html
+res/wgt/pages/radio/radioQuestions.html

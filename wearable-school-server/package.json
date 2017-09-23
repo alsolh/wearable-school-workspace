@@ -7,12 +7,19 @@
   },
   "dependencies": {
     "body-parser": "~1.17.1",
+    "btoa": "^1.1.2",
+    "child_process": "^1.0.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
+    "fs": "0.0.1-security",
     "jade": "~1.11.0",
     "json-query": "^2.2.2",
+    "json2csv": "^3.11.2",
     "morgan": "~1.8.1",
-    "serve-favicon": "~2.4.2"
+    "pcap2csv": "^1.1.1",
+    "serve-favicon": "~2.4.2",
+    "walk": "^2.3.9",
+    "xmlhttprequest": "^1.8.0"
   }
 }

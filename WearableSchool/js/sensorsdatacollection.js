@@ -7,7 +7,7 @@
 	 * rotaryDetentHandler - rotarydetent event handler
 	 */
 	var page = document.getElementById( "authorizedPage" );
-	var mqttSubscribed = false;
+	//var mqttSubscribed = false;
 	var remainingSensorCalls = 6;
 	var remainingSensorCallsTimeout = 10;
 	var sensorsData = [];
@@ -33,63 +33,6 @@
 		console.log("tizenelement=" + tizenElement.outerHTML);
 		
 		console.log(" authpagetizenid = " + tizenId);
-			
-		// Create a client instance
-		client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32769), "clientId");
-
-		// set callback handlers
-		client.onConnectionLost = onConnectionLost;
-		client.onMessageArrived = onMessageArrived;
-
-		// connect the client
-		client.connect({onSuccess:onConnect});
-
-		// called when the client connects
-		function onConnect() {
-		  // Once a connection has been made, make a subscription and send a message.
-		  console.log("onConnect");
-		  client.subscribe("assessments/student1");
-		  mqttSubscribed = true;
-		  //message = new Paho.MQTT.Message("Hello");
-		  //message.destinationName = "World";
-		  //client.send(message);
-
-/*		var i = 0;
-		 var id = setInterval(function()
-		                {
-		                var wLocation = {"altitude":localStorage.getItem("altitude"),"longitude":localStorage.getItem("longitude"),"latitude":localStorage.getItem("latitude")};
-		                  message = new Paho.MQTT.Message(JSON.stringify(wLocation));
-		  message.destinationName = "telemetry/student1";
-		  // temporairly disabled to work on new integration
-		  // client.send(message);
-		            i = i + 1;
-		            navigator.geolocation.getCurrentPosition(showMap);
-		            
-		            },5000);*/
-
-		}
-
-
-
-/*		function showMap(position) {
-		      //console.log(position.coords.latitude);
-		      localStorage.setItem("longitude", position.coords.longitude);
-		      localStorage.setItem("latitude", position.coords.latitude);
-		    }*/
-
-		// called when the client loses its connection
-		function onConnectionLost(responseObject) {
-		  if (responseObject.errorCode !== 0) {
-		    console.log("onConnectionLost:"+responseObject.errorMessage);
-		  }
-		}
-
-		// called when a message arrives
-		function onMessageArrived(message) {
-		  console.log("onMessageArrived:"+message.payloadString);
-		  localStorage.setItem("questions", message.payloadString);
-		  window.open('pages/radio/radioQuestions.html');
-		}
 
 		// sensors playground
 
@@ -244,7 +187,8 @@
 		function checkIfCompleted(){
 		console.log("checking " + remainingSensorCalls);
 		remainingSensorCallsTimeout = remainingSensorCallsTimeout - 1;
-		if ((remainingSensorCalls < 1 || remainingSensorCallsTimeout < 1) && mqttSubscribed === true) {
+		// && mqttSubscribed === true
+		if ((remainingSensorCalls < 1 || remainingSensorCallsTimeout < 1)) {
 		console.log("all sensors done");
 		clearInterval(refreshIntervalId);
 		message = new Paho.MQTT.Message(JSON.stringify(sensorsData));

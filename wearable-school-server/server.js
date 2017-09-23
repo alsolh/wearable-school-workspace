@@ -1,6 +1,11 @@
+var http = require('http');
+var btoa = require('btoa');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var xhr = new XMLHttpRequest();
 var mqtt = require('mqtt');
 var jsonQuery = require('json-query');
-var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32770');
+//var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32770');
+var client  = mqtt.connect('mqtt://192.168.43.10:1883');
 var questions = '';
 var savedDistance = 0;
 
@@ -29,84 +34,178 @@ console.log(TOKEN_PATH);
 
 client.on('connect', function () {
     client.subscribe('telemetry/student1');
+    client.subscribe('wrapper/#');
     //client.publish('World','testssss111222333');
 })
 
+function registerWatch(data){
+/*    var req = new XMLHttpRequest();
+    req.open("POST", 'http://192.168.43.10:5984/watches', true);
+    //req.open("POST", 'http://alsolh.myqnapcloud.com:32772/watches', true);
+    req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
+    req.setRequestHeader("Content-type", "application/json");
+    req.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            console.log(this.status + ' - ' + this.responseText);
+            //window.open('authorized.html');
+        }
+    };
+    req.send(JSON.stringify(data));*/
+// An object of options to indicate where to post to
+    var post_options = {
+        host: '192.168.43.10',
+        port: '5984',
+        path: '/watches',
+        method: 'POST',
+        headers: {
+            'Authorization': "Basic " + btoa('admin' + ":" + 'asolh787'),
+            'Content-Type': 'application/json'
+        }
+    };
+
+    // Set up the request
+    var post_req = http.request(post_options, function(res) {
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('Response: ' + chunk);
+        });
+    });
+
+    // post the data
+    post_req.write(JSON.stringify(data));
+    post_req.end();
+
+}
+
 client.on('message', function (topic, message) {
-    // message is Buffer
-    console.log(message.toString());
-    telemetry = JSON.parse(message);
-    gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
-        data: telemetry
-    }).value;
-    //console.log(gpsTelemetry.value.longitude);
-    resultQuestions = clone(questions);
-    if(!(questions === '')) {
-        //start of handling new question format
-        for (var i = 0; i < resultQuestions.courseWork.length; i++) {
-            try {
-                qtiContent = JSON.parse(questions.courseWork[i].description);
-                requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
-                //TODO:Add or condition / better loop it for each sensor type
-                pedoTelemetry = jsonQuery('[sensorName='+ requiredSensors[0] +'].value', {
-                    data: telemetry
-                }).value;
-                for (var attributename in pedoTelemetry) {
-                    console.log(attributename + ": " + pedoTelemetry[attributename]);
-                    qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<'+ requiredSensors[0] +'.' + attributename + '>',pedoTelemetry[attributename]));
-                    resultQuestions.courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(resultQuestions.courseWork[i].multipleChoiceQuestion.choices).replaceAll('<'+ requiredSensors[0] +'.' + attributename + '>',pedoTelemetry[attributename]));
+    if(topic.indexOf('isWatchRegistered') > -1) {
+        console.log(topic);
+        console.log(message.toString());
+        payLoad = JSON.parse(message.toString());
+        var req = new XMLHttpRequest();
+        //req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId.replace('+', '%2B'), true);
+        req.open("GET", payLoad.url, true);
+        req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
+        req.setRequestHeader("Content-type", "application/json");
+        req.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                console.log(this.status + ' - ' + this.responseText);
+                var response = JSON.parse(this.responseText);
+                if(response.studentId != null){
+                    client.publish('response/student1/isWatchRegistered', "true");
+                    //window.open('authorized.html');
                 }
-                //process variables
-                if(qtiContent.itemBody.variables != null) {
-                    for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
-                        qtiContent.itemBody.variables[j] = eval(qtiContent.itemBody.variables[j]);
-                        console.log(qtiContent.itemBody.variables[j]);
+                else
+                {
+                    //no need to send back false
+                    registerWatch(payLoad.data)
+                }
+            }
+        };
+        req.send(payLoad.data);
+    }
+    else if (topic.indexOf('wrapper') > -1){
+        payLoad = JSON.parse(message.toString());
+        var post_options = {
+            host: payLoad.host,
+            port: payLoad.port,
+            path: payLoad.path,
+            method: payLoad.method,
+            headers: {
+                'Authorization': "Basic " + btoa('admin' + ":" + 'asolh787'),
+                'Content-Type': 'application/json'
+            }
+        };
+
+        // Set up the request
+        var post_req = http.request(post_options, function(res) {
+            res.setEncoding('utf8');
+            res.on('data', function (chunk) {
+                console.log('Response: ' + chunk);
+                client.publish(topic.replace("wrapper","response"), 'Response: ' + chunk);
+            });
+        });
+
+        // post the data
+        post_req.write(JSON.stringify(payLoad.data));
+        post_req.end();
+    }
+    else {
+        // message is Buffer
+        console.log(message.toString());
+        telemetry = JSON.parse(message);
+        gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
+            data: telemetry
+        }).value;
+        //console.log(gpsTelemetry.value.longitude);
+        resultQuestions = clone(questions);
+        if (!(questions === '')) {
+            //start of handling new question format
+            for (var i = 0; i < resultQuestions.courseWork.length; i++) {
+                try {
+                    qtiContent = JSON.parse(questions.courseWork[i].description);
+                    requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
+                    //TODO:Add or condition / better loop it for each sensor type
+                    pedoTelemetry = jsonQuery('[sensorName=' + requiredSensors[0] + '].value', {
+                        data: telemetry
+                    }).value;
+                    for (var attributename in pedoTelemetry) {
+                        console.log(attributename + ": " + pedoTelemetry[attributename]);
+                        qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
+                        resultQuestions.courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(resultQuestions.courseWork[i].multipleChoiceQuestion.choices).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
                     }
-                    for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
-                        qtiContent.itemBody.p = qtiContent.itemBody.p.replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
-                        for (var k = 0; k < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; k++) {
-                            resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k] = resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
+                    //process variables
+                    if (qtiContent.itemBody.variables != null) {
+                        for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
+                            qtiContent.itemBody.variables[j] = eval(qtiContent.itemBody.variables[j]);
+                            console.log(qtiContent.itemBody.variables[j]);
+                        }
+                        for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
+                            qtiContent.itemBody.p = qtiContent.itemBody.p.replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
+                            for (var k = 0; k < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; k++) {
+                                resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k] = resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
+                            }
                         }
                     }
+                    //end process variables
+                    resultQuestions.courseWork[i].description = qtiContent;
+                    for (var j = 0; j < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; j++) {
+                        resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j] = eval(resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j]);
+                    }
+
+
+                    console.log(JSON.stringify(resultQuestions));
+                } catch (err) {
+                    // handle the error safely
+                    console.log(err);
                 }
-                //end process variables
-                resultQuestions.courseWork[i].description = qtiContent;
-                for (var j = 0; j < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; j++) {
-                    resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j] = eval(resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j]);
-                }
 
-
-                console.log(JSON.stringify(resultQuestions));
-            } catch (err) {
-        // handle the error safely
-        console.log(err);
-    }
-
-        }
-        client.publish('assessments/student1',JSON.stringify(resultQuestions));
-/*
-        var targetedQuestion = '';
-        console.log(questions.courseWork[1].title);
-        targetedQuestion = clone(questions);
-        questionContent = JSON.parse(questions.courseWork[1].description);
-        var distance = getDistanceFromLonLatInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
-        if (!(savedDistance === distance)) {
-            targetedQuestion.courseWork[1].description = questionContent.body.replace('<value>', distance);
-            console.log(targetedQuestion.courseWork[1].description);
-            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion);
-            for (var i = 0; i < targetedQuestion.courseWork[1].multipleChoiceQuestion.choices.length; i++) {
-                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
-                targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i].replace('<value>', distance);
-                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
-                targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = eval(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]).toFixed(2);
-                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
             }
-            console.log(JSON.stringify(targetedQuestion));
-            //client.publish('assessments/student1',JSON.stringify(targetedQuestion));
-            savedDistance = distance;
-        }*/
+            client.publish('assessments/student1', JSON.stringify(resultQuestions));
+            /*
+                    var targetedQuestion = '';
+                    console.log(questions.courseWork[1].title);
+                    targetedQuestion = clone(questions);
+                    questionContent = JSON.parse(questions.courseWork[1].description);
+                    var distance = getDistanceFromLonLatInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
+                    if (!(savedDistance === distance)) {
+                        targetedQuestion.courseWork[1].description = questionContent.body.replace('<value>', distance);
+                        console.log(targetedQuestion.courseWork[1].description);
+                        console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion);
+                        for (var i = 0; i < targetedQuestion.courseWork[1].multipleChoiceQuestion.choices.length; i++) {
+                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                            targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i].replace('<value>', distance);
+                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                            targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = eval(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]).toFixed(2);
+                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                        }
+                        console.log(JSON.stringify(targetedQuestion));
+                        //client.publish('assessments/student1',JSON.stringify(targetedQuestion));
+                        savedDistance = distance;
+                    }*/
+        }
+        //client.end()
     }
-    //client.end()
 })
 
 function clone(a) {

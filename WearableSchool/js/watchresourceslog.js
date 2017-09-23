@@ -6,7 +6,8 @@ var log = log4javascript.getLogger(tizen.systeminfo
 // var log = log4javascript.getLogger();
 var consoleAppender = new log4javascript.BrowserConsoleAppender();
 var ajaxAppender = new log4javascript.AjaxAppender(
-		"http://alsolh.myqnapcloud.com:32772/watchlog/_bulk_docs");
+"http://192.168.43.10:5984/watchlog/_bulk_docs");
+		//"http://alsolh.myqnapcloud.com:32772/watchlog/_bulk_docs");
 var layout = new log4javascript.JsonLayout(true, false);
 layout.batchHeader = '{ "docs": [';
 layout.batchFooter = "] }";

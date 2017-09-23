@@ -16,15 +16,15 @@
 </Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>jS6+WsiKEC8UTU4AaSoxD9CQFGROFSDxcj6Bkx1w6ng=</DigestValue>
+<DigestValue>765UDmHV0bI6qb8J0uiGE5khf8nKMtVfzUEp4mroKw0=</DigestValue>
 </Reference>
 <Reference URI="authorized.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>vxDzf/kryne9s3cQSln5Bu6tGVQLMLo5TkKXfTrwgDA=</DigestValue>
+<DigestValue>c7m9alRTmzyQjEIkIDDaApE4u8jOY682ou5FkLbncVc=</DigestValue>
 </Reference>
 <Reference URI="authorizedV2.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>poV3wnuaC8T61ol7Up13JyY+t/wWTnkm4iIASY0MeIs=</DigestValue>
+<DigestValue>L/onchutRk9JcLLoFC2Phf7qeY8hXgbrGLWOSuR18dI=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -124,7 +124,7 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>vFV6f2dXeZcstO5bJaFi/HXdSd6lL5+t/Yw0eLPZVAI=</DigestValue>
+<DigestValue>H1NuW9TSUEZuexJO4bROiBVCyn3v9SswYDNqOUU246I=</DigestValue>
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -194,13 +194,17 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>B5KsBGYoyrCaO2llrP1ZqoDpMCm9RFGLTNi/Q3pxt+4=</DigestValue>
 </Reference>
+<Reference URI="js%2Fmqttoperations.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>51C/pGAmITkodOxCOS8E5cSbxQQXlGCw9h1UH/LoWkc=</DigestValue>
+</Reference>
 <Reference URI="js%2Fmqttws31.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>jKYwsE6QyzCvLxmPUwxOlbamHM76flKIz+zhg5DarXI=</DigestValue>
 </Reference>
 <Reference URI="js%2Fsensorsdatacollection.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>y34z//8gPChT1/gQ0bazt+x/uu+XO1Un1bmGNZr8NNQ=</DigestValue>
+<DigestValue>YLTBQvM6wv88zsbXzgdyoYMd3vrgDTN7ANVitm+VoE0=</DigestValue>
 </Reference>
 <Reference URI="js%2Ftau-config.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -216,7 +220,7 @@
 </Reference>
 <Reference URI="js%2Fwatchresourceslog.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>x9wYxv9BitggpDMNzMQgrwXKlFr4t96cQFE0JuBBo2M=</DigestValue>
+<DigestValue>6aETkfKQUz1e8bX/V0oKdpf5nQ3CAJ/EGD0+CFekcJw=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2FLICENSE.Flora">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1196,7 +1200,7 @@
 </Reference>
 <Reference URI="pages%2FQuestionContent.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>TW5B44OoDgGuFESXOtFemosHR1XZUUJE2Vdg5d+ILjk=</DigestValue>
+<DigestValue>E5X2eFWdQBAA053mfEUX9ZOfMK0LQmdo/d9Rp0vmHYk=</DigestValue>
 </Reference>
 <Reference URI="pages%2Fcss%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1234,15 +1238,31 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>Vsk08gEh/AgfZFt6hw0jGWt9c4M4RHlqWR+JeuY4fLM=</DigestValue>
 </Reference>
+<Reference URI="pages%2FquestionContent.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>dhTZh3B3Ipzq1hgTaot64l7ciYkB1ppiQyZVJsu0wWU=</DigestValue>
+</Reference>
 <Reference URI="pages%2Fradio%2Fradio.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>AgJE6BvgVaGvWxZmQqsZdw++K3mvSV0q3LeimJbo754=</DigestValue>
+<DigestValue>QNtYOQYNTjNeEqwUyxVHhR+dl5BVN8QUV7ysUWcP+28=</DigestValue>
+</Reference>
+<Reference URI="pages%2Fradio%2Fradio.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>PyMTrPOSKwzF0Pla94CufG44GZrlSbGZAPhqzGO/tWk=</DigestValue>
 </Reference>
 <Reference URI="pages%2Fradio%2FradioQuestions.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>2kR/H3yYozofIILnklFdRK9xJQVFy2n+9FjH/sFxsQ4=</DigestValue>
+<DigestValue>I/rRxQmlEhFKV7V1hABpq+EzpdfS2wNltT2b0YH4vP4=</DigestValue>
+</Reference>
+<Reference URI="pages%2Fradio%2FradioQuestions.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>X83ZHH8Bi0BlCeVWxdL6iKauirROALrfPEbBqLRCmLQ=</DigestValue>
 </Reference>
 <Reference URI="pages%2Fradio%2Fstyle.css">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>49hFWFf0xNOxNnvjJg2c9r3YYepc3268uerfYim+koQ=</DigestValue>
+</Reference>
+<Reference URI="pages%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>49hFWFf0xNOxNnvjJg2c9r3YYepc3268uerfYim+koQ=</DigestValue>
 </Reference>
@@ -1259,11 +1279,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-N9tN8aS/eV5W+dTAHnv/UHFHC/oCdYAn6BpDj79Is2sl2bMZN7yo0A5W3mpajTuvIy654mTmz0HU
-EcAolzZJcIWune75v9oBu7VR/BJeSH20DA3uGlWQ9jve/V2eulxk47A8e1akgvmKwCv1O8NkDENz
-+EqSI7zWuE8AA42sNnc7Fq9qWcbHVhiWd5nE5JeSzUMbjrQB9Z3JZRQ8Q9gYjXUIC++6s0nLiUrw
-MlNhO3Fvf/xGjmoiBQ6fFCMvtjZxcUEYp2zE10xZZ9ObLZReRE3y4ESDXQSlOuq7h7r7TmEN2+If
-yeQj7ump1RHUgr+kUnZoVn7NUX55/j3NuxEkKQ==
+gLgxHK4yxKc/ZbJMKuFum0LZuMpwGhKMaoRLCOxm3mTYBdLCHEkewjXH4HjmQjTqtx1PI6pCYo7W
+2Zsg9VkPuAmdKpW91fQoyxDSvoKIrwZUsjuoFB9e9E9kyHEB2qJWhkK438N+tOntCArMm+j8n4KR
+jdb2SNfRA/KMIpBQ3CwnoWtiOTRIZGYlzz2L8rHU79Z4pjZkSMA/URqd+YrvULbJ+eWM/vLwx0K3
+/Fup2sMmJrf4AM+prcp6UCcbVk7T25QTr4kvdjWLHbCeSzF4EW3JWDlWTFE/zJUMeFeBo+AIm6AF
+0OY7rJ6Cz1DKTdQKxAJZr+RTn057NrO+0CcTyw==
 </SignatureValue>
 <KeyInfo>
 <X509Data>

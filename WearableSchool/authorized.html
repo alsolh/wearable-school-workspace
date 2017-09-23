@@ -50,7 +50,8 @@ document.getElementById("tizenId").innerText = tizenId;
 console.log(" tizenid = " + tizenId);
 	
 // Create a client instance
-client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32769), "clientId");
+//client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32769), "clientId");
+client = new Paho.MQTT.Client('192.168.43.10', Number(3000), "clientId");
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost;
