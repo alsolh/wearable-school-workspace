@@ -42,7 +42,7 @@
 					
 
 
-								message = new Paho.MQTT.Message(JSON.stringify({method:"POST",data:answerData,host:"192.168.43.10",port:"5984",path:"/wearable"}));
+								message = new Paho.MQTT.Message(JSON.stringify({method:"POST",data:answerData,host:"192.168.43.10",port:"5984",path:"/wearable",sessionId:localStorage.getItem("sessionId")}));
 								message.destinationName = "wrapper/student1/postAnswer";
 								console.log(JSON.stringify(message));
 								client.send(message);
@@ -87,6 +87,13 @@
 						}, false);
 					}
 					    //document.getElementById('menu-detail').innerText = questionObject.courseWork[0].description;
+					
+					if(localStorage.getItem("automated") == "true"){
+					    setTimeout(function () {
+					    	document.getElementById('0radioanswer').click();
+					    	document.getElementById('okButton1').click();
+					    }, 1000);
+					}
 			});
 
 			/**

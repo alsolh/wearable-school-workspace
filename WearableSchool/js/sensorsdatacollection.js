@@ -191,6 +191,7 @@
 		if ((remainingSensorCalls < 1 || remainingSensorCallsTimeout < 1)) {
 		console.log("all sensors done");
 		clearInterval(refreshIntervalId);
+		sensorsData.push({sessionId:localStorage.getItem("sessionId")});
 		message = new Paho.MQTT.Message(JSON.stringify(sensorsData));
 		message.destinationName = "telemetry/student1";
 		client.send(message);

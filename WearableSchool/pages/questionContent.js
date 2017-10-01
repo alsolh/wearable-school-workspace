@@ -36,6 +36,11 @@
 					tau.changePage('radio/radio.html');
 					}, false);
 			    
+				if(localStorage.getItem("automated") == "true"){
+				    setTimeout(function () {
+				    	document.getElementById('calibration-btn').click();
+				    }, 1000);
+				}
 			    
 			});
 

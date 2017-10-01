@@ -78,13 +78,13 @@ function registerWatch(data){
 }
 
 client.on('message', function (topic, message) {
+    console.log(topic);
+    console.log(message.toString());
     if(topic.indexOf('isWatchRegistered') > -1) {
-        console.log(topic);
-        console.log(message.toString());
         payLoad = JSON.parse(message.toString());
         var req = new XMLHttpRequest();
         //req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId.replace('+', '%2B'), true);
-        req.open("GET", payLoad.url, true);
+        req.open("GET", payLoad.url.replace('+', '%2B'), true);
         req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
         req.setRequestHeader("Content-type", "application/json");
         req.onreadystatechange = function() {
