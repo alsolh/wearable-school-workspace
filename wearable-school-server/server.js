@@ -1,3 +1,12 @@
+var bunyan = require('bunyan');
+var LogStream = require('bunyan-couchdb-stream');
+var log = bunyan.createLogger({
+    name: 'wearableschoolserver',
+    //streams: [{
+    //    stream: new LogStream('http://admin:asolh787@192.168.43.10:5984/watchlog'),
+    //    type: 'raw' // this is required
+    //}],
+});
 var http = require('http');
 var btoa = require('btoa');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -78,10 +87,23 @@ function registerWatch(data){
 }
 
 client.on('message', function (topic, message) {
+    var d = new Date();
+    var n = d.getTime();
+    payLoad = JSON.parse(message.toString());
+    var responseTimeMW;
+    try {
+        responseTimeMW = payLoad.responseTimeLog;
+    responseTimeMW.records.push({txTime: n, endPoint: "middleware"});
+        console.log(responseTimeMW);
+    }
+    catch (ex){
+
+    }
+    log.info({txn:'testbunyan',epochTime:n},topic);
     console.log(topic);
     console.log(message.toString());
     if(topic.indexOf('isWatchRegistered') > -1) {
-        payLoad = JSON.parse(message.toString());
+
         var req = new XMLHttpRequest();
         //req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId.replace('+', '%2B'), true);
         req.open("GET", payLoad.url.replace('+', '%2B'), true);
@@ -92,7 +114,7 @@ client.on('message', function (topic, message) {
                 console.log(this.status + ' - ' + this.responseText);
                 var response = JSON.parse(this.responseText);
                 if(response.studentId != null){
-                    client.publish('response/student1/isWatchRegistered', "true");
+                    client.publish('response/student1/isWatchRegistered', JSON.stringify({responseTimeLog:responseTimeMW,response:true}));
                     //window.open('authorized.html');
                 }
                 else

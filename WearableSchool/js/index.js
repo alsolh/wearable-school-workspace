@@ -3,6 +3,7 @@
 		(function(){
 			
 			
+			
 			var page = document.getElementById( "main" );
 
 			/**
@@ -13,20 +14,11 @@
 			page.addEventListener("pagebeforeshow", function() {
 				//TODO:put the correct location later
 				
-				function guid() {
-					  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-					    s4() + '-' + s4() + s4() + s4();
-					}
-
-					function s4() {
-					  return Math.floor((1 + Math.random()) * 0x10000)
-					    .toString(16)
-					    .substring(1);
-					}
-
-					localStorage.setItem("sessionId", guid());
+				console.log('pageChangedyestests')
+			
+					localStorage.setItem("sessionId", sessionId);
 				
-				localStorage.setItem("automated", false);
+				localStorage.setItem("automated", true);
 				if(localStorage.getItem("automated") == "true"){
 				    setTimeout(function () {
 				    	console.log('maintain screen state');

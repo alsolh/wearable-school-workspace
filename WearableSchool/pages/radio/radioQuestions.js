@@ -68,7 +68,7 @@
 				
 				if(localStorage.getItem("automated") == "true"){
 				    setTimeout(function () {
-				    	document.getElementById('0radio').click();
+				    	document.getElementById('1radio').click();
 				    	document.getElementById('okButton').click();
 				    }, 1000);
 				}

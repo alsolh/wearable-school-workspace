@@ -45,6 +45,7 @@
 								message = new Paho.MQTT.Message(JSON.stringify({method:"POST",data:answerData,host:"192.168.43.10",port:"5984",path:"/wearable",sessionId:localStorage.getItem("sessionId")}));
 								message.destinationName = "wrapper/student1/postAnswer";
 								console.log(JSON.stringify(message));
+								log.info({logType:'txLog',txnType:'0.postAnswerStart',endPoint:'watch'});
 								client.send(message);
 
 
