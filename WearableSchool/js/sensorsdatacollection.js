@@ -7,6 +7,7 @@
 	 * rotaryDetentHandler - rotarydetent event handler
 	 */
 	var page = document.getElementById( "authorizedPage" );
+	var timesPageLoaded = 0;
 	//var mqttSubscribed = false;
 	var remainingSensorCalls = 6;
 	var remainingSensorCallsTimeout = 10;
@@ -14,6 +15,7 @@
 	var tizenId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
 	var tizenElement = document.getElementById("tizenId");
 	tizenElement.innerText = tizenId;
+	var refreshIntervalId;
 
 	/**
 	 * pagebeforeshow event handler
@@ -24,11 +26,18 @@
 	
 
 	page.addEventListener("pagebeforeshow", function() {
+		timesPageLoaded = timesPageLoaded + 1;
+		//refreshIntervalId = null;
+		if(timesPageLoaded < 2){
 		try {
+
+			sensorsData = [];
+		console.log("continous? - " + localStorage.getItem("continous"));
 		//alert('test');
 		console.log(page.innerHTML);
 		console.log('startNewAuth2Page');
 		var tizenId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
+		var encodedWatchId = encodeURIComponent(tizenId); 
 		var tizenElement = document.getElementById("smwatchId");
 		tizenElement.innerText = tizenId;
 		console.log("tizenelement=" + tizenElement.outerHTML);
@@ -86,7 +95,9 @@
 		     //console.log("From now on, you will be notified when the pedometer data changes.");
 		     // To get the current data information
 		     tizen.humanactivitymonitor.getHumanActivityData("HRM", HRMSonsuccessCB);
-		     tizen.humanactivitymonitor.stop("HRM");
+		     if(localStorage.getItem("continous") != "true"){
+		    	 tizen.humanactivitymonitor.stop("HRM"); 
+		     }
 				}
 				catch(err) {
 				    console.log(err.message);
@@ -130,7 +141,9 @@
 		     	 var sensorData = { "sensorName":"GPS", "value":gpsInfo.gpsInfo[0] };
 		     sensorsData.push(sensorData);
 		     console.log(JSON.stringify(sensorsData));
-		               tizen.humanactivitymonitor.stop('GPS');
+		     if(localStorage.getItem("continous") != "true"){
+		    	 tizen.humanactivitymonitor.stop('GPS');
+		     }
 		               remainingSensorCalls = remainingSensorCalls - 1;
 			}
 			catch(err) {
@@ -188,7 +201,10 @@
 		function LSonsuccessCB() {
 		    console.log('light sensor started');
 		    lightSensor.getLightSensorData(onGetSuccessLightCB);
-		    lightSensor.stop();
+		    if(localStorage.getItem("continous") != "true"){
+		    	lightSensor.stop();
+		    }
+		    
 		}
 
 		
@@ -220,8 +236,11 @@
 			 
 		    var sensorData = { "sensorName":"PRESSURE", "value":sensorData };
 		     sensorsData.push(sensorData);
-		     console.log(JSON.stringify(sensorsData));  
-		     pressureSensor.stop();  
+		     console.log(JSON.stringify(sensorsData)); 
+			    if(localStorage.getItem("continous") != "true"){
+			    	pressureSensor.stop();
+			    }
+		       
 		     remainingSensorCalls = remainingSensorCalls - 1;                     
 		 }
 
@@ -242,8 +261,10 @@
 			  console.log("success uv");
 		    var sensorData = { "sensorName":"ULTRAVIOLET", "value":sensorData };
 		     sensorsData.push(sensorData);
-		     console.log(JSON.stringify(sensorsData));  
-		     ultravioletSensor.stop();   
+		     console.log(JSON.stringify(sensorsData));
+			    if(localStorage.getItem("continous") != "true"){
+			    	ultravioletSensor.stop(); 
+			    }
 		     remainingSensorCalls = remainingSensorCalls - 1;                    
 		 }
 			}
@@ -256,8 +277,13 @@
 		// sensors playground
 
 		// wait for all values to finish
-
-		var refreshIntervalId = setInterval(checkIfCompleted, 1000);
+			
+			if(localStorage.getItem("continous") != "true"){
+		refreshIntervalId = setInterval(checkIfCompleted, 1000);
+			}
+			else{
+					refreshIntervalId = setInterval(sendMQTTMessage, 10000);
+			}
 
 		function checkIfCompleted(){
 		console.log("checking " + remainingSensorCalls);
@@ -266,15 +292,21 @@
 		if ((remainingSensorCalls < 1 || remainingSensorCallsTimeout < 1)) {
 		console.log("all sensors done");
 		clearInterval(refreshIntervalId);
-		sensorsData.push({sessionId:localStorage.getItem("sessionId")});
-		message = new Paho.MQTT.Message(JSON.stringify(sensorsData));
-		message.destinationName = "telemetry/student1";
-		log.info({logType:'txLog',txnType:'0.telemetryStart',endPoint:'watch'});
-		client.send(message);
+		sendMQTTMessage();
 		}
+		}
+		
+		function sendMQTTMessage(){
+			sensorsData.push({sessionId:localStorage.getItem("sessionId")});
+			message = new Paho.MQTT.Message(JSON.stringify(sensorsData));
+			message.destinationName = "telemetry/" + encodedWatchId;
+			log.info({logType:'txLog',txnType:'0.telemetryStart',endPoint:'watch'});
+			client.send(message);
+			sensorsData = [];
 		}
 
 		// end wait
+		}
 	});
 
 	/**
@@ -282,6 +314,8 @@
 	 * Destroys and removes event listeners
 	 */
 	page.addEventListener("pagehide", function() {
+		//console.log("pagehidecalled");
+		//clearInterval(refreshIntervalId);
 		//progressBarWidget.destroy();
 		//document.removeEventListener("rotarydetent", rotaryDetentHandler);
 	});

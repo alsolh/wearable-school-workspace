@@ -3,6 +3,8 @@
 		/*global tau */
 		(function(){
 			
+			var watchId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
+			var encodedWatchId = encodeURIComponent(watchId);
 			var page = document.getElementById( "main" );
 
 			/**
@@ -30,8 +32,8 @@
 				function onConnect() {
 				  // Once a connection has been made, make a subscription and send a message.
 				  console.log("onConnect");
-				  client.subscribe("assessments/student1");
-				  client.subscribe("response/student1/#");
+				  client.subscribe("assessments/" + encodedWatchId);
+				  client.subscribe("response/" + encodedWatchId + "/#");
 				  //mqttSubscribed = true;
 				  //message = new Paho.MQTT.Message("Hello");
 				  //message.destinationName = "World";
@@ -42,7 +44,8 @@
 				  
 					message = new Paho.MQTT.Message(JSON.stringify({responseTimeLog:{sessionId:localStorage.getItem("sessionId"),txnId:guid(),txType:'authentication',records:[{txTime:n,endPoint:'watch'}]},operation:"GET",data:{
 					    "_id":watchId},url:'http://192.168.43.10:5984/watches/' + watchId}));
-					message.destinationName = "wrapper/student1/isWatchRegistered";
+					//TODO: change to wrapper/isWatchRegistered
+					message.destinationName = "wrapper/" + encodedWatchId + "/isWatchRegistered";
 					log.info({logType:'txLog',txnType:'0.authenticationStart',endPoint:'watch'});
 					client.send(message);
 					
@@ -84,16 +87,34 @@
 				// called when a message arrives
 				function onMessageArrived(message) {
 					if(message.destinationName.indexOf('isWatchRegistered') > -1) {
-						log.info({logType:'txLog',txnType:'1.authenticationEnd', endPoint: "watch"});
+						//log.info({logType:'txLog',txnType:'1.authenticationEnd', endPoint: "watch"});
 						console.log("onMessageResponseArrived:"+message.payloadString);
 						payLoad = JSON.parse(message.payloadString);
-					    var d = new Date();
-					    var n = d.getTime();
-					    payLoad.responseTimeLog.records.push({txTime: n, endPoint: "watch"})
+					    //var d = new Date();
+					    //var n = d.getTime();
+					    //payLoad.responseTimeLog.records.push({txTime: n, endPoint: "watch"})
 						//TODO:RemoveRedundantOperation
 					    //log.info(payLoad.responseTimeLog);
-						if(payLoad.response == true){
-						tau.changePage('authorizedV2.html');
+					    
+						if(payLoad.studentId != null){
+						try{
+						localStorage.setItem("automated", payLoad.automated);
+						localStorage.setItem("mode", payLoad.mode);
+						if(localStorage.getItem("automated") == "true"){
+						    setTimeout(function () {
+						    	console.log('maintain screen state');
+						    	//tizen.power.request('SCREEN', 'CPU_AWAKE');
+						    	tizen.power.request("SCREEN", "SCREEN_NORMAL");
+						    	tizen.power.turnScreenOn();
+						    	//tizen.power.setScreenBrightness(1);
+						    	//tizen.power.restoreScreenBrightness();
+						    }, 1000);
+						}
+						}
+						catch(err){
+							
+						}
+						tau.changePage('/pages/radio/radioQuestionsMode.html');
 						}
 					}
 					else if(message.destinationName.indexOf('postAnswer') > -1){
@@ -103,7 +124,13 @@
 						if(localStorage.getItem("automated") == "true"){
 						    //setTimeout(function () {
 							localStorage.setItem("logger1",JSON.stringify(logData));
+							if(localStorage.getItem("continous") != "true"){
 						    	window.location.href = ('/index.html');
+							}
+							else {
+								//window.location.href = ('/index.html');
+								tau.changePage('/authorizedV2.html');
+							}
 							//window.open('/index.html');
 						    //}, 1000);
 						}

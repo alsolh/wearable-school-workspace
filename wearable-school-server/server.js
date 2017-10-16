@@ -42,7 +42,7 @@ var TOKEN_PATH = TOKEN_DIR + 'classroom.googleapis.com-nodejs-quickstart.json';
 console.log(TOKEN_PATH);
 
 client.on('connect', function () {
-    client.subscribe('telemetry/student1');
+    client.subscribe('telemetry/#');
     client.subscribe('wrapper/#');
     //client.publish('World','testssss111222333');
 })
@@ -114,7 +114,9 @@ client.on('message', function (topic, message) {
                 console.log(this.status + ' - ' + this.responseText);
                 var response = JSON.parse(this.responseText);
                 if(response.studentId != null){
-                    client.publish('response/student1/isWatchRegistered', JSON.stringify({responseTimeLog:responseTimeMW,response:true}));
+                    console.log(topic.replace("wrapper","response"));
+                    //client.publish(topic.replace("wrapper","response"), JSON.stringify({responseTimeLog:responseTimeMW,response:true}));
+                    client.publish(topic.replace("wrapper","response"), this.responseText);
                     //window.open('authorized.html');
                 }
                 else
@@ -203,7 +205,7 @@ client.on('message', function (topic, message) {
                 }
 
             }
-            client.publish('assessments/student1', JSON.stringify(resultQuestions));
+            client.publish(topic.replace("telemetry","assessments"), JSON.stringify(resultQuestions));
             /*
                     var targetedQuestion = '';
                     console.log(questions.courseWork[1].title);

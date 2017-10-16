@@ -118,6 +118,7 @@ ns.version = '0.11.7';
 		* @param {...*} argument
 		* @member ns
 		*/
+//FIXME:Disabled on purpose to prevent slowness
 		ns.error = function () {
 			var args = slice.call(arguments);
 			infoForLog(args);

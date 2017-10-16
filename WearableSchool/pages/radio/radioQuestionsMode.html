@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<title>Wearable UI</title>
+<link rel="stylesheet"
+	href="/lib/tau/wearable/theme/default/tau.min.css">
+	    <script type="text/javascript" src="lib/tau/wearable/js/tau.min.js"></script>
+	<script src="lowBatteryCheck.js"></script>
+	<script src="js/tau-config.js"></script>
+    <script src="lib/tau/wearable/js/tau.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="ui-page" id="ModePage"
+		data-enable-page-scroll="true">
+		<header class="ui-header">
+			<h2 class="ui-title">Select Mode</h2>
+		</header>
+		<div class="ui-content">
+			<ul class="ui-listview" id="answersMode">
+							<li id="radioOnDemand" class="li-has-radio"><label> On Demand <input id="radioOnDemandinput" type="radio"
+						name="radio-sample" checked="checked" />
+				</label></li>
+								<li id="radioContinous" class="li-has-radio"><label> Continous <input id="radioOnDemandinput" type="radio"
+						name="radio-sample" />
+				</label></li>
+			</ul>
+		</div>
+		<footer class="ui-footer ui-bottom-button ui-fixed">
+			<button class="ui-btn" id="okButtonMode" >OK</button>
+		</footer>
+		<script src="radioQuestionsMode.js"></script>
+	</div>
+	<script>    
+    //document.getElementById('menu-detail').innerText = questionObject.courseWork[0].description;
+    </script>
+</body>
+<script type="text/javascript"
+	src="/lib/tau/wearable/js/tau.min.js"></script>
+</html>
