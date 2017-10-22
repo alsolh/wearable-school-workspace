@@ -98,6 +98,12 @@
 					    
 						if(payLoad.studentId != null){
 						try{
+							localStorage.setItem("studentId", payLoad.studentId);
+							localStorage.setItem("studentEmail", payLoad.studentEmail);
+							localStorage.setItem("telemetrySendInterval", payLoad.telemetrySendInterval);
+							localStorage.setItem("timeoutSelectMode", payLoad.timeoutSelectMode);
+							localStorage.setItem("timeoutConfirmQuestion", payLoad.timeoutConfirmQuestion);
+							localStorage.setItem("timeoutSubmitAnswer", payLoad.timeoutSubmitAnswer);
 						localStorage.setItem("automated", payLoad.automated);
 						localStorage.setItem("mode", payLoad.mode);
 						if(localStorage.getItem("automated") == "true"){
@@ -141,16 +147,46 @@
 							log.info('endRun2');
 							log.info('endRun3');
 							log.info('endRun4');*/
+							if(localStorage.getItem("continous") == "true"){
+								tau.changePage('/authorizedV2.html');
+							}
+							else{
 							window.tizen.application.getCurrentApplication().exit();
+							}
 						}
 						
 						
 					}
-					else{
+					else if(message.destinationName.indexOf('assessments') > -1){
 						log.info({logType:'txLog',txnType:'1.telemetryEnd', endPoint: "watch"});
 				  console.log("onMessageArrived:"+message.payloadString);
-				  localStorage.setItem("questions", message.payloadString);
-				  tau.changePage('pages/radio/radioQuestions.html');
+				  //# of questions
+				  var questions = JSON.parse(message.payloadString);
+				  console.log("questionLength - " + questions.length);
+				  if(questions.length > 1){
+					  localStorage.setItem("questions", message.payloadString);
+					  tau.changePage('/pages/radio/radioQuestions.html');
+				  }
+				  else if(questions.length == 1){
+					  localStorage.setItem("question", JSON.stringify(questions[0]));
+					  tau.changePage('/pages/QuestionContent.html');
+				  }
+				  else if(questions.length == 0){
+					  document.getElementById("smwatchId").innerText = "No Eligibile Questions Found!";
+					  if(localStorage.getItem("continous") != "true"){
+						  if(localStorage.getItem("automated") == "true"){
+							  localStorage.setItem("logger1",JSON.stringify(logData));
+							  window.location.href = ('/index.html');
+						  }
+						  else{
+							  setTimeout(function(){ window.tizen.application.getCurrentApplication().exit();}, 1000);
+						  }
+					  }else{
+						  tau.changePage('/authorizedV2.html');
+						  //setTimeout(function(){ document.getElementById("smwatchId").innerText = "Reading Sensor Data..."; }, 1000);
+					  }
+				  }
+				  
 					}
 				}
 			});

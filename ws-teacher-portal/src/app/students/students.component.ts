@@ -81,7 +81,7 @@ export class StudentsComponent implements OnInit {
 
   updateWatchRecord() {
     console.log('http://192.168.43.10:5984/watches/' + (this.selectedWatch.id).replace('+', '%2B'));
-    return this.http.put('http://192.168.43.10:5984/watches/' + (this.selectedWatch.id).replace('+', '%2B'), '{"studentId": "' + this.selectedStudent.profile.id + '", "_rev": "' + this.selectedWatch.value.rev + '","studentName": "' + this.selectedStudent.profile.name.fullName + '"}').map((res: Response) => res.json());
+    return this.http.put('http://192.168.43.10:5984/watches/' + (this.selectedWatch.id).replace('+', '%2B'), '{"studentId": "' + this.selectedStudent.profile.id + '", "_rev": "' + this.selectedWatch.value.rev + '","studentName": "' + this.selectedStudent.profile.name.fullName + '","studentEmail": "' + this.selectedStudent.profile.emailAddress + '"}').map((res: Response) => res.json());
   }
 
   getWatches() {

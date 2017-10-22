@@ -11,6 +11,7 @@
 			 */
 
 			var page = document.getElementById( "questionContentPage" );
+			var timeoutConfirmQuestion = 8000;
 
 			/**
 			 * pagebeforeshow event handler
@@ -24,6 +25,7 @@
 			
 
 			page.addEventListener("pagebeforeshow", function() {
+				timeoutConfirmQuestion = localStorage.getItem("timeoutConfirmQuestion");
 			    var questionObject = JSON.parse(localStorage["question"]);
 				var old_element = document.getElementById("calibration-btn");
 				var new_element = old_element.cloneNode(true);
@@ -42,7 +44,7 @@
 				if(localStorage.getItem("automated") == "true"){
 				    setTimeout(function () {
 				    	document.getElementById('calibration-btn').click();
-				    }, 1000);
+				    }, timeoutConfirmQuestion);
 				}
 			    
 			});

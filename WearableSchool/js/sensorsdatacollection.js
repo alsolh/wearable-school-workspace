@@ -16,219 +16,35 @@
 	var tizenElement = document.getElementById("tizenId");
 	tizenElement.innerText = tizenId;
 	var refreshIntervalId;
-
-	/**
-	 * pagebeforeshow event handler
-	 * Do preparatory works and adds event listeners
-	 */
+	var sensingActive = false;
+	//var tizenId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
+	var encodedWatchId = encodeURIComponent(tizenId); 
+	var lightSensor = tizen.sensorservice.getDefaultSensor('LIGHT');
+	var pressureSensor = null;
+	var ultravioletSensor = null;
+	telemetrySendInterval = 10000;
 	
-	
-	
-
-	page.addEventListener("pagebeforeshow", function() {
-		timesPageLoaded = timesPageLoaded + 1;
-		//refreshIntervalId = null;
-		if(timesPageLoaded < 2){
-		try {
-
-			sensorsData = [];
-		console.log("continous? - " + localStorage.getItem("continous"));
-		//alert('test');
-		console.log(page.innerHTML);
-		console.log('startNewAuth2Page');
-		var tizenId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
-		var encodedWatchId = encodeURIComponent(tizenId); 
-		var tizenElement = document.getElementById("smwatchId");
-		tizenElement.innerText = tizenId;
-		console.log("tizenelement=" + tizenElement.outerHTML);
-		
-		console.log(" authpagetizenid = " + tizenId);
-		}
-		catch(err) {
-		    console.log(err.message);
-		}
-
-		// sensors playground
-
-		 function onchangedCB(pedometerInfo) {
-			 try{
-		 var sensorData = { "sensorName":"PEDOMETER", "value":pedometerInfo };
-		        console.log("Step status : " + pedometerInfo.stepStatus);
-		        console.log("Accumulative total step count : " + pedometerInfo.accumulativeTotalStepCount);
-		        console.log("Speed : " + pedometerInfo.speed);
-		        console.log("Distance : " + pedometerInfo.accumulativeDistance);
-		 sensorsData.push(sensorData);
-		        console.log(JSON.stringify(sensorsData));
-		        tizen.humanactivitymonitor.unsetAccumulativePedometerListener();
-		         remainingSensorCalls = remainingSensorCalls - 1;
-				}
-				catch(err) {
-				    console.log(err.message);
-				}
+	//uv
+	function UVSonsuccessCB(){
+		 console.log("start uv");
+		 ultravioletSensor.getUltravioletSensorData(UVSonGetSuccessCB);
 		 }
-		 
-		 function HRMSonsuccessCB(hrmInfo) {
-			 try{
-		 	 var sensorData = { "sensorName":"HRM", "value":hrmInfo };
-		     console.log("Heart Rate : " + hrmInfo.heartRate);
-		     console.log("HRM Interval : " + hrmInfo.rRInterval);
-		     sensorsData.push(sensorData);
-		     console.log(JSON.stringify(sensorsData));
-		     remainingSensorCalls = remainingSensorCalls - 1;
-				}
-				catch(err) {
-				    console.log(err.message);
-				}
-		 }
-
-		 function onerrorCB(error) {
-			 try{
-		     console.log("Error occurs. name:"+error.name + ", message: "+error.message);
-				}
-				catch(err) {
-				    console.log(err.message);
-				}
-		 }
-
-		 function onchangedHRM(pedometerdata) {
-			 try{
-		     //console.log("From now on, you will be notified when the pedometer data changes.");
-		     // To get the current data information
-		     tizen.humanactivitymonitor.getHumanActivityData("HRM", HRMSonsuccessCB);
-		     if(localStorage.getItem("continous") != "true"){
-		    	 tizen.humanactivitymonitor.stop("HRM"); 
-		     }
-				}
-				catch(err) {
-				    console.log(err.message);
-				}
-		 }
-		 
-		 //GPS2 Start
-
-		//var wLocation = {"altitude":localStorage.getItem("altitude"),"longitude":localStorage.getItem("longitude"),"latitude":localStorage.getItem("latitude")};
-		navigator.geolocation.getCurrentPosition(showMap);
-
-
-
-		function showMap(position) {
-		      console.log('0.....latitude: ' + position.coords.latitude);
-		      //localStorage.setItem("longitude", position.coords.longitude);
-		      //localStorage.setItem("latitude", position.coords.latitude);
-		      sensorsData.push({
-		    	    "sensorName": "GPS",
-		    	    "value": {
-		    	      "altitude": position.coords.altitude,
-		    	      "longitude": position.coords.longitude,
-		    	      "latitude": position.coords.latitude,
-		    	      "speed": position.coords.speed
-		    	    }
-		    	  });
-		    }
-		 
-		 //GPS2 End
-		 
-		 //GPS Start
-			try{
-		 var myCallbackInterval = 240000;
-		var mySampleInterval = 10000;
-
-		function onchangedGPS(gpsInfo) {
-			try{
-		    console.log('this callback is called every ' + myCallbackInterval + ' milliseconds');
-		    console.log('the gpsInfo includes the GPS information that is collected every ' +
-		               mySampleInterval + ' milliseconds');
-		     	 var sensorData = { "sensorName":"GPS", "value":gpsInfo.gpsInfo[0] };
-		     sensorsData.push(sensorData);
-		     console.log(JSON.stringify(sensorsData));
-		     if(localStorage.getItem("continous") != "true"){
-		    	 tizen.humanactivitymonitor.stop('GPS');
-		     }
-		               remainingSensorCalls = remainingSensorCalls - 1;
-			}
-			catch(err) {
-			    console.log(err.message);
-			}
-		}
-
-		function onerrorGPS(error) {
-		    console.log('Error occurred. Name:' + error.name + ', message: ' + error.message);
-		}
-		
-
-		var option = {
-		    'callbackInterval': myCallbackInterval,
-		    'sampleInterval': mySampleInterval
-		};
-
-
-		tizen.humanactivitymonitor.start('GPS', onchangedGPS, onerrorGPS, option);
-		}
-		catch(err) {
-		    console.log(err.message);
-		}
-		 
-		 //GPS End
-		 
-		 //HumanActivityHRMData 
-		
-		try{
-
-		 tizen.humanactivitymonitor.start("HRM", onchangedHRM);
-		 
-		 //tizen.humanactivitymonitor.start("PEDOMETER", onchangedCB);
-
-		 tizen.humanactivitymonitor.setAccumulativePedometerListener(onchangedCB);
-		}
-		catch(err) {
-		    console.log(err.message);
-		}
-		 
-		 //HumanActivityHRMData 
-		 
-		 // light sensor start
-		 try{
-		 var lightSensor = tizen.sensorservice.getDefaultSensor('LIGHT');
-		
-		function onGetSuccessLightCB(sensorData) {
-		    console.log('light level: ' + sensorData.lightLevel);
-		    var sensorData = { "sensorName":"LIGHT", "value":sensorData };
-		     sensorsData.push(sensorData);
-		     console.log(JSON.stringify(sensorsData));
-		     remainingSensorCalls = remainingSensorCalls - 1;
-		}
-
-		function LSonsuccessCB() {
-		    console.log('light sensor started');
-		    lightSensor.getLightSensorData(onGetSuccessLightCB);
-		    if(localStorage.getItem("continous") != "true"){
-		    	lightSensor.stop();
-		    }
 		    
-		}
-
-		
-		lightSensor.start(LSonsuccessCB);
-
-			}
-			catch(err) {
-			    console.log(err.message);
-			}
-		 // light sensor end
-		 
-		 // Pressure and UV Sensor Start
-		 
-		 //Capability testing & Getting default sensor
-			try{
-		 var pressureCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.barometer");
-
-		 if (pressureCapability === true) {
-			var pressureSensor = tizen.sensorservice.getDefaultSensor("PRESSURE"); 
-			pressureSensor.start(PRSonsuccessCB);
-			
-		    }
-		    
-		 function PRSonsuccessCB(){
+		 function UVSonGetSuccessCB(sensorData) {
+			  console.log("success uv");
+		    var sensorData = { "sensorName":"ULTRAVIOLET", "value":sensorData };
+		     sensorsData.push(sensorData);
+		     //console.log(JSON.stringify(sensorsData));
+			    if(localStorage.getItem("continous") != "true"){
+			    	ultravioletSensor.stop(); 
+			    }
+		     remainingSensorCalls = remainingSensorCalls - 1;                    
+		 }
+	//
+	
+	
+	//pressure
+	function PRSonsuccessCB(){
 		 pressureSensor.getPressureSensorData(PRSonGetSuccessCB);
 		 }
 		    
@@ -243,34 +59,282 @@
 		       
 		     remainingSensorCalls = remainingSensorCalls - 1;                     
 		 }
-
-		 var ultravioletCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.ultraviolet");
-		console.log("support uv: " + ultravioletCapability);
-		 if (ultravioletCapability === true) {
-			 var ultravioletSensor = tizen.sensorservice.getDefaultSensor("ULTRAVIOLET");
-			ultravioletSensor.start(UVSonsuccessCB);
-			
-		    }
-		    
-		 function UVSonsuccessCB(){
-		 console.log("start uv");
-		 ultravioletSensor.getUltravioletSensorData(UVSonGetSuccessCB);
-		 }
-		    
-		 function UVSonGetSuccessCB(sensorData) {
-			  console.log("success uv");
-		    var sensorData = { "sensorName":"ULTRAVIOLET", "value":sensorData };
-		     sensorsData.push(sensorData);
-		     console.log(JSON.stringify(sensorsData));
-			    if(localStorage.getItem("continous") != "true"){
-			    	ultravioletSensor.stop(); 
-			    }
-		     remainingSensorCalls = remainingSensorCalls - 1;                    
-		 }
+	//
+	
+	//pedometer
+	 function onchangedCB(pedometerInfo) {
+		 try{
+	 var sensorData = { "sensorName":"PEDOMETER", "value":pedometerInfo };
+	        console.log("Step status : " + pedometerInfo.stepStatus);
+	        console.log("Accumulative total step count : " + pedometerInfo.accumulativeTotalStepCount);
+	        console.log("Speed : " + pedometerInfo.speed);
+	        console.log("Distance : " + pedometerInfo.accumulativeDistance);
+	 sensorsData.push(sensorData);
+	        console.log(JSON.stringify(sensorsData));
+	        //tizen.humanactivitymonitor.unsetAccumulativePedometerListener();
+	         remainingSensorCalls = remainingSensorCalls - 1;
 			}
 			catch(err) {
 			    console.log(err.message);
 			}
+	 }
+	//pedometer
+	
+	function onGetSuccessLightCB(sensorData) {
+	    console.log('light level: ' + sensorData.lightLevel);
+	    var sensorData = { "sensorName":"LIGHT", "value":sensorData };
+	     sensorsData.push(sensorData);
+	     console.log(JSON.stringify(sensorsData));
+	     remainingSensorCalls = remainingSensorCalls - 1;
+	}
+
+	function LSonsuccessCB() {
+	    console.log('light sensor started');
+	    lightSensor.getLightSensorData(onGetSuccessLightCB);
+	    if(localStorage.getItem("continous") != "true"){
+	    	lightSensor.stop();
+	    }
+	    
+	}
+	
+	function HRMSonsuccessCB(hrmInfo) {
+		 try{
+	 	 var sensorData = { "sensorName":"HRM", "value":hrmInfo };
+	     console.log("Heart Rate : " + hrmInfo.heartRate);
+	     console.log("HRM Interval : " + hrmInfo.rRInterval);
+	     sensorsData.push(sensorData);
+	     console.log(JSON.stringify(sensorsData));
+	     remainingSensorCalls = remainingSensorCalls - 1;
+			}
+			catch(err) {
+			    console.log(err.message);
+			}
+	 }
+
+	 function onerrorCB(error) {
+		 try{
+	     console.log("Error occurs. name:"+error.name + ", message: "+error.message);
+			}
+			catch(err) {
+			    console.log(err.message);
+			}
+	 }
+
+	 function onchangedHRM(pedometerdata) {
+		 try{
+	     //console.log("From now on, you will be notified when the pedometer data changes.");
+	     // To get the current data information
+	     tizen.humanactivitymonitor.getHumanActivityData("HRM", HRMSonsuccessCB);
+	     if(localStorage.getItem("continous") != "true"){
+	    	 tizen.humanactivitymonitor.stop("HRM"); 
+	     }
+			}
+			catch(err) {
+			    console.log(err.message);
+			}
+	 }
+	 
+	//GPS Start
+		//try{
+	 var myCallbackInterval = 240000;
+	var mySampleInterval = 10000;
+
+	function onchangedGPS(gpsInfo) {
+		try{
+	    console.log('this callback is called every ' + myCallbackInterval + ' milliseconds');
+	    console.log('the gpsInfo includes the GPS information that is collected every ' +
+	               mySampleInterval + ' milliseconds');
+	     	 var sensorData = { "sensorName":"GPS", "value":gpsInfo.gpsInfo[0] };
+	     //sensorsData.push(sensorData);
+	     console.log(JSON.stringify(sensorsData));
+	     if(localStorage.getItem("continous") != "true"){
+	    	 tizen.humanactivitymonitor.stop('GPS');
+	     }
+	               remainingSensorCalls = remainingSensorCalls - 1;
+		}
+		catch(err) {
+		    console.log(err.message);
+		}
+	}
+
+	function onerrorGPS(error) {
+	    console.log('Error occurred. Name:' + error.name + ', message: ' + error.message);
+	}
+	
+
+	var option = {
+	    'callbackInterval': myCallbackInterval,
+	    'sampleInterval': mySampleInterval
+	};
+	
+	function sendMQTTMessage(){
+		//sensorsData.push({sessionId:localStorage.getItem("sessionId")});
+		//sensorsData.studentId = localStorage.getItem("studentId");
+		if(sensingActive){
+		document.getElementById("smwatchId").innerText = "Sending Sensor Data...";
+		message = new Paho.MQTT.Message(JSON.stringify({studentId:localStorage.getItem("studentId"),sensorsData:sensorsData}));
+		message.destinationName = "telemetry/" + encodedWatchId;
+		log.info({logType:'txLog',txnType:'0.telemetryStart',endPoint:'watch'});
+		client.send(message);
+		sensorsData = [];
+		setTimeout(function(){ document.getElementById("smwatchId").innerText = "Reading Sensor Data..."; }, 3000);
+		}
+	}
+
+	function showMap(position) {
+	      console.log('0.....latitude: ' + position.coords.latitude);
+	      //localStorage.setItem("longitude", position.coords.longitude);
+	      //localStorage.setItem("latitude", position.coords.latitude);
+	      sensorsData.push({
+	    	    "sensorName": "GPS",
+	    	    "value": {
+	    	      "altitude": position.coords.altitude,
+	    	      "longitude": position.coords.longitude,
+	    	      "latitude": position.coords.latitude,
+	    	      "speed": position.coords.speed
+	    	    }
+	    	  });
+	    }
+
+	
+	//}
+	//catch(err) {
+	//    console.log(err.message);
+	//}
+	 
+	 //GPS End
+	
+
+	/**
+	 * pagebeforeshow event handler
+	 * Do preparatory works and adds event listeners
+	 */
+	
+	
+	
+
+	page.addEventListener("pagebeforeshow", function() {
+		timesPageLoaded = timesPageLoaded + 1;
+		//refreshIntervalId = null;
+		if(timesPageLoaded > 1){
+		telemetrySendInterval = localStorage.getItem("telemetrySendInterval");
+		remainingSensorCalls = 6;
+		setTimeout(sendMQTTMessage, telemetrySendInterval);
+		sensorsData = [];
+		tizen.humanactivitymonitor.start("HRM", onchangedHRM);
+		tizen.humanactivitymonitor.start('GPS', onchangedGPS, onerrorGPS, option);
+		navigator.geolocation.getCurrentPosition(showMap);
+		lightSensor.start(LSonsuccessCB);
+		tizen.humanactivitymonitor.setAccumulativePedometerListener(onchangedCB);
+		var pressureCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.barometer");
+		 if (pressureCapability === true) {
+			pressureSensor = tizen.sensorservice.getDefaultSensor("PRESSURE"); 
+			pressureSensor.start(PRSonsuccessCB);
+		    }
+		 var ultravioletCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.ultraviolet");
+			//console.log("support uv: " + ultravioletCapability);
+			 if (ultravioletCapability === true) {
+				 ultravioletSensor = tizen.sensorservice.getDefaultSensor("ULTRAVIOLET");
+				ultravioletSensor.start(UVSonsuccessCB);
+			    }
+		remainingSensorCallsTimeout = 10;
+		sensingActive = true;
+		}
+		if(timesPageLoaded < 2){
+		try {
+
+			sensorsData = [];
+			sensingActive = true;
+		console.log("continous? - " + localStorage.getItem("continous"));
+		//alert('test');
+		console.log(page.innerHTML);
+		console.log('startNewAuth2Page');
+//encoded watch id was here
+		var tizenElement = document.getElementById("smwatchId");
+		//tizenId
+		tizenElement.innerText = "Reading Sensor Data...";
+		console.log("tizenelement=" + tizenElement.outerHTML);
+		
+		console.log(" authpagetizenid = " + tizenId);
+		}
+		catch(err) {
+		    console.log(err.message);
+		}
+
+		// sensors playground
+
+//pedometerwashere
+		 
+		 
+		 //hrm was here
+		 
+		 //GPS2 Start
+
+		//var wLocation = {"altitude":localStorage.getItem("altitude"),"longitude":localStorage.getItem("longitude"),"latitude":localStorage.getItem("latitude")};
+		navigator.geolocation.getCurrentPosition(showMap);
+
+
+
+//GPS2 old func
+		 
+		 //GPS2 End
+		 
+		 //gps1 was here
+		tizen.humanactivitymonitor.start('GPS', onchangedGPS, onerrorGPS, option);
+		 
+		 //HumanActivityHRMData 
+		
+		/*try{*/
+
+		 tizen.humanactivitymonitor.start("HRM", onchangedHRM);
+		 
+		 //tizen.humanactivitymonitor.start("PEDOMETER", onchangedCB);
+
+		 tizen.humanactivitymonitor.setAccumulativePedometerListener(onchangedCB);
+/*		}
+		catch(err) {
+		    console.log(err.message);
+		}*/
+		 
+		 //HumanActivityHRMData 
+		 
+		 // light sensor start
+		lightSensor.start(LSonsuccessCB);
+/*		 try{
+		 
+		
+		
+
+		
+		
+
+			}
+			catch(err) {
+			    console.log(err.message);
+			}*/
+		 // light sensor end
+		 
+		 // Pressure and UV Sensor Start
+		 
+		 //Capability testing & Getting default sensor
+		 var pressureCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.barometer");
+
+		 if (pressureCapability === true) {
+			pressureSensor = tizen.sensorservice.getDefaultSensor("PRESSURE"); 
+			pressureSensor.start(PRSonsuccessCB);
+			
+		    }
+		    
+		 
+
+		var ultravioletCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.ultraviolet");
+		//console.log("support uv: " + ultravioletCapability);
+		 if (ultravioletCapability === true) {
+			 ultravioletSensor = tizen.sensorservice.getDefaultSensor("ULTRAVIOLET");
+			ultravioletSensor.start(UVSonsuccessCB);
+		    }
+		    
+		 
 		 // Pressure and UV Sensor End
 		 
 
@@ -282,7 +346,7 @@
 		refreshIntervalId = setInterval(checkIfCompleted, 1000);
 			}
 			else{
-					refreshIntervalId = setInterval(sendMQTTMessage, 10000);
+				setTimeout(sendMQTTMessage, telemetrySendInterval);
 			}
 
 		function checkIfCompleted(){
@@ -296,14 +360,7 @@
 		}
 		}
 		
-		function sendMQTTMessage(){
-			sensorsData.push({sessionId:localStorage.getItem("sessionId")});
-			message = new Paho.MQTT.Message(JSON.stringify(sensorsData));
-			message.destinationName = "telemetry/" + encodedWatchId;
-			log.info({logType:'txLog',txnType:'0.telemetryStart',endPoint:'watch'});
-			client.send(message);
-			sensorsData = [];
-		}
+		//sendmqtt func was here
 
 		// end wait
 		}
@@ -314,6 +371,19 @@
 	 * Destroys and removes event listeners
 	 */
 	page.addEventListener("pagehide", function() {
+		clearInterval(refreshIntervalId);
+		sensingActive = false;
+		tizen.humanactivitymonitor.stop("HRM");
+		tizen.humanactivitymonitor.stop('GPS');
+		lightSensor.stop();
+		tizen.humanactivitymonitor.unsetAccumulativePedometerListener();
+		if(pressureSensor != null){
+		pressureSensor.stop();
+		}
+		if(ultravioletSensor != null){
+			ultravioletSensor.stop();
+			}
+		
 		//console.log("pagehidecalled");
 		//clearInterval(refreshIntervalId);
 		//progressBarWidget.destroy();

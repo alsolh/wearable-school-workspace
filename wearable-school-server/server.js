@@ -1,3 +1,5 @@
+var sensors = ["HRM", "GPS", "LIGHT", "PEDOMETER", "PRESSURE", "ULTRAVIOLET"];
+//var sensorsAggregatedObject =
 var bunyan = require('bunyan');
 var LogStream = require('bunyan-couchdb-stream');
 var log = bunyan.createLogger({
@@ -9,6 +11,7 @@ var log = bunyan.createLogger({
 });
 var http = require('http');
 var btoa = require('btoa');
+var async = require('async');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var xhr = new XMLHttpRequest();
 var mqtt = require('mqtt');
@@ -26,6 +29,8 @@ var fs = require('fs');
 var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
+var tempCourses;
+var allCourses;
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -34,7 +39,7 @@ String.prototype.replaceAll = function(search, replacement) {
 
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/classroom.googleapis.com-nodejs-quickstart.json
-var SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly','https://www.googleapis.com/auth/classroom.coursework.students.readonly'];
+var SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly','https://www.googleapis.com/auth/classroom.coursework.students.readonly','https://www.googleapis.com/auth/classroom.profile.emails','https://www.googleapis.com/auth/classroom.profile.photos','https://www.googleapis.com/auth/classroom.rosters','https://www.googleapis.com/auth/classroom.rosters.readonly'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'classroom.googleapis.com-nodejs-quickstart.json';
@@ -90,16 +95,16 @@ client.on('message', function (topic, message) {
     var d = new Date();
     var n = d.getTime();
     payLoad = JSON.parse(message.toString());
-    var responseTimeMW;
-    try {
-        responseTimeMW = payLoad.responseTimeLog;
-    responseTimeMW.records.push({txTime: n, endPoint: "middleware"});
-        console.log(responseTimeMW);
-    }
-    catch (ex){
+    //var responseTimeMW;
+    //try {
+    //    responseTimeMW = payLoad.responseTimeLog;
+    //responseTimeMW.records.push({txTime: n, endPoint: "middleware"});
+    //    console.log(responseTimeMW);
+    //}
+    //catch (ex){
 
-    }
-    log.info({txn:'testbunyan',epochTime:n},topic);
+    //}
+    //log.info({txn:'testbunyan',epochTime:n},topic);
     console.log(topic);
     console.log(message.toString());
     if(topic.indexOf('isWatchRegistered') > -1) {
@@ -158,25 +163,96 @@ client.on('message', function (topic, message) {
         // message is Buffer
         console.log(message.toString());
         telemetry = JSON.parse(message);
-        gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
+
+        aggregatedTelemetry = [];
+
+
+var sum = 0;
+        for (var i = 0; i < sensors.length; i++) {
+            queryTelemetry = jsonQuery('[*sensorName=' + sensors[i] + '].value', {
+                data: telemetry.sensorsData
+            }).value;
+
+            for (var j = 1; j < queryTelemetry.length; j++) {
+                for (var property in queryTelemetry[0]) {
+                    if (queryTelemetry[0].hasOwnProperty(property)) {
+                        if(!isNaN(queryTelemetry[0][property])){
+                            /*queryTelemetry[0][property] = queryTelemetry[0][property] + queryTelemetry[j][property];*/
+                            if(queryTelemetry[0][property] < queryTelemetry[j][property]){
+                                if(property == "longitude"){
+                                    if(queryTelemetry[j][property] != 200){
+                                        queryTelemetry[0][property] = queryTelemetry[j][property];
+                                    }
+                                }
+                                else{
+                                    queryTelemetry[0][property] = queryTelemetry[j][property];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(queryTelemetry.length > 0) {
+                aggregatedTelemetry.push({"sensorName": sensors[i], "value": queryTelemetry[0]});
+            }
+
+/*            for (var property in queryTelemetry[0]) {
+                if (queryTelemetry[0].hasOwnProperty(property)) {
+                    if(!isNaN(queryTelemetry[0][property])){
+                        queryTelemetry[0][property] = queryTelemetry[0][property] / queryTelemetry.length;
+                    }
+                }
+            }*/
+
+            //console.log(sum);
+            //console.log("sensor sum = " + JSON.stringify(queryTelemetry[0]));
+            /*if(sensors[i] == "GPS"){
+
+            }*/
+
+        }
+
+
+
+
+
+/*        gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
             data: telemetry
-        }).value;
+        }).value;*/
         //console.log(gpsTelemetry.value.longitude);
-        resultQuestions = clone(questions);
-        if (!(questions === '')) {
+        var courseWork = [];
+        //resultQuestions.courseWork = [];
+        for (var iCourses = 0; iCourses < allCourses.length; iCourses++) {
+            for (var iStudents = 0; iStudents < allCourses[iCourses].students.length; iStudents++) {
+                //console.log(allCourses[iCourses].students[iStudents].userId);
+                //console.log(telemetry.studentId);
+                if (allCourses[iCourses].students[iStudents].userId == telemetry.studentId) {
+                    for (var iCourseWork = 0; iCourseWork < allCourses[iCourses].courseWork.length; iCourseWork++) {
+                        courseWork.push(allCourses[iCourses].courseWork[iCourseWork]);
+                    }
+                    break;
+                }
+            }
+        }
+
+
+        //resultQuestions = clone(questions);
+        if (courseWork.length != 0) {
             //start of handling new question format
-            for (var i = 0; i < resultQuestions.courseWork.length; i++) {
+            for (var i = 0; i < courseWork.length; i++) {
                 try {
-                    qtiContent = JSON.parse(questions.courseWork[i].description);
+                    var eligible = false;
+                    qtiContent = JSON.parse(courseWork[i].description);
                     requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
                     //TODO:Add or condition / better loop it for each sensor type
                     pedoTelemetry = jsonQuery('[sensorName=' + requiredSensors[0] + '].value', {
-                        data: telemetry
+                        data: aggregatedTelemetry
                     }).value;
                     for (var attributename in pedoTelemetry) {
                         console.log(attributename + ": " + pedoTelemetry[attributename]);
                         qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
-                        resultQuestions.courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(resultQuestions.courseWork[i].multipleChoiceQuestion.choices).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
+                        courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(courseWork[i].multipleChoiceQuestion.choices).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
                     }
                     //process variables
                     if (qtiContent.itemBody.variables != null) {
@@ -184,28 +260,53 @@ client.on('message', function (topic, message) {
                             qtiContent.itemBody.variables[j] = eval(qtiContent.itemBody.variables[j]);
                             console.log(qtiContent.itemBody.variables[j]);
                         }
+
                         for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
-                            qtiContent.itemBody.p = qtiContent.itemBody.p.replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
-                            for (var k = 0; k < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; k++) {
-                                resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k] = resultQuestions.courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
+                            //.itemBody.p .itemBody.p
+                            qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]));
+                            for (var k = 0; k < courseWork[i].multipleChoiceQuestion.choices.length; k++) {
+                                courseWork[i].multipleChoiceQuestion.choices[k] = courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
                             }
                         }
                     }
                     //end process variables
-                    resultQuestions.courseWork[i].description = qtiContent;
-                    for (var j = 0; j < resultQuestions.courseWork[i].multipleChoiceQuestion.choices.length; j++) {
-                        resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j] = eval(resultQuestions.courseWork[i].multipleChoiceQuestion.choices[j]);
+                    //process correct response
+                    console.log("eligibility - " + qtiContent.assessmentItem);
+                    eligible = eval(qtiContent.assessmentItem.context.eligibility);
+                    qtiContent.assessmentItem.context.eligibility = eligible;
+
+                        qtiContent.responseDeclaration.correctResponse = eval(qtiContent.responseDeclaration.correctResponse);
+
+                        courseWork[i].description = qtiContent;
+                    if(eligible) {
+                        for (var j = 0; j < courseWork[i].multipleChoiceQuestion.choices.length; j++) {
+                            courseWork[i].multipleChoiceQuestion.choices[j] = eval(courseWork[i].multipleChoiceQuestion.choices[j]);
+                        }
                     }
 
 
-                    console.log(JSON.stringify(resultQuestions));
+                    console.log(JSON.stringify(courseWork));
                 } catch (err) {
                     // handle the error safely
                     console.log(err);
                 }
 
             }
-            client.publish(topic.replace("telemetry","assessments"), JSON.stringify(resultQuestions));
+
+            filteredCourseWork = [];
+
+            for (var i = 0; i < courseWork.length ; i++) {
+                try {
+                    if (courseWork[i].description.assessmentItem.context.eligibility) {
+                        filteredCourseWork.push(courseWork[i]);
+                    }
+                } catch (err) {
+                    // handle the error safely
+                    console.log(err);
+                }
+            }
+
+            client.publish(topic.replace("telemetry","assessments"), JSON.stringify(filteredCourseWork));
             /*
                     var targetedQuestion = '';
                     console.log(questions.courseWork[1].title);
@@ -265,7 +366,7 @@ fs.readFile('client_secret.json', function processClientSecrets(err, content) {
   
   //restApp.get('/', function (req, res) {
     // res.send(preparedResponse);
-   authorize(JSON.parse(content), listCourses);
+    authorize(JSON.parse(content), listCourses);
 });
 
 //var server = restApp.listen(8081, function () {
@@ -355,32 +456,63 @@ function storeToken(token) {
  *
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-function listCourses(auth) {
-  var classroom = google.classroom('v1');
-  classroom.courses.list({
+
+function doListCourses(auth){
+    var classroom = google.classroom('v1');
+classroom.courses.list({
     auth: auth,
     pageSize: 10
-  }, function(err, response) {
+}, function(err, response) {
     if (err) {
-      console.log('The API returned an error: ' + err);
-      return;
+        console.log('The API returned an error: ' + err);
+        return;
     }
-    
+
+    tempCourses = response.courses;
     var courses = response.courses;
     if (!courses || courses.length == 0) {
-      console.log('No courses found.');
+        console.log('No courses found.');
     } else {
-      console.log('Courses:');
-      for (var i = 0; i < courses.length; i++) {
-        var course = courses[i]; 
-        console.log('%s (%s)', course.name, course.id);
-        listCourseWorks(auth,course.id);
-      }
+        console.log('Courses:');
+        for (var i = 0; i < courses.length; i++) {
+            var course = courses[i];
+            console.log('%s (%s)', course.name, course.id);
+            //async.series([
+            listCourseWorks(auth,course.id,i);
+            listStudents(auth,course.id,i);
+            //]);
+        }
+
+        setTimeout(function (){allCourses = clone(tempCourses);console.log(JSON.stringify(tempCourses))},5000);
     }
-  });
+});
+
 }
 
-function listCourseWorks(auth, cid) {
+function listCourses(auth) {
+    doListCourses(auth);
+    setInterval(function(){doListCourses(auth)}, 30000);
+}
+
+function listStudents(auth, cid,i) {
+    var classroom = google.classroom('v1');
+    classroom.courses.students.list({
+        auth: auth,
+        courseId:cid
+    }, function(err, response) {
+        if (err) {
+            console.log('The API returned an error: ' + err);
+            return;
+        }
+        console.log("logging students for course id:" + cid);
+        console.log("students - " + response);
+        tempCourses[i].students = response.students;
+        //questions = response;
+        //client.publish('assessments/student1',JSON.stringify(response));
+    });
+}
+
+function listCourseWorks(auth, cid,i) {
   var classroom = google.classroom('v1');
   classroom.courses.courseWork.list({
     auth: auth,
@@ -392,6 +524,7 @@ function listCourseWorks(auth, cid) {
     }
     console.log("logging coursework for course id:" + cid);
     console.log(response);
+      tempCourses[i].courseWork = response.courseWork;
     questions = response;
       //client.publish('assessments/student1',JSON.stringify(response));
   });

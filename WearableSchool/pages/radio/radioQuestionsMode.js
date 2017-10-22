@@ -11,6 +11,9 @@
 			 */
 			var selectedMode = "onDemand";
 			var page = document.getElementById( "ModePage" );
+			
+			var timeoutSelectMode = 3000;
+
 
 			/**
 			 * pagebeforeshow event handler
@@ -24,6 +27,7 @@
 			
 
 			page.addEventListener("pagebeforeshow", function() {
+				timeoutSelectMode = localStorage.getItem("timeoutSelectMode");
 				//TODO:put the correct location later
 				
 				var element = document.getElementById('okButtonMode');
@@ -66,7 +70,7 @@
 				    	}
 				    setTimeout(function () {
 				    	document.getElementById('okButtonMode').click();
-				    }, 1000);
+				    }, timeoutSelectMode);
 				}
 				
 			});

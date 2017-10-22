@@ -12,11 +12,13 @@
 <p-dataTable [value]="students" selectionMode="single" [(selection)]="selectedStudent">
   <p-column field="profile.id" header="id"></p-column>
   <p-column field="profile.name.fullName" header="name"></p-column>
+  <p-column field="profile.emailAddress" header="eMail"></p-column>
 </p-dataTable>
 <h2>Watches</h2>
 <p-dataTable [value]="watches" selectionMode="single" [(selection)]="selectedWatch">
   <p-column field="id" header="tizen id"></p-column>
   <p-column field="doc.studentId" header="student id"></p-column>
+  <p-column field="doc.studentEmail" header="student eMail"></p-column>
   <p-column field="doc.studentName" header="student name"></p-column>
 </p-dataTable>
 <button class="btn btn-default" (click)="assignWatchToStudent()" [disabled]="!selectedWatch">Assign</button>
