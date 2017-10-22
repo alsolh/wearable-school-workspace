@@ -1,0 +1,36 @@
+{"assessmentItem": {
+  "identifier": "gps1",
+  "adaptive": "false",
+  "timeDependent": "false",
+  "context": {
+    "sensorNames": ["GPS"],
+    "eligibility": "(<GPS.longitude> > -1000) && (<GPS.longitude> < 1000)"
+  }
+},
+  "responseDeclaration": {
+    "identifier": "RESPONSE",
+    "cardinality": "single",
+    "baseType": "identifier",
+    "correctResponse": "<var0>/500"
+  },
+  "outcomeDeclaration": {
+    "identifier": "SCORE",
+    "cardinality": "single",
+    "baseType": "float",
+    "defaultValue": {
+      "value": "0.0"
+    }
+  },
+  "itemBody": {"p": "if you are in a plane flying at the speed of 500 Km per hour and the Eiffel tower is currently <var0> Km away from you.",
+    "variables": ["getDistanceFromLonLatInKm(<GPS.longitude>,<GPS.latitude>,2.2922926,48.8583736)"],
+    "choiceInteraction": {
+      "responseIdentifier": "RESPONSE",
+      "shuffle": "true",
+      "maxChoices": "1",
+      "prompt": "how long will it take to reach there in hours time?"
+    }
+  },
+  "responseProcessing": {
+    "template": "http:\/\/www.imsglobal.org\/question\/qti_v2p1\/rptemplates\/match_correct"
+  }
+}
