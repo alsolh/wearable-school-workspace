@@ -1,3 +1,72 @@
+var argv = require('minimist')(process.argv.slice(2));
+console.dir(argv);
+
+setTimeout(function(){process.exit()},1800000)
+
+var d = new Date();
+var n = d.getTime();
+var episode = argv.episodeId + '-' + n;
+
+
+//tconfig
+const { execSync } = require('child_process');
+// stderr is sent to stdout of parent process
+// you can set options.stdio if you want it to go elsewhere
+try{
+
+    /*var sudo = require('sudo');
+    var options = {
+        cachePassword: true,
+        prompt: 'Password, yo? ',
+        spawnOptions: { /!* other options for spawn *!/ }
+    };
+    var child = sudo([ 'sudo tcdel --device ens33 --all' ], options);
+    child.stdout.on('data', function (data) {
+        console.log(data.toString());
+    });
+    child = sudo([ 'sudo tcset -f /home/alsolh/code/wearable-school-workspace/tcconfigprofiles/testdummy.json' ], options);
+    child.stdout.on('data', function (data) {
+        console.log(data.toString());
+    });*/
+
+
+var stdout = execSync('sudo tcdel --device ens33 --all');
+
+}
+catch(err) {
+    console.log(err.message);
+}
+
+try{
+    if(argv.profile != "Phy-wifi-baseline") {
+        var stdout = execSync('sudo tcset -f /home/alsolh/code/wearable-school-workspace/wearable-school-server/tcconfigprofiles/' + argv.profile + '.json');
+        var stdout = execSync('sudo tcshow --device ens33');
+    }
+console.log(stdout.toString());
+}
+catch(err) {
+    console.log(err.message);
+}
+//tconfig
+
+//tshark
+// http://nodejs.org/api.html#_child_processes
+const { exec } = require('child_process');
+console.log('tshark -i any -f "tcp port 3000 or tcp port 1883" -w /home/alsolh/code/wearable-school-workspace/wearable-school-server/pcaps/'+ episode + '.pcap');
+exec('tshark -i any -f "tcp port 3000 or tcp port 1883" -w /home/alsolh/code/wearable-school-workspace/wearable-school-server/pcaps/'+ episode + '.pcap', (err, stdout, stderr) => {
+    if (err) {
+        console.log(err.message);
+        // node couldn't execute the command
+        return;
+    }
+
+    // the *entire* stdout and stderr (buffered)
+    console.log(`stdout: ${stdout}`);
+console.log(`stderr: ${stderr}`);
+});
+//tshark
+
+
 var sensors = ["HRM", "GPS", "LIGHT", "PEDOMETER", "PRESSURE", "ULTRAVIOLET"];
 //var sensorsAggregatedObject =
 var bunyan = require('bunyan');
@@ -30,7 +99,7 @@ var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 var tempCourses;
-var allCourses;
+var allCourses = null;
 
 String.prototype.replaceAll = function(search, replacement) {
     var target = this;
@@ -42,6 +111,7 @@ String.prototype.replaceAll = function(search, replacement) {
 var SCOPES = ['https://www.googleapis.com/auth/classroom.courses.readonly','https://www.googleapis.com/auth/classroom.coursework.students.readonly','https://www.googleapis.com/auth/classroom.profile.emails','https://www.googleapis.com/auth/classroom.profile.photos','https://www.googleapis.com/auth/classroom.rosters','https://www.googleapis.com/auth/classroom.rosters.readonly'];
 var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
     process.env.USERPROFILE) + '/.credentials/';
+//var TOKEN_DIR = '/home/alsolh/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'classroom.googleapis.com-nodejs-quickstart.json';
 
 console.log(TOKEN_PATH);
@@ -116,12 +186,19 @@ client.on('message', function (topic, message) {
         req.setRequestHeader("Content-type", "application/json");
         req.onreadystatechange = function() {
             if (this.readyState == 4) {
+                //this.responseText = JSON.stringify(JSON.parse(this.responseText).episodeId = episode);
+                //this.responseText.episodeId = episode;
                 console.log(this.status + ' - ' + this.responseText);
                 var response = JSON.parse(this.responseText);
                 if(response.studentId != null){
+                    response.episodeId = episode;
+                    response.telemetrySendInterval = argv.frequency;
+                    response.mode = argv.mode;
+
                     console.log(topic.replace("wrapper","response"));
+                    console.log(JSON.stringify(response));
                     //client.publish(topic.replace("wrapper","response"), JSON.stringify({responseTimeLog:responseTimeMW,response:true}));
-                    client.publish(topic.replace("wrapper","response"), this.responseText);
+                    client.publish(topic.replace("wrapper","response"), JSON.stringify(response));
                     //window.open('authorized.html');
                 }
                 else
@@ -356,7 +433,8 @@ function deg2rad(deg) {
 }
 
 // Load client secrets from a local file.
-fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+// TODO:this is very specific to the user directory
+fs.readFile('/home/alsolh/code/wearable-school-workspace/wearable-school-server/client_secret.json', function processClientSecrets(err, content) {
   if (err) {
     console.log('Error loading client secret file: ' + err);
     return;
@@ -483,7 +561,30 @@ classroom.courses.list({
             //]);
         }
 
-        setTimeout(function (){allCourses = clone(tempCourses);console.log(JSON.stringify(tempCourses))},5000);
+        setTimeout(function (){
+            if (allCourses == null) {
+                for (var i = 0; i < 100; i++) {
+                    var isError = false;
+                    try {
+                        execSync('~/tizen-studio/tools/sdb connect 192.168.43.109');
+                        execSync('~/tizen-studio/tools/sdb shell launch_app M89Api9FK8.WearableSchool');
+                    }
+
+                    catch (err) {
+                        isError = true;
+                        allCourses = clone(tempCourses);
+                        console.log(JSON.stringify(tempCourses));
+                        console.log(err.message);
+                    }
+                    finally {
+                        if(!isError) {
+                            break;
+                        }
+                    }
+                }
+            }
+            allCourses = clone(tempCourses);console.log(JSON.stringify(tempCourses));
+        },5000);
     }
 });
 

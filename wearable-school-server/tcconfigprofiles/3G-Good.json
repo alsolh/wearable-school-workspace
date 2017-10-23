@@ -1,0 +1,18 @@
+{
+    "ens33": {
+        "outgoing": {
+            "dst-network=192.168.43.109/32, protocol=ip": {
+                "delay": "90ms", 
+                "rate": "850K", 
+                "filter_id": "800::800"
+            }
+        }, 
+        "incoming": {
+            "dst-network=192.168.43.109/32, protocol=ip": {
+                "delay": "100ms", 
+                "rate": "420K",
+                "filter_id": "800::800"
+            }
+        }
+    }
+}
