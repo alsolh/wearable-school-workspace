@@ -104,6 +104,7 @@
 							localStorage.setItem("timeoutSelectMode", payLoad.timeoutSelectMode);
 							localStorage.setItem("timeoutConfirmQuestion", payLoad.timeoutConfirmQuestion);
 							localStorage.setItem("timeoutSubmitAnswer", payLoad.timeoutSubmitAnswer);
+							localStorage.setItem("episodeId", payLoad.episodeId);
 						localStorage.setItem("automated", payLoad.automated);
 						localStorage.setItem("mode", payLoad.mode);
 						if(localStorage.getItem("automated") == "true"){

@@ -56,6 +56,7 @@
 				    	assessmentOutcome = "fail";
 				    }
 					var answerData = {
+						"episodeId": localStorage.getItem("episodeId"),
 						"answerTime": n,
 					    "questionId": questionObject.id,
 					    "questionTitle": questionObject.title,
