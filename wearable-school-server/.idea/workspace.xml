@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8d72a40-aae3-49a8-aeeb-a1e6ffe6eab0" name="Default" comment="test automation -- server side">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../WearableSchool/.sign/author-signature.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../WearableSchool/.sign/signature1.xml" afterPath="" />
+    <list default="true" id="e8d72a40-aae3-49a8-aeeb-a1e6ffe6eab0" name="Default" comment="test automation -- server side fixes">
       <change type="DELETED" beforePath="$PROJECT_DIR$/pcaps/EP001-1508703667454.pcap" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/pcaps/EP001-1508703869819.pcap" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/pcaps/EP001-1508704003199.pcap" afterPath="" />
@@ -54,32 +52,7 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/pcaps/EP001-1508787882946.pcap" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/pcaps/EP001-1508788360811.pcap" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/pcaps/EP001-1508788541369.pcap" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/.sdk_delta.info" afterPath="$PROJECT_DIR$/../AnswersSelection/.sdk_delta.info" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/AnswersSelection.wgt" afterPath="$PROJECT_DIR$/../AnswersSelection/AnswersSelection.wgt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/.sdk_delta.info" afterPath="$PROJECT_DIR$/../WearableSchool/.sdk_delta.info" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/WearableSchool.wgt" afterPath="$PROJECT_DIR$/../WearableSchool/WearableSchool.wgt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/couchdb2xlsx/couchdb2xlsx.xlsx" afterPath="$PROJECT_DIR$/couchdb2xlsx/couchdb2xlsx.xlsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/.rds_delta" afterPath="$PROJECT_DIR$/../AnswersSelection/.rds_delta" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/.sign/.manifest.tmp" afterPath="$PROJECT_DIR$/../AnswersSelection/.sign/.manifest.tmp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/.sign/author-signature.xml" afterPath="$PROJECT_DIR$/../AnswersSelection/.sign/author-signature.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/.sign/signature1.xml" afterPath="$PROJECT_DIR$/../AnswersSelection/.sign/signature1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/contents/controls/checkbox.html" afterPath="$PROJECT_DIR$/../AnswersSelection/contents/controls/checkbox.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AnswersSelection/index.html" afterPath="$PROJECT_DIR$/../AnswersSelection/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/.rds_delta" afterPath="$PROJECT_DIR$/../WearableSchool/.rds_delta" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/.sign/.manifest.tmp" afterPath="$PROJECT_DIR$/../WearableSchool/.sign/.manifest.tmp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/config.xml" afterPath="$PROJECT_DIR$/../WearableSchool/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/js/index.js" afterPath="$PROJECT_DIR$/../WearableSchool/js/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/js/mqttoperations.js" afterPath="$PROJECT_DIR$/../WearableSchool/js/mqttoperations.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/js/sensorsdatacollection.js" afterPath="$PROJECT_DIR$/../WearableSchool/js/sensorsdatacollection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/js/watchresourceslog.js" afterPath="$PROJECT_DIR$/../WearableSchool/js/watchresourceslog.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/pages/questionContent.js" afterPath="$PROJECT_DIR$/../WearableSchool/pages/questionContent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/pages/radio/radio.js" afterPath="$PROJECT_DIR$/../WearableSchool/pages/radio/radio.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/pages/radio/radioQuestions.js" afterPath="$PROJECT_DIR$/../WearableSchool/pages/radio/radioQuestions.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../WearableSchool/pages/radio/radioQuestionsMode.js" afterPath="$PROJECT_DIR$/../WearableSchool/pages/radio/radioQuestionsMode.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/couchdb2xlsx.js" afterPath="$PROJECT_DIR$/couchdb2xlsx.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/node_modules/pcap2csv/index.js" afterPath="$PROJECT_DIR$/node_modules/pcap2csv/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../ws-teacher-portal/src/app/students/students.component.ts" afterPath="$PROJECT_DIR$/../ws-teacher-portal/src/app/students/students.component.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,108 +63,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="testAutomator.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testAutomator.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package-lock.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-lock.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="1856" column="5" lean-forward="false" selection-start-line="1856" selection-start-column="5" selection-end-line="1856" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pedometer.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/questions/pedometer.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gps.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/questions/gps.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="19" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pcapjson2xlsx.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pcapjson2xlsx.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="couchdb2xlsx.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/couchdb2xlsx.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1134">
-              <caret line="54" column="61" lean-forward="false" selection-start-line="54" selection-start-column="61" selection-end-line="54" selection-end-column="61" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="wireshark.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wireshark.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/pcap2csv/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/pcap2csv/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-215">
-              <caret line="38" column="84" lean-forward="false" selection-start-line="38" selection-start-column="84" selection-end-line="38" selection-end-column="84" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test1.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test1.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -202,37 +74,40 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>answer</find>
-      <find>listCourses</find>
-      <find>courseWork</find>
-      <find>auth</find>
-      <find>token</find>
-      <find>set</find>
-      <find>courses</find>
-      <find>clone</find>
-      <find>tempCourses</find>
-      <find>response</find>
-      <find>resultQuestions</find>
-      <find>telemetry</find>
-      <find>if\(eligible\)\{\n                        for \(var j \= 0\; j \&lt; qtiContent\.itemBody\.variables\.length\; j\+\+\) \{\n                            \/\/\.itemBody\.p \.itemBody\.p\n                            qtiContent \= JSON\.parse\(JSON\.stringify\(qtiContent\)\.replaceAll\(\'\&lt;var\' \+ j \+ \'\&gt;\'\, qtiContent\.itemBody\.variables\[j\]\)\)\;\n                            for \(var k \= 0\; k \&lt; courseWork\[i\]\.multipleChoiceQuestion\.choices\.length\; k\+\+\) \{\n                                courseWork\[i\]\.multipleChoiceQuestion\.choices\[k\] \= courseWork\[i\]\.multipleChoiceQuestion\.choices\[k\]\.replaceAll\(\'\&lt;var\' \+ j \+ \'\&gt;\'\, qtiContent\.itemBody\.variables\[j\]\)\;\n                            \}\n                        \}\}</find>
-      <find>eligi</find>
-      <find>gpsTelemetry</find>
-      <find>query</find>
-      <find>aggrega</find>
       <find>TOKEN_DIR</find>
       <find>client_secret.json</find>
       <find>client</find>
       <find>5000</find>
-      <find>allCourses =</find>
-      <find>allCourses</find>
       <find>episodeId</find>
       <find>episode</find>
       <find>finally</find>
       <find>.json</find>
-      <find>pcap2csv</find>
-      <find>separates</find>
-      <find>671.188567076</find>
+      <find>192.168.43.10</find>
+      <find>questions</find>
+      <find>clone</find>
+      <find>exec</find>
+      <find>connec</find>
+      <find>.courseWork</find>
+      <find>allcourses</find>
+      <find>allcourses =</find>
+      <find>tempCourses =</find>
+      <find>students</find>
+      <find>allCourses =</find>
+      <find>check</find>
+      <find>checkTempCoursesValid</find>
+      <find>allcour</find>
+      <find>allCourses.length</find>
+      <find>allCourses</find>
+      <find>121</find>
+      <find>argv</find>
+      <find>connect</find>
+      <find>url</find>
+      <find>doListCourses</find>
+      <find>tshark</find>
     </findStrings>
+    <replaceStrings>
+      <replace>192.168.0.110</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -255,14 +130,23 @@
         <option value="$PROJECT_DIR$/test1.js" />
         <option value="$PROJECT_DIR$/wireshark" />
         <option value="_stream_readable.js" />
+        <option value="$PROJECT_DIR$/node_modules/pcap2csv/index.js" />
         <option value="$PROJECT_DIR$/pcapjson2xlsx.js" />
         <option value="$PROJECT_DIR$/questions/pedometer.js" />
         <option value="$PROJECT_DIR$/questions/gps.json" />
         <option value="$PROJECT_DIR$/questions/pedometer.json" />
-        <option value="$PROJECT_DIR$/testAutomator.js" />
-        <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/couchdb2xlsx.js" />
-        <option value="$PROJECT_DIR$/node_modules/pcap2csv/index.js" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/testdummy.json" />
+        <option value="$PROJECT_DIR$/questions/light.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/2G-DevelopingRural.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/2G-DevelopingUrban.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/3G-Average.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/3G-Good.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/Edge-Average.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/Edge-Good.json" />
+        <option value="$PROJECT_DIR$/tcconfigprofiles/Edge-Lossy.json" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/testAutomator.js" />
         <option value="$PROJECT_DIR$/wireshark.js" />
       </list>
     </option>
@@ -286,10 +170,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="76" />
-    <option name="y" value="24" />
-    <option name="width" value="1855" />
-    <option name="height" value="934" />
+    <option name="x" value="75" />
+    <option name="y" value="6" />
+    <option name="width" value="1853" />
+    <option name="height" value="926" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -307,7 +191,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -318,28 +201,12 @@
             <path>
               <item name="wearable-school-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="wearable-school-server" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="questions" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="wearable-school-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="wearable-school-server" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="pcap2csv" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wearable-school-server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wearable-school-server" type="462c0819:PsiDirectoryNode" />
-              <item name="pcapconvertedfiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wearable-school-server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wearable-school-server" type="462c0819:PsiDirectoryNode" />
-              <item name="pcapjson2xlsx" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="wearable-school-server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="wearable-school-server" type="462c0819:PsiDirectoryNode" />
-              <item name="pcaps" type="462c0819:PsiDirectoryNode" />
+              <item name="tcconfigprofiles" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -347,6 +214,7 @@
       </pane>
       <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -377,7 +245,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.wireshark">
+  <component name="RunManager" selected="Node.js.server.js">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -398,6 +266,53 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="" />
       <envs />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
     </configuration>
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <setting name="vmparams" value="" />
@@ -611,53 +526,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
-    </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -867,10 +735,12 @@
       <workItem from="1508697868590" duration="1241000" />
       <workItem from="1508699383672" duration="186000" />
       <workItem from="1508699610705" duration="5245000" />
-      <workItem from="1508771977534" duration="11770000" />
-      <workItem from="1508958712079" duration="1282000" />
-      <workItem from="1509123077390" duration="2272000" />
-      <workItem from="1509384853373" duration="5891000" />
+      <workItem from="1508771977534" duration="13492000" />
+      <workItem from="1508862512162" duration="18048000" />
+      <workItem from="1509041509751" duration="18066000" />
+      <workItem from="1509222324471" duration="6098000" />
+      <workItem from="1509364205210" duration="5956000" />
+      <workItem from="1509448996060" duration="1062000" />
     </task>
     <task id="LOCAL-00001" summary="linux workspace">
       <created>1508690630235</created>
@@ -879,14 +749,35 @@
       <option name="project" value="LOCAL" />
       <updated>1508690630235</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="test automation -- server side">
+      <created>1508788785174</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1508788785174</updated>
+    </task>
+    <task id="LOCAL-00003" summary="test automation -- server side fixes">
+      <created>1509448360490</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1509448360490</updated>
+    </task>
+    <task id="LOCAL-00004" summary="test automation -- server side fixes">
+      <created>1509448669023</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1509448669023</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="239966000" />
+    <option name="totallyTimeSpent" value="281473000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="75" y="6" width="1857" height="970" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -895,22 +786,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4265351" sideWeight="0.5229167" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5292056" sideWeight="0.47708333" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33995327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.53070176" sideWeight="0.47708333" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17135416" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17142858" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3973747" sideWeight="0.48333332" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991228" sideWeight="0.48333332" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -918,6 +807,7 @@
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32943925" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -929,79 +819,48 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="linux workspace" />
     <MESSAGE value="test automation -- server side" />
-    <option name="LAST_COMMIT_MESSAGE" value="test automation -- server side" />
+    <MESSAGE value="test automation -- server side fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="test automation -- server side fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/node_modules/pcap2csv/index.js</url>
-          <line>56</line>
+          <line>53</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/node_modules/pcap2csv/index.js</url>
-          <line>71</line>
+          <line>68</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server.js</url>
+          <line>312</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server.js</url>
+          <line>311</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server.js</url>
+          <line>597</line>
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server.js</url>
+          <line>546</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="39" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="12" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="12" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="12" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="12" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1135,20 +994,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/error.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1179,8 +1024,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/pcap2csv/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="58" column="4" lean-forward="false" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/4.6.0/core-modules/timers.js" />
-    <entry file="file://$USER_HOME$/node_modules/mqtt/node_modules/readable-stream/lib/_stream_writable.js" />
+    <entry file="file://$PROJECT_DIR$/pcapjson2xlsx.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="8" column="24" lean-forward="false" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/async/dist/async.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -1189,39 +1055,100 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/questions/pedometer.js" />
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/testdummy.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="52" column="46" lean-forward="false" selection-start-line="52" selection-start-column="46" selection-end-line="52" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="162">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/questions/pedometer.json">
+    <entry file="file://$USER_HOME$/node_modules/mqtt/node_modules/readable-stream/lib/_stream_writable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/questions/gps.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="19" lean-forward="false" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
-          <folding />
+        <state relative-caret-position="118">
+          <caret line="226" column="4" lean-forward="false" selection-start-line="226" selection-start-column="4" selection-end-line="226" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/couchdb2xlsx.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="54" column="61" lean-forward="false" selection-start-line="54" selection-start-column="61" selection-end-line="54" selection-end-column="61" />
+        <state relative-caret-position="0">
+          <caret line="0" column="50" lean-forward="false" selection-start-line="0" selection-start-column="50" selection-end-line="0" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/2G-DevelopingRural.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/2G-DevelopingUrban.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/3G-Average.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/3G-Good.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/Edge-Average.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="13" lean-forward="true" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/Edge-Good.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="30" column="38" lean-forward="false" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tcconfigprofiles/Edge-Lossy.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="35" column="38" lean-forward="false" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testAutomator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="18" lean-forward="false" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pcapjson2xlsx.js">
+    <entry file="file://$PROJECT_DIR$/wireshark.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="87" lean-forward="false" selection-start-line="1" selection-start-column="87" selection-end-line="1" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1229,50 +1156,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testAutomator.js">
+    <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="1008">
+          <caret line="56" column="9" lean-forward="false" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
+    <entry file="file://$PROJECT_DIR$/questions/pedometer.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="1856" column="5" lean-forward="false" selection-start-line="1856" selection-start-column="5" selection-end-line="1856" selection-end-column="5" />
+        <state relative-caret-position="90">
+          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/pcap2csv/package.json">
+    <entry file="file://$PROJECT_DIR$/questions/light.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test1.js">
+    <entry file="file://$PROJECT_DIR$/questions/gps.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/pcap2csv/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-215">
-          <caret line="38" column="84" lean-forward="false" selection-start-line="38" selection-start-column="84" selection-end-line="38" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wireshark.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+        <state relative-caret-position="162">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding />
         </state>
       </provider>
