@@ -29,7 +29,7 @@
 
 			page.addEventListener("pagebeforeshow", function() {
 				//TODO:put the correct location later
-				
+				tizen.power.turnScreenOn();
 				document.getElementById('answers').innerHTML = "";
 				
 				function submitAnswer(selectedAnswer) {

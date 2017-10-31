@@ -27,6 +27,7 @@
 			
 
 			page.addEventListener("pagebeforeshow", function() {
+				tizen.power.turnScreenOn();
 				timeoutSelectMode = localStorage.getItem("timeoutSelectMode");
 				//TODO:put the correct location later
 				

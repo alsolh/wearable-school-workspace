@@ -68,7 +68,7 @@ var log = {
 	    	//console.log(JSON.stringify(logData));
 	    	console.log(logData.length);
 	    	if (logData.length > 99){
-	    		postBulkCouchDbData('http://192.168.43.10:5984/watchlog/_bulk_docs',logData);
+	    		postBulkCouchDbData('http://192.168.0.110:5984/watchlog/_bulk_docs',logData);
 	    		logData = [];
 	    	}
 	    }

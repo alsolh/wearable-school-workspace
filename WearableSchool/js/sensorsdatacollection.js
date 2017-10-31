@@ -214,6 +214,7 @@
 	
 
 	page.addEventListener("pagebeforeshow", function() {
+		//tizen.power.turnScreenOn();
 		timesPageLoaded = timesPageLoaded + 1;
 		//refreshIntervalId = null;
 		if(timesPageLoaded > 1){
@@ -222,8 +223,12 @@
 		setTimeout(sendMQTTMessage, telemetrySendInterval);
 		sensorsData = [];
 		tizen.humanactivitymonitor.start("HRM", onchangedHRM);
+		try{
 		tizen.humanactivitymonitor.start('GPS', onchangedGPS, onerrorGPS, option);
+		} catch (err) {}
+		try{
 		navigator.geolocation.getCurrentPosition(showMap);
+		} catch (err) {}
 		lightSensor.start(LSonsuccessCB);
 		tizen.humanactivitymonitor.setAccumulativePedometerListener(onchangedCB);
 		var pressureCapability = tizen.systeminfo.getCapability("http://tizen.org/feature/sensor.barometer");
@@ -242,7 +247,7 @@
 		}
 		if(timesPageLoaded < 2){
 		try {
-
+			telemetrySendInterval = localStorage.getItem("telemetrySendInterval");
 			sensorsData = [];
 			sensingActive = true;
 		console.log("continous? - " + localStorage.getItem("continous"));
@@ -271,8 +276,9 @@
 		 //GPS2 Start
 
 		//var wLocation = {"altitude":localStorage.getItem("altitude"),"longitude":localStorage.getItem("longitude"),"latitude":localStorage.getItem("latitude")};
+try{
 		navigator.geolocation.getCurrentPosition(showMap);
-
+} catch (err) {}
 
 
 //GPS2 old func
@@ -280,7 +286,9 @@
 		 //GPS2 End
 		 
 		 //gps1 was here
+try{
 		tizen.humanactivitymonitor.start('GPS', onchangedGPS, onerrorGPS, option);
+} catch (err) {}
 		 
 		 //HumanActivityHRMData 
 		
@@ -371,19 +379,30 @@
 	 * Destroys and removes event listeners
 	 */
 	page.addEventListener("pagehide", function() {
+		try{
 		clearInterval(refreshIntervalId);
+		} catch (err) {}
 		sensingActive = false;
+		try{
 		tizen.humanactivitymonitor.stop("HRM");
+		} catch (err) {}
+		try{
 		tizen.humanactivitymonitor.stop('GPS');
+		} catch (err) {}
+		try{
 		lightSensor.stop();
+		} catch (err) {}
+		try{
 		tizen.humanactivitymonitor.unsetAccumulativePedometerListener();
+		} catch (err) {}
+		try{
 		if(pressureSensor != null){
 		pressureSensor.stop();
 		}
 		if(ultravioletSensor != null){
 			ultravioletSensor.stop();
 			}
-		
+		} catch (err) {}
 		//console.log("pagehidecalled");
 		//clearInterval(refreshIntervalId);
 		//progressBarWidget.destroy();

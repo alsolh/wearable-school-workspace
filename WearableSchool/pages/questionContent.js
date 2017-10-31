@@ -25,6 +25,11 @@
 			
 
 			page.addEventListener("pagebeforeshow", function() {
+				tizen.power.turnScreenOn();
+		    	//tizen.power.request('SCREEN', 'CPU_AWAKE');
+		    	//tizen.power.request("SCREEN", "SCREEN_NORMAL");
+				var app = tizen.application.getCurrentApplication();
+		    	tizen.application.launch(app.appInfo.id, function() {}, function() {});
 				timeoutConfirmQuestion = localStorage.getItem("timeoutConfirmQuestion");
 			    var questionObject = JSON.parse(localStorage["question"]);
 				var old_element = document.getElementById("calibration-btn");

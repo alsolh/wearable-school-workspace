@@ -12,6 +12,7 @@
 			 */
 
 			page.addEventListener("pagebeforeshow", function() {
+				tizen.power.turnScreenOn();
 				//TODO:put the correct location later
 				
 				console.log('pageChangedyestests')

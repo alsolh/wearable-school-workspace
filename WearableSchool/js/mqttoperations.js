@@ -15,7 +15,7 @@
 			page.addEventListener("pagebeforeshow", function() {
 				// Create a client instance
 				//client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32769), "clientId");
-				client = new Paho.MQTT.Client('192.168.43.10', Number(3000), localStorage.getItem("sessionId"));
+				client = new Paho.MQTT.Client('192.168.0.110', Number(3000), localStorage.getItem("sessionId"));
 
 				// set callback handlers
 				client.onConnectionLost = onConnectionLost;
@@ -43,7 +43,7 @@
 				  var watchId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
 				  
 					message = new Paho.MQTT.Message(JSON.stringify({responseTimeLog:{sessionId:localStorage.getItem("sessionId"),txnId:guid(),txType:'authentication',records:[{txTime:n,endPoint:'watch'}]},operation:"GET",data:{
-					    "_id":watchId},url:'http://192.168.43.10:5984/watches/' + watchId}));
+					    "_id":watchId},url:'http://192.168.0.110:5984/watches/' + encodedWatchId}));
 					//TODO: change to wrapper/isWatchRegistered
 					message.destinationName = "wrapper/" + encodedWatchId + "/isWatchRegistered";
 					log.info({logType:'txLog',txnType:'0.authenticationStart',endPoint:'watch'});
@@ -87,7 +87,7 @@
 				// called when a message arrives
 				function onMessageArrived(message) {
 					if(message.destinationName.indexOf('isWatchRegistered') > -1) {
-						//log.info({logType:'txLog',txnType:'1.authenticationEnd', endPoint: "watch"});
+						log.info({logType:'txLog',txnType:'1.authenticationEnd', endPoint: "watch"});
 						console.log("onMessageResponseArrived:"+message.payloadString);
 						payLoad = JSON.parse(message.payloadString);
 					    //var d = new Date();
@@ -108,14 +108,20 @@
 						localStorage.setItem("automated", payLoad.automated);
 						localStorage.setItem("mode", payLoad.mode);
 						if(localStorage.getItem("automated") == "true"){
-						    setTimeout(function () {
+							if(localStorage.getItem("continous") != "true"){
+								tizen.power.turnScreenOn();
+/*						    setTimeout(function () {
 						    	console.log('maintain screen state');
 						    	//tizen.power.request('SCREEN', 'CPU_AWAKE');
 						    	tizen.power.request("SCREEN", "SCREEN_NORMAL");
 						    	tizen.power.turnScreenOn();
 						    	//tizen.power.setScreenBrightness(1);
 						    	//tizen.power.restoreScreenBrightness();
-						    }, 1000);
+						    }, 1000);*/
+							}
+							else{
+								tizen.power.turnScreenOn();
+							}
 						}
 						}
 						catch(err){
@@ -183,7 +189,8 @@
 							  setTimeout(function(){ window.tizen.application.getCurrentApplication().exit();}, 1000);
 						  }
 					  }else{
-						  tau.changePage('/authorizedV2.html');
+						  tau.changePage('/pages/noContentFound.html');
+						  //setTimeout(sendMQTTMessage, localStorage.getItem("telemetrySendInterval"));
 						  //setTimeout(function(){ document.getElementById("smwatchId").innerText = "Reading Sensor Data..."; }, 1000);
 					  }
 				  }
