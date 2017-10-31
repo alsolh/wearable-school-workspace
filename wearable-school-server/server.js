@@ -1,7 +1,14 @@
 var argv = require('minimist')(process.argv.slice(2));
+var targetWatch = '192.168.0.123'
 console.dir(argv);
+try {
+    if (argv.targetWatch != null) {
+        targetWatch = argv.targetWatch;
+    }
+}
+catch(err) {}
 
-setTimeout(function(){process.exit()},1800000)
+
 
 var d = new Date();
 var n = d.getTime();
@@ -86,7 +93,7 @@ var xhr = new XMLHttpRequest();
 var mqtt = require('mqtt');
 var jsonQuery = require('json-query');
 //var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32770');
-var client  = mqtt.connect('mqtt://192.168.43.10:1883');
+var client  = mqtt.connect('mqtt://192.168.0.110:1883');
 var questions = '';
 var savedDistance = 0;
 
@@ -137,7 +144,7 @@ function registerWatch(data){
     req.send(JSON.stringify(data));*/
 // An object of options to indicate where to post to
     var post_options = {
-        host: '192.168.43.10',
+        host: '192.168.0.110',
         port: '5984',
         path: '/watches',
         method: 'POST',
@@ -181,7 +188,7 @@ client.on('message', function (topic, message) {
 
         var req = new XMLHttpRequest();
         //req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId.replace('+', '%2B'), true);
-        req.open("GET", payLoad.url.replace('+', '%2B'), true);
+        req.open("GET", payLoad.url, true);
         req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
         req.setRequestHeader("Content-type", "application/json");
         req.onreadystatechange = function() {
@@ -238,175 +245,174 @@ client.on('message', function (topic, message) {
     }
     else {
         // message is Buffer
-        console.log(message.toString());
-        telemetry = JSON.parse(message);
+        if (allCourses != null) {
+            console.log(message.toString());
+            telemetry = JSON.parse(message);
 
-        aggregatedTelemetry = [];
+            aggregatedTelemetry = [];
 
 
-var sum = 0;
-        for (var i = 0; i < sensors.length; i++) {
-            queryTelemetry = jsonQuery('[*sensorName=' + sensors[i] + '].value', {
-                data: telemetry.sensorsData
-            }).value;
+            var sum = 0;
+            for (var i = 0; i < sensors.length; i++) {
+                queryTelemetry = jsonQuery('[*sensorName=' + sensors[i] + '].value', {
+                    data: telemetry.sensorsData
+                }).value;
 
-            for (var j = 1; j < queryTelemetry.length; j++) {
-                for (var property in queryTelemetry[0]) {
-                    if (queryTelemetry[0].hasOwnProperty(property)) {
-                        if(!isNaN(queryTelemetry[0][property])){
-                            /*queryTelemetry[0][property] = queryTelemetry[0][property] + queryTelemetry[j][property];*/
-                            if(queryTelemetry[0][property] < queryTelemetry[j][property]){
-                                if(property == "longitude"){
-                                    if(queryTelemetry[j][property] != 200){
+                for (var j = 1; j < queryTelemetry.length; j++) {
+                    for (var property in queryTelemetry[0]) {
+                        if (queryTelemetry[0].hasOwnProperty(property)) {
+                            if (!isNaN(queryTelemetry[0][property])) {
+                                /*queryTelemetry[0][property] = queryTelemetry[0][property] + queryTelemetry[j][property];*/
+                                if (queryTelemetry[0][property] < queryTelemetry[j][property]) {
+                                    if (property == "longitude") {
+                                        if (queryTelemetry[j][property] != 200) {
+                                            queryTelemetry[0][property] = queryTelemetry[j][property];
+                                        }
+                                    }
+                                    else {
                                         queryTelemetry[0][property] = queryTelemetry[j][property];
                                     }
                                 }
-                                else{
-                                    queryTelemetry[0][property] = queryTelemetry[j][property];
+                            }
+                        }
+                    }
+                }
+
+                if (queryTelemetry.length > 0) {
+                    aggregatedTelemetry.push({"sensorName": sensors[i], "value": queryTelemetry[0]});
+                }
+
+                /*            for (var property in queryTelemetry[0]) {
+                                if (queryTelemetry[0].hasOwnProperty(property)) {
+                                    if(!isNaN(queryTelemetry[0][property])){
+                                        queryTelemetry[0][property] = queryTelemetry[0][property] / queryTelemetry.length;
+                                    }
+                                }
+                            }*/
+
+                //console.log(sum);
+                //console.log("sensor sum = " + JSON.stringify(queryTelemetry[0]));
+                /*if(sensors[i] == "GPS"){
+
+                }*/
+
+            }
+
+
+            /*        gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
+                        data: telemetry
+                    }).value;*/
+            //console.log(gpsTelemetry.value.longitude);
+            var courseWork = [];
+            //resultQuestions.courseWork = [];
+            for (var iCourses = 0; iCourses < allCourses.length; iCourses++) {
+                for (var iStudents = 0; iStudents < allCourses[iCourses].students.length; iStudents++) {
+                    //console.log(allCourses[iCourses].students[iStudents].userId);
+                    //console.log(telemetry.studentId);
+                    if (allCourses[iCourses].students[iStudents].userId == telemetry.studentId) {
+                        for (var iCourseWork = 0; iCourseWork < allCourses[iCourses].courseWork.length; iCourseWork++) {
+                            courseWork.push(allCourses[iCourses].courseWork[iCourseWork]);
+                        }
+                        break;
+                    }
+                }
+            }
+
+
+            //resultQuestions = clone(questions);
+            if (courseWork.length != 0) {
+                //start of handling new question format
+                for (var i = 0; i < courseWork.length; i++) {
+                    try {
+                        var eligible = false;
+                        qtiContent = JSON.parse(courseWork[i].description);
+                        requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
+                        //TODO:Add or condition / better loop it for each sensor type
+                        pedoTelemetry = jsonQuery('[sensorName=' + requiredSensors[0] + '].value', {
+                            data: aggregatedTelemetry
+                        }).value;
+                        for (var attributename in pedoTelemetry) {
+                            console.log(attributename + ": " + pedoTelemetry[attributename]);
+                            qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
+                            courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(courseWork[i].multipleChoiceQuestion.choices).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
+                        }
+                        //process variables
+                        if (qtiContent.itemBody.variables != null) {
+                            for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
+                                qtiContent.itemBody.variables[j] = eval(qtiContent.itemBody.variables[j]);
+                                console.log(qtiContent.itemBody.variables[j]);
+                            }
+
+                            for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
+                                //.itemBody.p .itemBody.p
+                                qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]));
+                                for (var k = 0; k < courseWork[i].multipleChoiceQuestion.choices.length; k++) {
+                                    courseWork[i].multipleChoiceQuestion.choices[k] = courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
                                 }
                             }
                         }
-                    }
-                }
-            }
-
-            if(queryTelemetry.length > 0) {
-                aggregatedTelemetry.push({"sensorName": sensors[i], "value": queryTelemetry[0]});
-            }
-
-/*            for (var property in queryTelemetry[0]) {
-                if (queryTelemetry[0].hasOwnProperty(property)) {
-                    if(!isNaN(queryTelemetry[0][property])){
-                        queryTelemetry[0][property] = queryTelemetry[0][property] / queryTelemetry.length;
-                    }
-                }
-            }*/
-
-            //console.log(sum);
-            //console.log("sensor sum = " + JSON.stringify(queryTelemetry[0]));
-            /*if(sensors[i] == "GPS"){
-
-            }*/
-
-        }
-
-
-
-
-
-/*        gpsTelemetry = jsonQuery('[sensorName=GPS].value', {
-            data: telemetry
-        }).value;*/
-        //console.log(gpsTelemetry.value.longitude);
-        var courseWork = [];
-        //resultQuestions.courseWork = [];
-        for (var iCourses = 0; iCourses < allCourses.length; iCourses++) {
-            for (var iStudents = 0; iStudents < allCourses[iCourses].students.length; iStudents++) {
-                //console.log(allCourses[iCourses].students[iStudents].userId);
-                //console.log(telemetry.studentId);
-                if (allCourses[iCourses].students[iStudents].userId == telemetry.studentId) {
-                    for (var iCourseWork = 0; iCourseWork < allCourses[iCourses].courseWork.length; iCourseWork++) {
-                        courseWork.push(allCourses[iCourses].courseWork[iCourseWork]);
-                    }
-                    break;
-                }
-            }
-        }
-
-
-        //resultQuestions = clone(questions);
-        if (courseWork.length != 0) {
-            //start of handling new question format
-            for (var i = 0; i < courseWork.length; i++) {
-                try {
-                    var eligible = false;
-                    qtiContent = JSON.parse(courseWork[i].description);
-                    requiredSensors = qtiContent["assessmentItem"]["context"]["sensorNames"];
-                    //TODO:Add or condition / better loop it for each sensor type
-                    pedoTelemetry = jsonQuery('[sensorName=' + requiredSensors[0] + '].value', {
-                        data: aggregatedTelemetry
-                    }).value;
-                    for (var attributename in pedoTelemetry) {
-                        console.log(attributename + ": " + pedoTelemetry[attributename]);
-                        qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
-                        courseWork[i].multipleChoiceQuestion.choices = JSON.parse(JSON.stringify(courseWork[i].multipleChoiceQuestion.choices).replaceAll('<' + requiredSensors[0] + '.' + attributename + '>', pedoTelemetry[attributename]));
-                    }
-                    //process variables
-                    if (qtiContent.itemBody.variables != null) {
-                        for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
-                            qtiContent.itemBody.variables[j] = eval(qtiContent.itemBody.variables[j]);
-                            console.log(qtiContent.itemBody.variables[j]);
-                        }
-
-                        for (var j = 0; j < qtiContent.itemBody.variables.length; j++) {
-                            //.itemBody.p .itemBody.p
-                            qtiContent = JSON.parse(JSON.stringify(qtiContent).replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]));
-                            for (var k = 0; k < courseWork[i].multipleChoiceQuestion.choices.length; k++) {
-                                courseWork[i].multipleChoiceQuestion.choices[k] = courseWork[i].multipleChoiceQuestion.choices[k].replaceAll('<var' + j + '>', qtiContent.itemBody.variables[j]);
-                            }
-                        }
-                    }
-                    //end process variables
-                    //process correct response
-                    console.log("eligibility - " + qtiContent.assessmentItem);
-                    eligible = eval(qtiContent.assessmentItem.context.eligibility);
-                    qtiContent.assessmentItem.context.eligibility = eligible;
+                        //end process variables
+                        //process correct response
+                        console.log("eligibility - " + qtiContent.assessmentItem);
+                        eligible = eval(qtiContent.assessmentItem.context.eligibility);
+                        qtiContent.assessmentItem.context.eligibility = eligible;
 
                         qtiContent.responseDeclaration.correctResponse = eval(qtiContent.responseDeclaration.correctResponse);
 
                         courseWork[i].description = qtiContent;
-                    if(eligible) {
-                        for (var j = 0; j < courseWork[i].multipleChoiceQuestion.choices.length; j++) {
-                            courseWork[i].multipleChoiceQuestion.choices[j] = eval(courseWork[i].multipleChoiceQuestion.choices[j]);
+                        if (eligible) {
+                            for (var j = 0; j < courseWork[i].multipleChoiceQuestion.choices.length; j++) {
+                                courseWork[i].multipleChoiceQuestion.choices[j] = eval(courseWork[i].multipleChoiceQuestion.choices[j]);
+                            }
                         }
+
+
+                        console.log(JSON.stringify(courseWork));
+                    } catch (err) {
+                        // handle the error safely
+                        console.log(err);
                     }
 
-
-                    console.log(JSON.stringify(courseWork));
-                } catch (err) {
-                    // handle the error safely
-                    console.log(err);
                 }
 
-            }
+                filteredCourseWork = [];
 
-            filteredCourseWork = [];
-
-            for (var i = 0; i < courseWork.length ; i++) {
-                try {
-                    if (courseWork[i].description.assessmentItem.context.eligibility) {
-                        filteredCourseWork.push(courseWork[i]);
-                    }
-                } catch (err) {
-                    // handle the error safely
-                    console.log(err);
-                }
-            }
-
-            client.publish(topic.replace("telemetry","assessments"), JSON.stringify(filteredCourseWork));
-            /*
-                    var targetedQuestion = '';
-                    console.log(questions.courseWork[1].title);
-                    targetedQuestion = clone(questions);
-                    questionContent = JSON.parse(questions.courseWork[1].description);
-                    var distance = getDistanceFromLonLatInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
-                    if (!(savedDistance === distance)) {
-                        targetedQuestion.courseWork[1].description = questionContent.body.replace('<value>', distance);
-                        console.log(targetedQuestion.courseWork[1].description);
-                        console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion);
-                        for (var i = 0; i < targetedQuestion.courseWork[1].multipleChoiceQuestion.choices.length; i++) {
-                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
-                            targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i].replace('<value>', distance);
-                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
-                            targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = eval(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]).toFixed(2);
-                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                for (var i = 0; i < courseWork.length; i++) {
+                    try {
+                        if (courseWork[i].description.assessmentItem.context.eligibility) {
+                            filteredCourseWork.push(courseWork[i]);
                         }
-                        console.log(JSON.stringify(targetedQuestion));
-                        //client.publish('assessments/student1',JSON.stringify(targetedQuestion));
-                        savedDistance = distance;
-                    }*/
+                    } catch (err) {
+                        // handle the error safely
+                        console.log(err);
+                    }
+                }
+
+                client.publish(topic.replace("telemetry", "assessments"), JSON.stringify(filteredCourseWork));
+                /*
+                        var targetedQuestion = '';
+                        console.log(questions.courseWork[1].title);
+                        targetedQuestion = clone(questions);
+                        questionContent = JSON.parse(questions.courseWork[1].description);
+                        var distance = getDistanceFromLonLatInKm(gpsTelemetry.latitude, gpsTelemetry.longitude, questionContent.parameters.latitude, questionContent.parameters.longitude).toFixed(2);
+                        if (!(savedDistance === distance)) {
+                            targetedQuestion.courseWork[1].description = questionContent.body.replace('<value>', distance);
+                            console.log(targetedQuestion.courseWork[1].description);
+                            console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion);
+                            for (var i = 0; i < targetedQuestion.courseWork[1].multipleChoiceQuestion.choices.length; i++) {
+                                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                                targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i].replace('<value>', distance);
+                                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                                targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i] = eval(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]).toFixed(2);
+                                console.log(targetedQuestion.courseWork[1].multipleChoiceQuestion.choices[i]);
+                            }
+                            console.log(JSON.stringify(targetedQuestion));
+                            //client.publish('assessments/student1',JSON.stringify(targetedQuestion));
+                            savedDistance = distance;
+                        }*/
+            }
+            //client.end()
         }
-        //client.end()
     }
 })
 
@@ -535,6 +541,23 @@ function storeToken(token) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 
+function checkTempCoursesValid(){
+    try {
+        for (var i = 0; i < tempCourses.length; i++) {
+            if (tempCourses[i].students.length > 0) {
+
+            }
+            if (tempCourses[i].courseWork.length > 0) {
+
+            }
+        }
+    }
+    catch (err) {
+        return;
+    }
+    allCourses = clone(tempCourses);
+}
+
 function doListCourses(auth){
     var classroom = google.classroom('v1');
 classroom.courses.list({
@@ -545,54 +568,64 @@ classroom.courses.list({
         console.log('The API returned an error: ' + err);
         return;
     }
-
-    tempCourses = response.courses;
+try {
     var courses = response.courses;
-    if (!courses || courses.length == 0) {
-        console.log('No courses found.');
-    } else {
+    if (courses.length > 0) {
+        tempCourses = response.courses;
         console.log('Courses:');
         for (var i = 0; i < courses.length; i++) {
             var course = courses[i];
             console.log('%s (%s)', course.name, course.id);
             //async.series([
-            listCourseWorks(auth,course.id,i);
-            listStudents(auth,course.id,i);
+            listCourseWorks(auth, course.id, i);
+            listStudents(auth, course.id, i);
             //]);
         }
 
-        setTimeout(function (){
+        setTimeout(function () {
             if (allCourses == null) {
                 for (var i = 0; i < 100; i++) {
                     var isError = false;
                     try {
-                        execSync('~/tizen-studio/tools/sdb connect 192.168.43.109');
+                        console.log('~/tizen-studio/tools/sdb connect ' + targetWatch);
+                        execSync('~/tizen-studio/tools/sdb connect ' + targetWatch);
                         execSync('~/tizen-studio/tools/sdb shell launch_app M89Api9FK8.WearableSchool');
                     }
 
                     catch (err) {
                         isError = true;
-                        allCourses = clone(tempCourses);
+                        //allCourses = clone(tempCourses);
+                        checkTempCoursesValid();
                         console.log(JSON.stringify(tempCourses));
                         console.log(err.message);
                     }
                     finally {
-                        if(!isError) {
+                        if (!isError) {
+                            setTimeout(function () {
+                                process.exit()
+                            }, 1800000);
                             break;
                         }
                     }
                 }
             }
-            allCourses = clone(tempCourses);console.log(JSON.stringify(tempCourses));
-        },5000);
+
+            //allCourses = clone(tempCourses);
+            checkTempCoursesValid();
+            console.log(JSON.stringify(tempCourses));
+        }, 10000);
     }
+}
+catch(err){
+        console.log(err.message);
+}
 });
 
 }
 
 function listCourses(auth) {
     doListCourses(auth);
-    setInterval(function(){doListCourses(auth)}, 30000);
+    setInterval(function(){doListCourses(auth)}, 300000);
 }
 
 function listStudents(auth, cid,i) {
@@ -607,7 +640,14 @@ function listStudents(auth, cid,i) {
         }
         console.log("logging students for course id:" + cid);
         console.log("students - " + response);
-        tempCourses[i].students = response.students;
+        try {
+            if (response.students.length > 0) {
+                tempCourses[i].students = response.students;
+            }
+        }
+        catch (err){
+            console.log(err.message);
+        }
         //questions = response;
         //client.publish('assessments/student1',JSON.stringify(response));
     });
@@ -625,8 +665,15 @@ function listCourseWorks(auth, cid,i) {
     }
     console.log("logging coursework for course id:" + cid);
     console.log(response);
-      tempCourses[i].courseWork = response.courseWork;
-    questions = response;
+    try {
+        if (response.courseWork.length > 0) {
+            tempCourses[i].courseWork = response.courseWork;
+        }
+    }
+    catch (err){
+        console.log("error - " + err.message);
+    }
+    //questions = response;
       //client.publish('assessments/student1',JSON.stringify(response));
   });
 }
