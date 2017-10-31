@@ -1,4 +1,4 @@
-var db       = require('nano')('http://192.168.43.10:5984/watchlog')
+var db       = require('nano')('http://192.168.0.110:5984/watchlog')
     , params   = {include_docs: true, descending: false}
 ;
 var Excel = require('exceljs');
