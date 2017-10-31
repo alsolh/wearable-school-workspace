@@ -63,6 +63,7 @@ var log = {
 	    	data.logTime = n;
 	    	data.tizenId = watchId;
 	    	data.sessionId = sessionId;
+	    	data.episodeId = localStorage.getItem("episodeId");
 	    	logData.push(data);
 	    	//console.log(JSON.stringify(logData));
 	    	console.log(logData.length);
