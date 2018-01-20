@@ -1,5 +1,6 @@
 var argv = require('minimist')(process.argv.slice(2));
-var targetWatch = '192.168.0.123'
+//var targetWatch = '192.168.0.121';
+var targetWatch = null;
 console.dir(argv);
 try {
     if (argv.targetWatch != null) {
@@ -198,10 +199,11 @@ client.on('message', function (topic, message) {
                 console.log(this.status + ' - ' + this.responseText);
                 var response = JSON.parse(this.responseText);
                 if(response.studentId != null){
+                    if(argv.mode != null) {
                     response.episodeId = episode;
                     response.telemetrySendInterval = argv.frequency;
                     response.mode = argv.mode;
-
+                    }
                     console.log(topic.replace("wrapper","response"));
                     console.log(JSON.stringify(response));
                     //client.publish(topic.replace("wrapper","response"), JSON.stringify({responseTimeLog:responseTimeMW,response:true}));
@@ -431,7 +433,7 @@ function getDistanceFromLonLatInKm(lon1,lat1,lon2,lat2) {
     ;
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c; // Distance in km
-    return d;
+    return d.toFixed(2);
 }
 
 function deg2rad(deg) {
@@ -447,7 +449,7 @@ fs.readFile('/home/alsolh/code/wearable-school-workspace/wearable-school-server/
   }
   // Authorize a client with the loaded credentials, then call the
   // Classroom API.
-  
+
   //restApp.get('/', function (req, res) {
     // res.send(preparedResponse);
     authorize(JSON.parse(content), listCourses);
@@ -459,7 +461,7 @@ fs.readFile('/home/alsolh/code/wearable-school-workspace/wearable-school-server/
 //
 //   console.log("Example app listening at http://%s:%s", host, port)
 //})
-  
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -586,9 +588,24 @@ try {
                 for (var i = 0; i < 100; i++) {
                     var isError = false;
                     try {
-                        console.log('~/tizen-studio/tools/sdb connect ' + targetWatch);
-                        execSync('~/tizen-studio/tools/sdb connect ' + targetWatch);
-                        execSync('~/tizen-studio/tools/sdb shell launch_app M89Api9FK8.WearableSchool');
+                        if(targetWatch != "all" && targetWatch != null) {
+                            console.log('~/tizen-studio/tools/sdb connect ' + targetWatch);
+                            execSync('~/tizen-studio/tools/sdb connect ' + targetWatch);
+                            execSync('~/tizen-studio/tools/sdb shell launch_app M89Api9FK8.WearableSchool');
+                        }
+                        else if (targetWatch == null){
+                            break;
+                        }
+                        else
+                        {
+                            for (var j = 122; j < 130; j++) {
+                                console.log('~/tizen-studio/tools/sdb connect 192.168.0.' + j);
+                                execSync('~/tizen-studio/tools/sdb connect 192.168.0.' + j);
+                            }
+                            for (var j = 122; j < 130; j++) {
+                                execSync('~/tizen-studio/tools/sdb -s 192.168.0.' + j + ':26101 shell launch_app M89Api9FK8.WearableSchool');
+                            }
+                        }
                     }
 
                     catch (err) {

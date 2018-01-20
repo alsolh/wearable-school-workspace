@@ -1,6 +1,6 @@
 var Excel = require('exceljs');
-var startFrom = 18;
-var targetWatch = '192.168.0.123';
+var startFrom = 48;
+var targetWatch = 'all';
 const { execSync } = require('child_process');
 try{
 execSync('killall tshark');
@@ -10,7 +10,7 @@ catch (err){
 }
 
 var workbook = new Excel.Workbook();
-workbook.xlsx.readFile('/home/alsolh/code/wearable-school-workspace/wearable-school-server/EpisodePlan-SingleWatch.xlsx')
+workbook.xlsx.readFile('/home/alsolh/code/wearable-school-workspace/wearable-school-server/EpisodePlan-AllCases.xlsx')
     .then(function() {
         var worksheet = workbook.getWorksheet('Sheet1');
         worksheet.eachRow({ includeEmpty: false }, function(row, rowNumber) {
