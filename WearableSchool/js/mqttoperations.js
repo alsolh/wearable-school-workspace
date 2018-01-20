@@ -15,7 +15,7 @@
 			page.addEventListener("pagebeforeshow", function() {
 				// Create a client instance
 				//client = new Paho.MQTT.Client('alsolh.asuscomm.com', Number(32769), "clientId");
-				client = new Paho.MQTT.Client('192.168.0.110', Number(3000), localStorage.getItem("sessionId"));
+				client = new Paho.MQTT.Client('192.168.0.110', Number(3000), sessionId);
 
 				// set callback handlers
 				client.onConnectionLost = onConnectionLost;
@@ -42,7 +42,7 @@
 				  var n = d.getTime();
 				  var watchId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
 				  
-					message = new Paho.MQTT.Message(JSON.stringify({responseTimeLog:{sessionId:localStorage.getItem("sessionId"),txnId:guid(),txType:'authentication',records:[{txTime:n,endPoint:'watch'}]},operation:"GET",data:{
+					message = new Paho.MQTT.Message(JSON.stringify({responseTimeLog:{sessionId:sessionId,txnId:txnId,txType:'authentication',records:[{txTime:n,endPoint:'watch'}]},operation:"GET",data:{
 					    "_id":watchId},url:'http://192.168.0.110:5984/watches/' + encodedWatchId}));
 					//TODO: change to wrapper/isWatchRegistered
 					message.destinationName = "wrapper/" + encodedWatchId + "/isWatchRegistered";

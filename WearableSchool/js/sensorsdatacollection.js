@@ -136,8 +136,8 @@
 	 
 	//GPS Start
 		//try{
-	 var myCallbackInterval = 240000;
-	var mySampleInterval = 10000;
+	 var myCallbackInterval = 5000;
+	var mySampleInterval = 2000;
 
 	function onchangedGPS(gpsInfo) {
 		try{
@@ -218,6 +218,7 @@
 		timesPageLoaded = timesPageLoaded + 1;
 		//refreshIntervalId = null;
 		if(timesPageLoaded > 1){
+		txnId = guid();
 		telemetrySendInterval = localStorage.getItem("telemetrySendInterval");
 		remainingSensorCalls = 6;
 		setTimeout(sendMQTTMessage, telemetrySendInterval);

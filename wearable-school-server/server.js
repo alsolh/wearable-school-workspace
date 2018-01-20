@@ -561,8 +561,7 @@ function checkTempCoursesValid(){
 function doListCourses(auth){
     var classroom = google.classroom('v1');
 classroom.courses.list({
-    auth: auth,
-    pageSize: 10
+    auth: auth
 }, function(err, response) {
     if (err) {
         console.log('The API returned an error: ' + err);

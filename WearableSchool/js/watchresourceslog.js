@@ -8,8 +8,25 @@ function guid() {
 				    .toString(16)
 				    .substring(1);
 				}
+//temporary initialization code
+localStorage.removeItem('episodeId');
+localStorage.removeItem('studentId');
+localStorage.removeItem('studentEmail');
+localStorage.removeItem('telemetrySendInterval');
+localStorage.removeItem('timeoutSelectMode');
+localStorage.removeItem('timeoutConfirmQuestion');
+localStorage.removeItem('timeoutSubmitAnswer');
+localStorage.removeItem('sessionId');
+localStorage.removeItem('automated');
+localStorage.removeItem('mode');
+localStorage.removeItem('logger1');
+localStorage.removeItem('questions');
+localStorage.removeItem('question');
+localStorage.removeItem('continous');
+//temporary initialization code
 var sessionId = guid();
 var watchId = tizen.systeminfo.getCapability("http://tizen.org/system/tizenid");
+var txnId = guid();
 function postBulkCouchDbData(url,data){
 var req = new XMLHttpRequest();
     req.open("POST", url, true);
@@ -46,6 +63,7 @@ var battery = navigator.battery || navigator.webkitBattery
 console.log(Math.floor(battery.level * 100) + '%');
 var log;
 var logData = [];
+// Temporary Code can be removed has to be back to support on demand
 if(localStorage.getItem("logger1")!= null){
 	logData = JSON.parse(localStorage.getItem("logger1"));
 	console.log(JSON.stringify(logData));
@@ -56,6 +74,7 @@ if(localStorage.getItem("logger1")!= null){
 else{
 	logData = [];
 }
+//Temporary Code can be removed has to be back to support on demand
 var log = {
 	    info : function(data) {
 	    	var d = new Date();
@@ -64,6 +83,7 @@ var log = {
 	    	data.tizenId = watchId;
 	    	data.sessionId = sessionId;
 	    	data.episodeId = localStorage.getItem("episodeId");
+	    	data.txnId = txnId;
 	    	logData.push(data);
 	    	//console.log(JSON.stringify(logData));
 	    	console.log(logData.length);

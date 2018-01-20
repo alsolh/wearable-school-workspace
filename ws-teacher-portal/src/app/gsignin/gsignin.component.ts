@@ -7,25 +7,34 @@ import {OAuthService} from 'angular-oauth2-oidc';
   styleUrls: ['./gsignin.component.css']
 })
 export class GsigninComponent implements OnInit {
-
+  claims;
   constructor(private oAuthService: OAuthService) {
   }
 
   public login() {
     this.oAuthService.initImplicitFlow();
+    this.oAuthService.loadUserProfile();
   }
 
   public logoff() {
     this.oAuthService.logOut();
   }
-
+  public get image(){
+    console.log('image called');
+    console.log(this.claims['picture']);
+    return this.claims['picture'];
+  }
   public get name() {
-    const claims = this.oAuthService.getIdentityClaims();
-    // let obj = JSON.parse(JSON.stringify(claims));
-    if (!claims) {
+    if (!this.claims) {
+      this.claims = this.oAuthService.getIdentityClaims();
+      this.oAuthService.loadUserProfile();
+      console.log('name called');
+      console.log('claims object - ' + JSON.stringify(this.claims));
+    }
+    if (!this.claims) {
       return null;
     } else {
-      return claims['name'];
+      return this.claims['name'];
     }
 
   }
