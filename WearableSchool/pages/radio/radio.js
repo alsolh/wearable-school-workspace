@@ -73,7 +73,7 @@
 					
 
 
-								message = new Paho.MQTT.Message(JSON.stringify({method:"POST",data:answerData,host:"192.168.0.110",port:"5984",path:"/wearable",sessionId:localStorage.getItem("sessionId")}));
+								message = new Paho.MQTT.Message(JSON.stringify({method:"POST",data:answerData,host:"192.168.1.189",port:"5984",path:"/wearable",sessionId:localStorage.getItem("sessionId")}));
 								//TODO:change to wrapper/postAnswer
 								message.destinationName = "wrapper/" + encodedWatchId + "/postAnswer";
 								//console.log(JSON.stringify(message));

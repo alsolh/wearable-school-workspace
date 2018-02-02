@@ -80,13 +80,13 @@ export class StudentsComponent implements OnInit {
   }
 
   updateWatchRecord() {
-    console.log('http://192.168.0.110:5984/watches/' + (this.selectedWatch.id).replace('+', '%2B'));
-    return this.http.put('http://192.168.0.110:5984/watches/' + (this.selectedWatch.id).replace('+', '%2B'), '{"studentId": "' + this.selectedStudent.profile.id + '", "_rev": "' + this.selectedWatch.value.rev + '","studentName": "' + this.selectedStudent.profile.name.fullName + '","studentEmail": "' + this.selectedStudent.profile.emailAddress + '"}').map((res: Response) => res.json());
+    console.log('http://127.0.0.1:5984/watches/' + encodeURIComponent(this.selectedWatch.id));
+    return this.http.put('http://127.0.0.1:5984/watches/' + encodeURIComponent(this.selectedWatch.id), '{"studentId": "' + this.selectedStudent.profile.id + '", "_rev": "' + this.selectedWatch.value.rev + '","studentName": "' + this.selectedStudent.profile.name.fullName + '","studentEmail": "' + this.selectedStudent.profile.emailAddress + '","telemetrySendInterval": "10000"}').map((res: Response) => res.json());
   }
 
   getWatches() {
     console.log('getwatches called');
-    return this.http.get('http://admin:asolh787@192.168.0.110:5984/watches/_all_docs?include_docs=true').map((res: Response) => res.json());
+    return this.http.get('http://admin:admin@127.0.0.1:5984/watches/_all_docs?include_docs=true').map((res: Response) => res.json());
   }
 
   getData() {

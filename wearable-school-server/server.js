@@ -9,7 +9,9 @@ try {
 }
 catch(err) {}
 
+var isMac = /^darwin/.test(process.platform);
 
+console.log('os is mac?' + isMac);
 
 var d = new Date();
 var n = d.getTime();
@@ -47,8 +49,37 @@ catch(err) {
 
 try{
     if(argv.profile != "Phy-wifi-baseline") {
-        var stdout = execSync('sudo tcset -f /home/alsolh/code/wearable-school-workspace/wearable-school-server/tcconfigprofiles/' + argv.profile + '.json');
-        var stdout = execSync('sudo tcshow --device ens33');
+
+        if(isMac){
+            var stdout = execSync('sudo pfctl -E');
+            stdout = execSync('(cat /etc/pf.conf && echo "dummynet-anchor \\"mop\\"" && echo "anchor \\"mop\\"") | sudo pfctl -f -');
+            stdout = execSync('echo "dummynet in quick proto tcp from any to any port 3000 pipe 1" | sudo pfctl -a mop -f -');
+            if(argv.profile != "2G-DevelopingRural") {
+                stdout = execSync('sudo dnctl pipe 1 config bw 20Kbit/s plr 0.02 delay 650');
+            }
+            else if(argv.profile != "2G-DevelopingUrban"){
+                stdout = execSync('sudo dnctl pipe 1 config bw 35Kbit/s delay 650');
+            }
+            else if(argv.profile != "3G-Average"){
+                stdout = execSync('sudo dnctl pipe 1 config bw 780Kbit/s delay 100');
+            }
+            else if(argv.profile != "3G-Good"){
+                stdout = execSync('sudo dnctl pipe 1 config bw 850Kbit/s delay 90');
+            }
+            else if(argv.profile != "Edge-Average"){
+                stdout = execSync('sudo dnctl pipe 1 config bw 400Kbit/s delay 240');
+            }
+            else if(argv.profile != "Edge-Good"){
+                stdout = execSync('sudo dnctl pipe 1 config bw 250Kbit/s delay 350');
+            }
+            else if(argv.profile != "Edge-Lossy"){
+                stdout = execSync('sudo dnctl pipe 1 config bw 240Kbit/s plr 0.01 delay 400');
+            }
+        }
+        else {
+            var stdout = execSync('sudo tcset -f /Users/student/IdeaProjects/wearable-school-workspace/wearable-school-server/tcconfigprofiles/' + argv.profile + '.json');
+            stdout = execSync('sudo tcshow --device ens33');
+        }
     }
 console.log(stdout.toString());
 }
@@ -60,8 +91,8 @@ catch(err) {
 //tshark
 // http://nodejs.org/api.html#_child_processes
 const { exec } = require('child_process');
-console.log('tshark -i any -f "tcp port 3000 or tcp port 1883" -w /home/alsolh/code/wearable-school-workspace/wearable-school-server/pcaps/'+ episode + '.pcap');
-exec('tshark -i any -f "tcp port 3000 or tcp port 1883" -w /home/alsolh/code/wearable-school-workspace/wearable-school-server/pcaps/'+ episode + '.pcap', (err, stdout, stderr) => {
+console.log('tshark -i any -f "tcp port 3000 or tcp port 1883" -w /Users/student/IdeaProjects/wearable-school-workspace/wearable-school-server/pcaps/'+ episode + '.pcap');
+exec('sudo tshark -i any -f "tcp port 3000 or tcp port 1883" -w /Users/student/IdeaProjects/wearable-school-workspace/wearable-school-server/pcaps/'+ episode + '.pcap', (err, stdout, stderr) => {
     if (err) {
         console.log(err.message);
         // node couldn't execute the command
@@ -94,7 +125,7 @@ var xhr = new XMLHttpRequest();
 var mqtt = require('mqtt');
 var jsonQuery = require('json-query');
 //var client  = mqtt.connect('mqtt://alsolh.asuscomm.com:32770');
-var client  = mqtt.connect('mqtt://192.168.0.110:1883');
+var client  = mqtt.connect('mqtt://127.0.0.1:1883');
 var questions = '';
 var savedDistance = 0;
 
@@ -145,12 +176,12 @@ function registerWatch(data){
     req.send(JSON.stringify(data));*/
 // An object of options to indicate where to post to
     var post_options = {
-        host: '192.168.0.110',
+        host: '127.0.0.1',
         port: '5984',
         path: '/watches',
         method: 'POST',
         headers: {
-            'Authorization': "Basic " + btoa('admin' + ":" + 'asolh787'),
+            'Authorization': "Basic " + btoa('admin' + ":" + 'admin'),
             'Content-Type': 'application/json'
         }
     };
@@ -190,7 +221,7 @@ client.on('message', function (topic, message) {
         var req = new XMLHttpRequest();
         //req.open("GET", 'http://alsolh.myqnapcloud.com:32772/watches/' + watchId.replace('+', '%2B'), true);
         req.open("GET", payLoad.url, true);
-        req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'asolh787'));
+        req.setRequestHeader("Authorization", "Basic " + btoa('admin' + ":" + 'admin'));
         req.setRequestHeader("Content-type", "application/json");
         req.onreadystatechange = function() {
             if (this.readyState == 4) {
@@ -227,7 +258,7 @@ client.on('message', function (topic, message) {
             path: payLoad.path,
             method: payLoad.method,
             headers: {
-                'Authorization': "Basic " + btoa('admin' + ":" + 'asolh787'),
+                'Authorization': "Basic " + btoa('admin' + ":" + 'admin'),
                 'Content-Type': 'application/json'
             }
         };
@@ -442,7 +473,7 @@ function deg2rad(deg) {
 
 // Load client secrets from a local file.
 // TODO:this is very specific to the user directory
-fs.readFile('/home/alsolh/code/wearable-school-workspace/wearable-school-server/client_secret.json', function processClientSecrets(err, content) {
+fs.readFile('/Users/student/IdeaProjects/wearable-school-workspace/wearable-school-server/client_secret.json', function processClientSecrets(err, content) {
   if (err) {
     console.log('Error loading client secret file: ' + err);
     return;
